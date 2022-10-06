@@ -15,7 +15,7 @@ app.use(cors());
 const user = require("./routes/user")
 const category = require("./routes/category")
 const subcategory = require("./routes/subcategory")
-
+//console
  
 //use
 app.use("/", user);
