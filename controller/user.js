@@ -27,8 +27,8 @@ exports.signup = async (req, res) => {
     });
   
     const findexist = await User.findOne({
-      $or: [{ email: email }, { mobile: mobile }],
-    });
+   email: email }
+    )
     if (findexist) {
       resp.alreadyr(res);
     } else {
@@ -42,8 +42,7 @@ exports.signup = async (req, res) => {
 
   exports.login = async (req, res) => {
     const { mobile, email, password } = req.body;
-    const user = await User.findOne({
-      $or: [{ mobile: mobile }, { email: email }],
+    const user = await User.findOne( { email: email 
     });
     console.log("user", user);
     if (user) {
