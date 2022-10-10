@@ -15,12 +15,26 @@ app.use(cors());
 const user = require("./routes/user")
 const category = require("./routes/category")
 const subcategory = require("./routes/subcategory")
+const admin = require("./routes/admin")
+
 //console
  
 //use
 app.use("/", user);
 app.use("/", category);
 app.use("/", subcategory);
+app.use("/", admin);
+
+
+
+
+
+
+
+
+
+
+
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
