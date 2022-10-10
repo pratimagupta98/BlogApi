@@ -105,9 +105,7 @@ exports.addAdmin = async (req, res) => {
     if (email) {
       data.email = email;
     }
-    if (mobile) {
-      data.mobile = mobile;
-    }
+   
   
     if (password) {
       const salt = await bcrypt.genSalt(10);

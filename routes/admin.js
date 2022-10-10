@@ -53,7 +53,7 @@ let multipleUpload = uploads.fields([
 
 router.post("/admin/addAdmin", multipleUpload, addAdmin);
 router.post("/admin/editAdmin/:id", multipleUpload, editAdmin);
-router.get("/admin/viewoneadmin/:id", multipleUpload, viewoneadmin);
+router.get("/admin/viewoneadmin/:id",  viewoneadmin);
 
 router.post("/admin/chngpass/:id", chngpass);
 
