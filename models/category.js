@@ -11,7 +11,9 @@ const thisSchema = new Schema(
        desc:{
         type: String, 
        },
-       
+       cat_img:{
+        type :Array
+       }
       },
      
     { timestamps: true }

@@ -1,20 +1,42 @@
 const Category = require("../models/category");
 const resp = require("../helpers/apiResponse");
+const cloudinary = require("cloudinary").v2;
+const dotenv = require("dotenv");
+const fs = require("fs");
 
+dotenv.config();
+cloudinary.config({
+ cloud_name: process.env.CLOUD_NAME,
+ api_key: process.env.CLOUDINARY_API_KEY,
+ api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 exports.addCategory= async (req, res) => {
-  const { title,desc} = req.body;
+  const { title,desc,cat_img} = req.body;
 
   const newCategory= new Category({
     title:title,
     desc:desc,
-    
     
    });
    const findexist = await Category.findOne({ title: title });
    if (findexist) {
      resp.alreadyr(res);
    } else {
-    newCategory
+     if (req.files) {
+       if (req.files.cat_img[0].path) {
+         alluploads = [];
+         for (let i = 0; i < req.files.cat_img.length; i++) {
+           const resp = await cloudinary.uploader.upload(
+             req.files.cat_img[i].path,
+             { use_filename: true, unique_filename: false }
+           );
+           fs.unlinkSync(req.files.cat_img[i].path);
+           alluploads.push(resp.secure_url);
+         }
+         newCategory.cat_img = alluploads;
+       }
+     }
+     newCategory
        .save()
        .then((data) => resp.successr(res, data))
        .catch((error) => resp.errorr(res, error));

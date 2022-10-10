@@ -2,12 +2,13 @@ const SubCategory = require("../models/subcategory");
 const resp = require("../helpers/apiResponse");
 
 exports.addSubCategory= async (req, res) => {
-  const { title,category,desc} = req.body;
+  const { title,category,desc,Subcat_img} = req.body;
 
   const newSubCategory= new SubCategory({
     title:title,
     desc:desc,
-    category:category
+    category:category,
+    Subcat_img:Subcat_img
     
     
    });
@@ -15,6 +16,20 @@ exports.addSubCategory= async (req, res) => {
    if (findexist) {
      resp.alreadyr(res);
    } else {
+    if (req.files) {
+      if (req.files.Subcat_img[0].path) {
+        alluploads = [];
+        for (let i = 0; i < req.files.Subcat_img.length; i++) {
+          const resp = await cloudinary.uploader.upload(
+            req.files.Subcat_img[i].path,
+            { use_filename: true, unique_filename: false }
+          );
+          fs.unlinkSync(req.files.Subcat_img[i].path);
+          alluploads.push(resp.secure_url);
+        }
+        newCategory.Subcat_img = alluploads;
+      }
+    }
     newSubCategory
        .save()
        .then((data) => resp.successr(res, data))
