@@ -15,6 +15,15 @@ const thisSchema = new Schema(
     password: {
       type: String,
     },
+    display_name:{
+      type: String,
+    },
+    abt_us:{
+      type: String,
+    },
+    profileImg:{
+      type :Array
+    }
     
 
   },
