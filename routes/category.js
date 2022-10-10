@@ -52,7 +52,7 @@ const storage = multer.diskStorage({
  router.post("/admin/addCategory",multipleUpload, addCategory);
  router.get("/admin/getallCategory", getallCategory);
  router.get("/admin/getoneCategory/:id", getoneCategory);
- router.post("/admin/editCategory/:id", editCategory);
+ router.post("/admin/editCategory/:id",multipleUpload, editCategory);
  router.get("/admin/dltCategory/:id", dltCategory);
 
 module.exports = router;
