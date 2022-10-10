@@ -14,9 +14,9 @@ ref:"category"
        desc:{
         type: String, 
        },
-       Subcat_img:{
-        type :Array
-       }
+      //  Subcat_img:{
+      //   type :Array
+      //  }
        
       },
      

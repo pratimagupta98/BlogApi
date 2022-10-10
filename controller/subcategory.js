@@ -1,7 +1,7 @@
 const SubCategory = require("../models/subcategory");
 const resp = require("../helpers/apiResponse");
-const cloudinary = require("cloudinary").v2;
-const fs = require("fs");
+// const cloudinary = require("cloudinary").v2;
+// const fs = require("fs");
 
 exports.addSubCategory= async (req, res) => {
   const { title,category,desc,Subcat_img} = req.body;
@@ -17,21 +17,22 @@ exports.addSubCategory= async (req, res) => {
    const findexist = await SubCategory.findOne({ title: title });
    if (findexist) {
      resp.alreadyr(res);
-   } else {
-    if (req.files) {
-      if (req.files.Subcat_img[0].path) {
-        alluploads = [];
-        for (let i = 0; i < req.files.Subcat_img.length; i++) {
-          const resp = await cloudinary.uploader.upload(
-            req.files.Subcat_img[i].path,
-            { use_filename: true, unique_filename: false }
-          );
-          fs.unlinkSync(req.files.Subcat_img[i].path);
-          alluploads.push(resp.secure_url);
-        }
-        newSubCategory.Subcat_img = alluploads;
-      }
-    }
+   } 
+   else {
+    // if (req.files) {
+    //   if (req.files.Subcat_img[0].path) {
+    //     alluploads = [];
+    //     for (let i = 0; i < req.files.Subcat_img.length; i++) {
+    //       const resp = await cloudinary.uploader.upload(
+    //         req.files.Subcat_img[i].path,
+    //         { use_filename: true, unique_filename: false }
+    //       );
+    //       fs.unlinkSync(req.files.Subcat_img[i].path);
+    //       alluploads.push(resp.secure_url);
+    //     }
+    //     newSubCategory.Subcat_img = alluploads;
+    //   }
+    // }
     newSubCategory
        .save()
        .then((data) => resp.successr(res, data))
