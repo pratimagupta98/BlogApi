@@ -4,7 +4,8 @@ const router = express.Router();
 
 const {
     signup,
-    login
+    login,
+    updateProfile
   
 } = require("../controller/user");
 
@@ -12,7 +13,8 @@ const {
 
 router.post("/user/signup", signup);
 router.post("/user/login", login);
- 
+router.post("/user/updateProfile/:id", updateProfile);
+
 
 
 module.exports = router;
