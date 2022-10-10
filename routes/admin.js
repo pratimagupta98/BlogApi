@@ -7,7 +7,7 @@ const fs = require("fs");
 const {
     addAdmin,
     adminlogin,
-    editAdmin,
+    editMyProfile,
     viewoneadmin,
     chngpass
  
@@ -52,7 +52,7 @@ let multipleUpload = uploads.fields([
 //PATHS
 
 router.post("/admin/addAdmin", multipleUpload, addAdmin);
-router.post("/admin/editAdmin/:id", multipleUpload, editAdmin);
+router.post("/admin/editMyProfile/:id", multipleUpload, editMyProfile);
 router.get("/admin/viewoneadmin/:id",  viewoneadmin);
 
 router.post("/admin/chngpass/:id", chngpass);

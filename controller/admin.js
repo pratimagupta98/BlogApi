@@ -94,7 +94,7 @@ exports.addAdmin = async (req, res) => {
       .catch((error) => resp.errorr(res, error));
   };
   
-  exports.editAdmin = async (req, res) => {
+  exports.editMyProfile = async (req, res) => {
     const { name, email, mobile, password, cnfmPassword } = req.body;
     // const salt = await bcrypt.genSalt(10);
     // const hashPassword = await bcrypt.hash(password, salt);
