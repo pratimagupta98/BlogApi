@@ -1,5 +1,7 @@
 const SubCategory = require("../models/subcategory");
 const resp = require("../helpers/apiResponse");
+const cloudinary = require("cloudinary").v2;
+const fs = require("fs");
 
 exports.addSubCategory= async (req, res) => {
   const { title,category,desc,Subcat_img} = req.body;
@@ -27,7 +29,7 @@ exports.addSubCategory= async (req, res) => {
           fs.unlinkSync(req.files.Subcat_img[i].path);
           alluploads.push(resp.secure_url);
         }
-        newCategory.Subcat_img = alluploads;
+        newSubCategory.Subcat_img = alluploads;
       }
     }
     newSubCategory
