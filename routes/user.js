@@ -8,7 +8,8 @@ const {
     login,
     updateProfile,
     getoneUser,
-    userlist
+    userlist,
+    dltUser
   
 } = require("../controller/user");
 
@@ -57,6 +58,7 @@ router.post("/user/updateProfile/:id",multipleUpload, updateProfile);
 router.get("/user/getoneUser/:id", getoneUser);
 router.get("/admin/userlist", userlist);
 
+router.get("/admin/dltUser/:id", dltUser);
 
 
 module.exports = router;
