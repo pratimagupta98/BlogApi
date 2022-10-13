@@ -7,7 +7,8 @@ const {
     signup,
     login,
     updateProfile,
-    getoneUser
+    getoneUser,
+    userlist
   
 } = require("../controller/user");
 
@@ -54,6 +55,7 @@ router.post("/user/signup", signup);
 router.post("/user/login", login);
 router.post("/user/updateProfile/:id",multipleUpload, updateProfile);
 router.get("/user/getoneUser/:id", getoneUser);
+router.get("/admin/userlist", userlist);
 
 
 

@@ -131,3 +131,10 @@ exports.signup = async (req, res) => {
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   };
+
+  exports.userlist = async (req, res) => {
+    await User.find()
+      .sort({ createdAt: -1 })
+      .then((data) => resp.successr(res, data))
+      .catch((error) => resp.errorr(res, error));
+  };
