@@ -51,6 +51,10 @@ const thisSchema = new Schema(
         },
         comment:{
             type: String,
+        },
+        aprv_status:{
+            type: String,
+            default:"Deactive"
         }
 
 
