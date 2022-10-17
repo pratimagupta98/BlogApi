@@ -16,15 +16,22 @@ const user = require("./routes/user")
 const category = require("./routes/category")
 const subcategory = require("./routes/subcategory")
 const admin = require("./routes/admin")
+const year = require("./routes/year")
+const language = require("./routes/language")
+
+const submit_resrc = require("./routes/submit_resrc")
 
 //console
- 
+
 //use
 app.use("/", user);
 app.use("/", category);
 app.use("/", subcategory);
 app.use("/", admin);
+app.use("/", year);
 
+app.use("/", language);
+app.use("/", submit_resrc);
 
 
 

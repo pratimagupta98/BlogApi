@@ -1,0 +1,63 @@
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+const thisSchema = new Schema(
+    {
+
+
+        link: {
+            type: String,
+        },
+        category: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "category"
+        },
+        sub_category: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "subcategory"
+        },
+        type: {
+            type: String,
+            //free , paid
+        },
+        format: {
+            type: String,
+        },
+        language: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "language"
+        }],
+        topics: {
+            type: Array
+        },
+        desc: {
+            type: String,
+        },
+
+        img: {
+            type: Array,
+        },
+        resTitle:{
+            type: String,
+        },
+        creatorName:{
+            type: String,
+        },
+        relYear:[{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "year"
+        }],
+        res_desc:{
+            type: String,
+        },
+        comment:{
+            type: String,
+        }
+
+
+    },
+
+    { timestamps: true }
+);
+
+
+module.exports = mongoose.model("submitRsrc", thisSchema);
