@@ -23,9 +23,11 @@ exports.addSub_resrc= async (req, res) => {
     
     
    });
+    
+    
    
     if (req.files) {
-      if (req.files.img[0].path) {
+      if (req.files.img) {
         alluploads = [];
         for (let i = 0; i < req.files.img.length; i++) {
           const resp = await cloudinary.uploader.upload(
