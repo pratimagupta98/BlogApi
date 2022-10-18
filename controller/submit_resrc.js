@@ -4,9 +4,10 @@ const resp = require("../helpers/apiResponse");
  const fs = require("fs");
 
 exports.addSub_resrc= async (req, res) => {
-  const { link,category,sub_category,type,format,language,topics,desc,resTitle,creatorName,relYear,res_desc,comment} = req.body;
+  const { userid,link,category,sub_category,type,format,language,topics,desc,resTitle,creatorName,relYear,res_desc,comment} = req.body;
 
   const newSubmit= new Submit({
+    userid:userid,
     link:link,
     category:category,
     sub_category:sub_category,
@@ -51,12 +52,14 @@ exports.addSub_resrc= async (req, res) => {
 exports.sub_res_lsit = async (req, res) => {
     await Submit.find().populate("category")
       .sort({ createdAt: -1 })
+     
+      .populate("category").populate("sub_category").populate("language").populate("relYear").populate("userid")
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   };
 
   exports.getone_reslist = async (req, res) => {
-    await Submit.findOne({ _id: req.params.id }).populate("category")
+    await Submit.findOne({ _id: req.params.id }).populate("category").populate("sub_category").populate("language").populate("relYear").populate("userid")
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   };
