@@ -27,7 +27,7 @@ const thisSchema = new Schema(
             ref: "language"
         }],
         topics: {
-            type: Array
+            type: String
         },
         desc: {
             type: String,
