@@ -7,7 +7,7 @@ const {
     addSub_resrc,
     sub_res_lsit,
     getone_reslist,
-    editSubCategory,
+    edit_submit_rsrc,
     dlt_subres_list
    
 } = require("../controller/submit_resrc");
@@ -52,7 +52,7 @@ const storage = multer.diskStorage({
  router.post("/user/addSub_resrc",multipleUpload, addSub_resrc);
  router.get("/admin/sub_res_lsit", sub_res_lsit);
  router.get("/admin/getone_reslist/:id", getone_reslist);
- router.post("/admin/editSubCategory/:id",multipleUpload, editSubCategory);
+ router.post("/admin/edit_submit_rsrc/:id",multipleUpload, edit_submit_rsrc);
  router.get("/admin/dlt_subres_list/:id", dlt_subres_list);
 
 module.exports = router;
