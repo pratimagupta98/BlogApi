@@ -62,7 +62,8 @@ exports.addSub_resrc= async (req, res) => {
       creatorName:creatorName,
       relYear:relYear,
       res_desc:res_desc,
-      comment:comment
+      comment:comment,
+      usertype:"admin"
      });
       if (req.files) {
         if (req.files.img) {
@@ -84,8 +85,17 @@ exports.addSub_resrc= async (req, res) => {
          .catch((error) => resp.errorr(res, error));
      }
 
-exports.sub_res_lsit = async (req, res) => {
-    await Submit.find().populate("category")
+exports.user_sub_res_lsit = async (req, res) => {
+    await Submit.find({usertype:"user"}).populate("category")
+      .sort({ createdAt: -1 })
+     
+      .populate("category").populate("sub_category").populate("language").populate("relYear").populate("userid")
+      .then((data) => resp.successr(res, data))
+      .catch((error) => resp.errorr(res, error));
+  };
+
+  exports.admin_sub_res_lsit = async (req, res) => {
+    await Submit.find({usertype:"admin"}).populate("category")
       .sort({ createdAt: -1 })
      
       .populate("category").populate("sub_category").populate("language").populate("relYear").populate("userid")
