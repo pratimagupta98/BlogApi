@@ -58,6 +58,9 @@ userid:{
         aprv_status:{
             type: String,
             default:"Deactive"
+        },
+        usertype:{
+            type: String,
         }
 
 

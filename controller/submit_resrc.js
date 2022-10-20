@@ -20,7 +20,8 @@ exports.addSub_resrc= async (req, res) => {
     creatorName:creatorName,
     relYear:relYear,
     res_desc:res_desc,
-    comment:comment
+    comment:comment,
+    usertype:"user"
    });
     if (req.files) {
       if (req.files.img) {
