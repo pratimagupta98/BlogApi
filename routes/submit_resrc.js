@@ -5,6 +5,7 @@ const fs = require("fs");
 
 const {
     addSub_resrc,
+    admin_Sub_resrc,
     sub_res_lsit,
     getone_reslist,
     edit_submit_rsrc,
@@ -50,6 +51,8 @@ const storage = multer.diskStorage({
   
  
  router.post("/user/addSub_resrc",multipleUpload, addSub_resrc);
+ router.post("/user/admin_Sub_resrc",multipleUpload, admin_Sub_resrc);
+
  router.get("/admin/sub_res_lsit", sub_res_lsit);
  router.get("/admin/getone_reslist/:id", getone_reslist);
  router.post("/admin/edit_submit_rsrc/:id",multipleUpload, edit_submit_rsrc);
