@@ -1,5 +1,7 @@
 const Submit = require("../models/submit_resrc");
 const resp = require("../helpers/apiResponse");
+const SubCategory = require("../models/subcategory");
+
  const cloudinary = require("cloudinary").v2;
  const fs = require("fs");
 
@@ -190,4 +192,12 @@ data.sub_category =sub_category
       .catch((error) => resp.errorr(res, error))
   };
 
+
+  exports.listbycategory = async (req, res) => {
+    await SubCategory.find({ category: req.params.id }).populate("category")
+        .sort({ sortorder: 1 })
+         
+        .then((data) => resp.successr(res, data))
+        .catch((error) => resp.errorr(res, error));
+    };
   
