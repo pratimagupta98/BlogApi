@@ -177,4 +177,17 @@ data.sub_category =sub_category
       .then((data) => resp.deleter(res, data))
       .catch((error) => resp.errorr(res, error));
   };
+
+  exports.approve_submit_resrc = async (req, res) => {
+    await Submit.findOneAndUpdate(
+      {
+        _id: req.params.id,
+      },
+      { $set: {aprv_status:req.body.aprv_status} },
+      { new: true }
+    )
+      .then((data) => resp.successr(res, data))
+      .catch((error) => resp.errorr(res, error))
+  };
+
   

@@ -10,7 +10,8 @@ const {
     admin_sub_res_lsit,
     getone_reslist,
     edit_submit_rsrc,
-    dlt_subres_list
+    dlt_subres_list,
+    approve_submit_resrc
    
 } = require("../controller/submit_resrc");
 
@@ -60,6 +61,8 @@ const storage = multer.diskStorage({
  router.get("/admin/getone_reslist/:id", getone_reslist);
  router.post("/admin/edit_submit_rsrc/:id",multipleUpload, edit_submit_rsrc);
  router.get("/admin/dlt_subres_list/:id", dlt_subres_list);
+ router.post("/admin/approve_submit_resrc/:id", approve_submit_resrc);
+
 
 module.exports = router;
 
