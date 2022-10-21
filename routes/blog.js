@@ -55,8 +55,8 @@ const storage = multer.diskStorage({
 // PATHS
 router.post("/admin/addBlog",multipleUpload, addBlog);
 router.get("/admin/getBlog", getBlog);
-router.get("/admin/getBlog", popularBlog);
-router.get("/admin/recomanded_Blog", recomanded_Blog);
+router.get("/user/popularBlog", popularBlog);
+router.get("/user/recomanded_Blog", recomanded_Blog);
 
 
 router.get("/admin/viewoneBlog/:id", viewoneBlog);
