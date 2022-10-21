@@ -21,6 +21,8 @@ const language = require("./routes/language")
 
 const submit_resrc = require("./routes/submit_resrc")
 const blog = require("./routes/blog")
+const newsletter = require("./routes/newsletter")
+
 
 
 //console
@@ -35,6 +37,8 @@ app.use("/", year);
 app.use("/", language);
 app.use("/", submit_resrc);
 app.use("/", blog);
+app.use("/", newsletter);
+
 
 
 
