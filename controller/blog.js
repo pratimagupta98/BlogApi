@@ -79,6 +79,20 @@ await Blog.find()
 .catch((error) => resp.errorr(res, error));
 };
 
+exports.popularBlog = async (req, res) => {
+    await Blog.find({"blog_type":"Popular"}) 
+    .sort({ sortorder: 1 })
+    .then((data) => resp.successr(res, data))
+    .catch((error) => resp.errorr(res, error));
+    };
+
+    exports.recomanded_Blog = async (req, res) => {
+        await Blog.find({"blog_type":"Recommended"}) 
+        .sort({ sortorder: 1 })
+        .then((data) => resp.successr(res, data))
+        .catch((error) => resp.errorr(res, error));
+        };
+
 exports.viewoneBlog = async (req, res) => {
 await Blog.findOne({ _id: req.params.id })
 .then((data) => resp.successr(res, data))

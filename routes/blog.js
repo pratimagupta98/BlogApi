@@ -8,7 +8,10 @@ const {
     getBlog,
     viewoneBlog,
   delBlog,
-   editBlog
+   editBlog,
+   popularBlog,
+   recomanded_Blog
+
  } = require("../controller/blog");
 
 const storage = multer.diskStorage({
@@ -52,9 +55,12 @@ const storage = multer.diskStorage({
 // PATHS
 router.post("/admin/addBlog",multipleUpload, addBlog);
 router.get("/admin/getBlog", getBlog);
+router.get("/admin/getBlog", popularBlog);
+router.get("/admin/recomanded_Blog", recomanded_Blog);
+
+
 router.get("/admin/viewoneBlog/:id", viewoneBlog);
 router.get("/admin/delBlog/:id", delBlog);
  router.post("/admin/editBlog/:id",multipleUpload, editBlog);
 
 module.exports = router;
- 
