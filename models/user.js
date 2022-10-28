@@ -23,8 +23,11 @@ const thisSchema = new Schema(
     },
     profileImg:{
       type :Array
+    },
+    status:{
+      type: String,
+      default:"Active"
     }
-    
 
   },
 

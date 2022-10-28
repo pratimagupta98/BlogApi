@@ -19,20 +19,20 @@ exports.addSubCategory= async (req, res) => {
      resp.alreadyr(res);
    } 
    else {
-    // if (req.files) {
-    //   if (req.files.Subcat_img[0].path) {
-    //     alluploads = [];
-    //     for (let i = 0; i < req.files.Subcat_img.length; i++) {
-    //       const resp = await cloudinary.uploader.upload(
-    //         req.files.Subcat_img[i].path,
-    //         { use_filename: true, unique_filename: false }
-    //       );
-    //       fs.unlinkSync(req.files.Subcat_img[i].path);
-    //       alluploads.push(resp.secure_url);
-    //     }
-    //     newSubCategory.Subcat_img = alluploads;
-    //   }
-    // }
+    if (req.files) {
+      if (req.files.Subcat_img) {
+        alluploads = [];
+        for (let i = 0; i < req.files.Subcat_img.length; i++) {
+          const resp = await cloudinary.uploader.upload(
+            req.files.Subcat_img[i].path,
+            { use_filename: true, unique_filename: false }
+          );
+          fs.unlinkSync(req.files.Subcat_img[i].path);
+          alluploads.push(resp.secure_url);
+        }
+        newSubCategory.Subcat_img = alluploads;
+      }
+    }
     newSubCategory
        .save()
        .then((data) => resp.successr(res, data))
@@ -74,3 +74,11 @@ exports.getallSubCategory = async (req, res) => {
       .catch((error) => resp.errorr(res, error));
   };
   
+
+  exports.listbysubCategory = async (req, res) => {
+    await SubCategory.find({ category: req.params.id }).populate("category")
+        .sort({ sortorder: 1 })
+         
+        .then((data) => resp.successr(res, data))
+        .catch((error) => resp.errorr(res, error));
+    };

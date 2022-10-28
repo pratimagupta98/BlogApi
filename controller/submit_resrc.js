@@ -201,3 +201,27 @@ data.sub_category =sub_category
         .catch((error) => resp.errorr(res, error));
     };
   
+    exports.productbysubcategory = async (req, res) => {
+  const findall = await Product.find({ productsubcategory: req.params.id })
+    .sort({ sortorder: 1 })
+    .populate("store")
+    .populate("productcategory")
+    .populate("productsubcategory")
+    .populate("unit")
+    .populate("brand")
+    .sort({ sortorder: 1 })
+    .then((data) => {
+      res.status(200).json({
+        status: true,
+        msg: "success",
+        data: data,
+      });
+    })
+    .catch((error) => {
+      res.status(400).json({
+        status: false,
+        msg: "error",
+        error: error,
+      });
+    });
+}

@@ -19,7 +19,7 @@ exports.signup = async (req, res) => {
     const {
       username,
       email,
-       
+      status,
       password,
       
     } = req.body;
@@ -31,7 +31,7 @@ exports.signup = async (req, res) => {
     const newuser = new User({
         username: username,
       email: email,
-     
+      status,status,
       password: hashPassword,
     
     });

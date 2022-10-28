@@ -50,7 +50,7 @@ const storage = multer.diskStorage({
   
  
  
- router.post("/admin/addSubCategory", addSubCategory);
+ router.post("/admin/addSubCategory",multipleUpload, addSubCategory);
  router.get("/admin/getallSubCategory", getallSubCategory);
  router.get("/admin/getoneSubCategory/:id", getoneSubCategory);
  router.post("/admin/editSubCategory/:id", editSubCategory);
