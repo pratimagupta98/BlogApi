@@ -54,13 +54,43 @@ exports.getallSubCategory = async (req, res) => {
       .catch((error) => resp.errorr(res, error));
   };
   
-
+ 
   exports.editSubCategory = async (req, res) => {
+    const {title,desc,category,Subcat_img} = req.body
+    data = {};
+
+    if(title){
+      data.title = title
+    }
+    if(desc){
+      data.desc  = desc
+    }
+    if(category){
+      data.category =category
+    }
+    
+
+    if (req.files) {
+      if (req.files.Subcat_img) {
+        alluploads = [];
+        for (let i = 0; i < req.files.Subcat_img.length; i++) {
+          // console.log(i);
+          const resp = await cloudinary.uploader.upload(req.files.Subcat_img[i].path, {
+            use_filename: true,
+            unique_filename: false,
+          });
+          fs.unlinkSync(req.files.Subcat_img[i].path);
+          alluploads.push(resp.secure_url);
+        }
+        // newStore.storeImg = alluploads;
+        data.Subcat_img = alluploads;
+      }
+   }
     await SubCategory.findOneAndUpdate(
       {
         _id: req.params.id,
       },
-      { $set: req.body },
+      { $set: data},
       { new: true }
     )
       .then((data) => resp.successr(res, data))

@@ -12,7 +12,8 @@ const {
     edit_submit_rsrc,
     dlt_subres_list,
     approve_submit_resrc,
-    listbycategory
+    listbycategory,
+    listbysubcategory
    
 } = require("../controller/submit_resrc");
 
@@ -64,7 +65,9 @@ const storage = multer.diskStorage({
  router.get("/admin/dlt_subres_list/:id", dlt_subres_list);
  router.post("/admin/approve_submit_resrc/:id", approve_submit_resrc);
  router.get("/admin/listbycategory/:id", listbycategory);
+ router.get("/admin/listbysubcategory/:id", listbysubcategory);
 
 
+ 
 module.exports = router;
 

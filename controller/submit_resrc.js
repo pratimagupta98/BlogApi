@@ -194,22 +194,18 @@ data.sub_category =sub_category
 
 
   exports.listbycategory = async (req, res) => {
-    await SubCategory.find({ category: req.params.id }).populate("category")
+    await Submit.find({ category: req.params.id }).populate("category")
         .sort({ sortorder: 1 })
          
         .then((data) => resp.successr(res, data))
         .catch((error) => resp.errorr(res, error));
     };
   
-    exports.productbysubcategory = async (req, res) => {
-  const findall = await Product.find({ productsubcategory: req.params.id })
+    exports.listbysubcategory = async (req, res) => {
+  const findall = await Submit.find({ sub_category: req.params.id }).populate("category").populate("sub_category")
     .sort({ sortorder: 1 })
-    .populate("store")
-    .populate("productcategory")
-    .populate("productsubcategory")
-    .populate("unit")
-    .populate("brand")
-    .sort({ sortorder: 1 })
+     
+    
     .then((data) => {
       res.status(200).json({
         status: true,
