@@ -206,18 +206,6 @@ data.sub_category =sub_category
     .sort({ sortorder: 1 })
      
     
-    .then((data) => {
-      res.status(200).json({
-        status: true,
-        msg: "success",
-        data: data,
-      });
-    })
-    .catch((error) => {
-      res.status(400).json({
-        status: false,
-        msg: "error",
-        error: error,
-      });
-    });
+    .then((data) => resp.successr(res, data))
+    .catch((error) => resp.errorr(res, error));
 }
