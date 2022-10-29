@@ -21,7 +21,7 @@ exports.add_contactus= async (req, res) => {
 
 
 exports.getContactus = async (req, res) => {
-    await Contactus.find()
+    await Contactus.find().populate("userid")
       .sort({ sortorder: 1 })
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
