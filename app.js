@@ -23,6 +23,7 @@ const submit_resrc = require("./routes/submit_resrc")
 const blog = require("./routes/blog")
 const newsletter = require("./routes/newsletter")
 
+const contact_us = require("./routes/contact_us")
 
 
 //console
@@ -39,6 +40,7 @@ app.use("/", submit_resrc);
 app.use("/", blog);
 app.use("/", newsletter);
 
+app.use("/", contact_us);
 
 
 

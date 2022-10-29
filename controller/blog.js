@@ -110,7 +110,7 @@ exports.delBlog = async (req, res) => {
 
  
 exports.editBlog = async(req,res)=>{
-    const{blog_title,blogImg,desc} = req.body
+    const{blog_title,blogImg,desc,posted_by,blog_type} = req.body
     
     data ={}
     if(blog_title) {
@@ -118,6 +118,12 @@ exports.editBlog = async(req,res)=>{
     }
     if(desc){
         data.desc = desc
+    }
+    if(posted_by){
+      data.posted_by =posted_by
+    }
+    if(blog_type){
+      data.blog_type= blog_type
     }
   
     if (req.files) {
