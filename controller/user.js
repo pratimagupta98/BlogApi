@@ -148,7 +148,7 @@ exports.signup = async (req, res) => {
   
 
   exports.user_aprv_sts = async (req, res) => {
-    await Contactus.findOneAndUpdate(
+    await User.findOneAndUpdate(
       {
         _id: req.params.id,
       },
