@@ -9,7 +9,8 @@ const {
     updateProfile,
     getoneUser,
     userlist,
-    dltUser
+    dltUser,
+    user_aprv_sts
   
 } = require("../controller/user");
 
@@ -59,6 +60,7 @@ router.get("/user/getoneUser/:id", getoneUser);
 router.get("/admin/userlist", userlist);
 
 router.get("/admin/dltUser/:id", dltUser);
+router.post("/admin/user_aprv_sts/:id", user_aprv_sts);
 
 
 module.exports = router;

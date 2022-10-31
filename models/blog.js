@@ -22,7 +22,11 @@ const thisSchema = new Schema(
     blog_type:{
         type: String,
         //Recommanded , popular blogs
-    }
+    },
+    status:{
+      type:String,
+      default:"Active"
+    },
   },
   { timestamps: true }
 );

@@ -144,3 +144,17 @@ exports.signup = async (req, res) => {
       .then((data) => resp.deleter(res, data))
       .catch((error) => resp.errorr(res, error));
   };
+
+  
+
+  exports.user_aprv_sts = async (req, res) => {
+    await Contactus.findOneAndUpdate(
+      {
+        _id: req.params.id,
+      },
+      { $set:{ status:req.body.status} },
+      { new: true }
+    )
+      .then((data) => resp.successr(res, data))
+      .catch((error) => resp.errorr(res, error));
+  };
