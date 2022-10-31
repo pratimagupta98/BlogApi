@@ -108,7 +108,7 @@ exports.getallSubCategory = async (req, res) => {
   
 
   exports.listbysubCategory = async (req, res) => {
-    await SubCategory.find({ category: req.params.id }).populate("category")
+    await SubCategory.find({ category: req.params.id }).populate("category").populate("relYear")
         .sort({ sortorder: 1 })
          
         .then((data) => resp.successr(res, data))

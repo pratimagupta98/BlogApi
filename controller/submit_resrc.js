@@ -202,7 +202,7 @@ data.sub_category =sub_category
     };
   
     exports.listbysubcategory = async (req, res) => {
-  const findall = await Submit.find({ sub_category: req.params.id }).populate("category").populate("sub_category")
+  const findall = await Submit.find({ sub_category: req.params.id }).populate("category").populate("sub_category").populate("relYear").populate("language")
     .sort({ sortorder: 1 })
      
     
