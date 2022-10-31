@@ -14,10 +14,12 @@ exports.addSubCategory= async (req, res) => {
     
     
    });
-   const findexist = await SubCategory.findOne({ title: title });
-   if (findexist) {
-     resp.alreadyr(res);
-   } 
+   const findexist = await SubCategory.findOne({
+    title: title,
+});
+if (findexist) {
+    resp.alreadyr(res);
+} 
    else {
     if (req.files) {
       if (req.files.Subcat_img) {
