@@ -58,38 +58,33 @@ exports.get_featured_cnt = async (req, res) => {
   
  
   exports.edit_featurde = async (req, res) => {
-    const {video_link,status} = req.body
-    data = {};
+    const {status} = req.body
+  
 
-    if(video_link){
-      data.video_link = video_link
-    }
-    if(status){
-      data.status=status
-    }
+   
     
 
-    if (req.files) {
-      if (req.files.thumbnail_img) {
-        alluploads = [];
-        for (let i = 0; i < req.files.thumbnail_img.length; i++) {
-          // console.log(i);
-          const resp = await cloudinary.uploader.upload(req.files.thumbnail_img[i].path, {
-            use_filename: true,
-            unique_filename: false,
-          });
-          fs.unlinkSync(req.files.thumbnail_img[i].path);
-          alluploads.push(resp.secure_url);
-        }
-        // newStore.storeImg = alluploads;
-        data.thumbnail_img = alluploads;
-      }
-   }
+  //   if (req.files) {
+  //     if (req.files.thumbnail_img) {
+  //       alluploads = [];
+  //       for (let i = 0; i < req.files.thumbnail_img.length; i++) {
+  //         // console.log(i);
+  //         const resp = await cloudinary.uploader.upload(req.files.thumbnail_img[i].path, {
+  //           use_filename: true,
+  //           unique_filename: false,
+  //         });
+  //         fs.unlinkSync(req.files.thumbnail_img[i].path);
+  //         alluploads.push(resp.secure_url);
+  //       }
+  //       // newStore.storeImg = alluploads;
+  //       data.thumbnail_img = alluploads;
+  //     }
+  //  }
     await Featured.findOneAndUpdate(
       {
         _id: req.params.id,
       },
-      { $set: data},
+      { $set: {status:req.body.status}},
       { new: true }
     )
       .then((data) => resp.successr(res, data))
