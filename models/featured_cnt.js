@@ -10,7 +10,10 @@ const thisSchema = new Schema({
     video_link:{
         type: String
     },
-     
+    status:{
+        type: String,
+        default:"Deactive"
+    },
 },
     { timestamps: true }
 )

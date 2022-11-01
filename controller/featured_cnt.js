@@ -37,6 +37,13 @@ exports.add_feature_cnt= async (req, res) => {
  
 
 exports.get_featured_cnt = async (req, res) => {
+    await Featured.find({status:"Active"})
+      .sort({ createdAt: -1 })
+      .then((data) => resp.successr(res, data))
+      .catch((error) => resp.errorr(res, error));
+  };
+
+  exports.admin_featured_cnt = async (req, res) => {
     await Featured.find()
       .sort({ createdAt: -1 })
       .then((data) => resp.successr(res, data))
@@ -50,38 +57,35 @@ exports.get_featured_cnt = async (req, res) => {
   };
   
  
-  exports.editSubCategory = async (req, res) => {
-    const {title,desc,category,Subcat_img} = req.body
+  exports.edit_featurde = async (req, res) => {
+    const {video_link,status} = req.body
     data = {};
 
-    if(title){
-      data.title = title
+    if(video_link){
+      data.video_link = video_link
     }
-    if(desc){
-      data.desc  = desc
-    }
-    if(category){
-      data.category =category
+    if(status){
+      data.status=status
     }
     
 
     if (req.files) {
-      if (req.files.Subcat_img) {
+      if (req.files.thumbnail_img) {
         alluploads = [];
-        for (let i = 0; i < req.files.Subcat_img.length; i++) {
+        for (let i = 0; i < req.files.thumbnail_img.length; i++) {
           // console.log(i);
-          const resp = await cloudinary.uploader.upload(req.files.Subcat_img[i].path, {
+          const resp = await cloudinary.uploader.upload(req.files.thumbnail_img[i].path, {
             use_filename: true,
             unique_filename: false,
           });
-          fs.unlinkSync(req.files.Subcat_img[i].path);
+          fs.unlinkSync(req.files.thumbnail_img[i].path);
           alluploads.push(resp.secure_url);
         }
         // newStore.storeImg = alluploads;
-        data.Subcat_img = alluploads;
+        data.thumbnail_img = alluploads;
       }
    }
-    await SubCategory.findOneAndUpdate(
+    await Featured.findOneAndUpdate(
       {
         _id: req.params.id,
       },
