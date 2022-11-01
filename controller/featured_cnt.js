@@ -43,8 +43,8 @@ exports.get_featured_cnt = async (req, res) => {
       .catch((error) => resp.errorr(res, error));
   };
 
-  exports.getoneSubCategory = async (req, res) => {
-    await SubCategory.findOne({ _id: req.params.id }).populate("category")
+  exports.getone_featurde = async (req, res) => {
+    await Featured.findOne({ _id: req.params.id })
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   };
@@ -93,8 +93,8 @@ exports.get_featured_cnt = async (req, res) => {
   };
   
 
-  exports.dltSubCategory= async (req, res) => {
-    await SubCategory.deleteOne({ _id: req.params.id })
+  exports.dlt_featured = async (req, res) => {
+    await Featured.deleteOne({ _id: req.params.id })
       .then((data) => resp.deleter(res, data))
       .catch((error) => resp.errorr(res, error));
   };

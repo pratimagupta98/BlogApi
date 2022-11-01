@@ -6,9 +6,9 @@ const fs = require("fs");
 const {
     add_feature_cnt,
     get_featured_cnt,
-    getoneSubCategory,
+    getone_featurde,
     editSubCategory,
-    dltSubCategory
+    dlt_featured
    
 } = require("../controller/featured_cnt");
 
@@ -52,9 +52,9 @@ const storage = multer.diskStorage({
  
  router.post("/admin/add_feature_cnt",multipleUpload, add_feature_cnt);
   router.get("/user/get_featured_cnt", get_featured_cnt);
-//  router.get("/admin/getoneSubCategory/:id", getoneSubCategory);
+ router.get("/admin/getone_featurde/:id", getone_featurde);
 //  router.post("/admin/editSubCategory/:id",multipleUpload, editSubCategory);
-//  router.get("/admin/dltSubCategory/:id", dltSubCategory);
+ router.get("/admin/dlt_featured/:id", dlt_featured);
 
 module.exports = router;
 
