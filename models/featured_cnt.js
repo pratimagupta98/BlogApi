@@ -4,8 +4,8 @@ const Schema = mongoose.Schema
 
 const thisSchema = new Schema({
 
-    image:{
-        type: String
+    thumbnail_img:{
+        type: Array
     },
     video_link:{
         type: String

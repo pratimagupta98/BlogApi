@@ -24,6 +24,7 @@ const blog = require("./routes/blog")
 const newsletter = require("./routes/newsletter")
 
 const contact_us = require("./routes/contact_us")
+const featured_cnt = require("./routes/featured_cnt")
 
 
 //console
@@ -39,8 +40,8 @@ app.use("/", language);
 app.use("/", submit_resrc);
 app.use("/", blog);
 app.use("/", newsletter);
-
 app.use("/", contact_us);
+app.use("/", featured_cnt);
 
 
 
