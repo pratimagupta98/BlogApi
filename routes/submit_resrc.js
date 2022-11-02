@@ -55,7 +55,7 @@ const storage = multer.diskStorage({
   
  
  router.post("/user/addSub_resrc",multipleUpload, addSub_resrc);
- router.post("/user/admin_Sub_resrc",multipleUpload, admin_Sub_resrc);
+ router.post("/admin/admin_Sub_resrc",multipleUpload, admin_Sub_resrc);
 
  router.get("/user/user_sub_res_lsit", user_sub_res_lsit);
  router.get("/admin/admin_sub_res_lsit", admin_sub_res_lsit);

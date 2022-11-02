@@ -26,7 +26,7 @@ const newsletter = require("./routes/newsletter")
 const contact_us = require("./routes/contact_us")
 const featured_cnt = require("./routes/featured_cnt")
 const newslttr_video = require("./routes/newslttr_video")
-
+const like = require("./routes/like")
 
 //console
 
@@ -44,6 +44,7 @@ app.use("/", newsletter);
 app.use("/", contact_us);
 app.use("/", featured_cnt);
 app.use("/", newslttr_video);
+app.use("/", like);
 
 
 
