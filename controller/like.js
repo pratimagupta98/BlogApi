@@ -12,18 +12,24 @@ exports.add_like = async (req, res) => {
     status:status,
     
   })
+  const findexist = await like.findOne({
+    $and: [{ submitresrcId: submitresrcId }, { userid: userid }] }
+     )
+     if (findexist) {
+       resp.alreadyr(res);
+     }else{
   newlike
        .save()
        .then((data) => resp.successr(res, data))
        .catch((error) => resp.errorr(res, error));
-  
+     }
  }
  
 
 exports.my_likes = async (req, res) => {
     await like.find({
-        $and: [{ status: like }, { userid: req.params.userid }],
-      })
+        $and: [{ status: "like" }, { userid: req.params.id }],
+     } )
       .sort({ createdAt: -1 })
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
