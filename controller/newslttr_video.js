@@ -78,8 +78,8 @@ exports.getVideo = async (req, res) => {
   };
   
 
-  exports.dltSubCategory= async (req, res) => {
-    await SubCategory.deleteOne({ _id: req.params.id })
+  exports.dlt_video= async (req, res) => {
+    await Video.deleteOne({ _id: req.params.id })
       .then((data) => resp.deleter(res, data))
       .catch((error) => resp.errorr(res, error));
   };
