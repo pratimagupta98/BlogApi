@@ -5,10 +5,12 @@ const Schema = mongoose.Schema
 const thisSchema = new Schema({
 
     submitresrcId:{
-        type: String
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "submitRsrc"
     },
     userid:{
-        type: String
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user"
     },
     status:{
         type:String

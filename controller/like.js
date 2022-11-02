@@ -29,7 +29,7 @@ exports.add_like = async (req, res) => {
 exports.my_likes = async (req, res) => {
     await like.find({
         $and: [{ status: "like" }, { userid: req.params.id }],
-     } )
+     } ).populate("userid").populate("submitresrcId")
       .sort({ createdAt: -1 })
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
