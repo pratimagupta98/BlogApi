@@ -61,6 +61,10 @@ userid:{
         },
         usertype:{
             type: String,
+        },
+        status:{
+            type: String,
+            default:"Deactive"   
         }
 
 
