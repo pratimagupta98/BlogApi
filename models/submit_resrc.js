@@ -29,9 +29,9 @@ userid:{
             type: mongoose.Schema.Types.ObjectId,
             ref: "language"
         }],
-        topics: {
+        topics: [{
             type: String
-        },
+        }],
         desc: {
             type: String,
         },
