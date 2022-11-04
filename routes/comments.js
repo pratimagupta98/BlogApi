@@ -8,7 +8,13 @@ const {
     admin_comment_list,
     getone_coment_list,
     admin_edit_coment,
-    dlt_Coment
+    dlt_Coment,
+    add_blog_Comment,
+    userBlog_Cmntlist,
+    adminBlog_Cmntlist,
+    getoneBlog_Cmntlist,
+    editBlog_Cmntlist,
+    dltBlog_Cmntlist
 } = require("../controller/comments");
 
  
@@ -21,6 +27,13 @@ router.get("/admin/getone_coment_list/:id", getone_coment_list);
  router.post("/admin/admin_edit_coment/:id", admin_edit_coment);
  router.get("/admin/dlt_Coment/:id",     dlt_Coment)
 
+ router.post("/user/add_blog_Comment", add_blog_Comment);
+ router.get("/user/userBlog_Cmntlist", userBlog_Cmntlist);
+ router.get("/admin/adminBlog_Cmntlist", adminBlog_Cmntlist);
+router.get("/admin/getoneBlog_Cmntlist/:id", getoneBlog_Cmntlist);
+// router.get("/admin/getoneContactus/:id",     getoneContactus)
+ router.post("/admin/editBlog_Cmntlist/:id", editBlog_Cmntlist);
+ router.get("/admin/dltBlog_Cmntlist/:id",     dltBlog_Cmntlist)
 
 module.exports = router;
 

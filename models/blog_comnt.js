@@ -4,11 +4,11 @@ const Schema = mongoose.Schema
 
 const thisSchema = new Schema({
 
-    submitresrcId:{
+     
+    blogid:{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "submitRsrc"
+        ref: "blog"
     },
-    
     userid:{
         type: mongoose.Schema.Types.ObjectId,
         ref: "user"
@@ -34,4 +34,4 @@ const thisSchema = new Schema({
     { timestamps: true }
 )
 
-module.exports = mongoose.model("comment", thisSchema)
+module.exports = mongoose.model("Blogcomment", thisSchema)
