@@ -29,6 +29,7 @@ const newslttr_video = require("./routes/newslttr_video")
 const like = require("./routes/like")
 const comments = require("./routes/comments")
 const faq = require("./routes/faq")
+const privacy_policy = require("./routes/privacy_policy")
 
 
 //console
@@ -50,6 +51,7 @@ app.use("/", newslttr_video);
 app.use("/", like);
 app.use("/", comments);
 app.use("/", faq);
+app.use("/", privacy_policy);
 
 
 

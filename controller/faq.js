@@ -25,7 +25,7 @@ exports.faq_list = async (req, res) => {
       .catch((error) => resp.errorr(res, error));
   };
   exports.getone_faqlist = async (req, res) => {
-    await findOne.find()
+    await Faq.findOne({_id:req.params.id})
       .sort({ sortorder: 1 })
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
