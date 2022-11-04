@@ -30,6 +30,7 @@ const like = require("./routes/like")
 const comments = require("./routes/comments")
 const faq = require("./routes/faq")
 const privacy_policy = require("./routes/privacy_policy")
+const terms_condition = require("./routes/terms_condition")
 
 
 //console
@@ -52,7 +53,7 @@ app.use("/", like);
 app.use("/", comments);
 app.use("/", faq);
 app.use("/", privacy_policy);
-
+app.use("/", terms_condition);
 
 
 

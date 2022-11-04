@@ -1,41 +1,37 @@
-const PrivcyPolicy = require("../models/privacy_policy");
+const TermsCondition = require("../models/terms_condition");
 const resp = require("../helpers/apiResponse");
 
-exports.addprivcyPlcy= async (req, res) => {
+exports.add_term_cond= async (req, res) => {
   const { desc} = req.body;
 
-  const newPrivcyPolicy = new PrivcyPolicy({
-    
+  const newTermsCondition = new TermsCondition({
     desc:desc,
    });
-  const findexist = await PrivcyPolicy.findOne({ desc: desc });
-  if (findexist) {
-    resp.alreadyr(res);
-  } else {
-    newPrivcyPolicy
+   
+    newTermsCondition
       .save()
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   }
-}
 
 
-exports.getPrivcyPolicy= async (req, res) => {
-    await PrivcyPolicy.find()
+
+exports.get_term_cond= async (req, res) => {
+    await TermsCondition.find()
       .sort({ sortorder: 1 })
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   };
 
-  exports.getonePrivcyPlcy = async (req, res) => {
-    await PrivcyPolicy.findOne({ _id: req.params.id })
+  exports.getone_term_cond = async (req, res) => {
+    await TermsCondition.findOne({ _id: req.params.id })
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   };
   
 
-  exports.editPrivcyPlcy = async (req, res) => {
-    await PrivcyPolicy.findOneAndUpdate(
+  exports.edit_term_cond = async (req, res) => {
+    await TermsCondition.findOneAndUpdate(
       {
         _id: req.params.id,
       },
@@ -47,8 +43,8 @@ exports.getPrivcyPolicy= async (req, res) => {
   };
   
 
-  exports.dltPrivcyPlcy = async (req, res) => {
-    await PrivcyPolicy.deleteOne({ _id: req.params.id })
+  exports.dlt_term_cond = async (req, res) => {
+    await TermsCondition.deleteOne({ _id: req.params.id })
       .then((data) => resp.deleter(res, data))
       .catch((error) => resp.errorr(res, error));
   };
