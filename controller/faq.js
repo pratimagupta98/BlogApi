@@ -1,5 +1,6 @@
 const Faq = require("../models/faq");
 const resp = require("../helpers/apiResponse");
+const { findOne } = require("../models/comments");
 
 exports.addFAQ = async (req, res) => {
   const { title,desc } = req.body;
@@ -19,6 +20,12 @@ exports.addFAQ = async (req, res) => {
 
 exports.faq_list = async (req, res) => {
     await Faq.find()
+      .sort({ sortorder: 1 })
+      .then((data) => resp.successr(res, data))
+      .catch((error) => resp.errorr(res, error));
+  };
+  exports.getone_faqlist = async (req, res) => {
+    await findOne.find()
       .sort({ sortorder: 1 })
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));

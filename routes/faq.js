@@ -6,7 +6,8 @@ const {
     addFAQ,
     faq_list,
     editprofile,
-    dltFaq
+    dltFaq,
+    getone_faqlist
    
 } = require("../controller/faq");
 
@@ -15,6 +16,8 @@ const {
  router.post("/admin/addFAQ", addFAQ);
 router.get("/admin/faq_list", faq_list);
 router.get("/admin/dltFaq/:id", dltFaq);
+router.get("/admin/getone_faqlist/:id", getone_faqlist);
+
 
 module.exports = router;
 
