@@ -128,12 +128,7 @@ exports.comment_list = async (req, res) => {
   };
 
   exports.getoneBlog_Cmntlist = async (req, res) => {
-    await Blogcomment.findOne({ _id: req.params.id }).populate("userid").populate("submitresrcId").populate({
-        path: "submitresrcId",
-        populate: {
-          path: "category",
-        },
-      })
+    await Blogcomment.findOne({ _id: req.params.id }).populate("userid").populate("blogid")
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   };
