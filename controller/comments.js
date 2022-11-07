@@ -17,17 +17,17 @@ exports.add_Comment = async (req, res) => {
 
     
   })
-  const findexist = await Comment.findOne({
-    $and: [{ submitresrcId: submitresrcId }, { userid: userid }] }
-     )
-     if (findexist) {
-       resp.alreadyr(res);
-     }else{
+  // const findexist = await Comment.findOne({
+  //   $and: [{ submitresrcId: submitresrcId }, { userid: userid }] }
+  //    )
+  //    if (findexist) {
+  //      resp.alreadyr(res);
+  //    }else{
         newComment
        .save()
        .then((data) => resp.successr(res, data))
        .catch((error) => resp.errorr(res, error));
-     }
+     //}
  }
  
 
