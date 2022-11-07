@@ -5,12 +5,12 @@ const resp = require("../helpers/apiResponse");
 const Blogcomment = require("../models/blog_comnt");
 
 exports.add_Comment = async (req, res) => {
-  const {submitresrcId,userid,desc,comment,rating,status } = req.body;
+  const {submitresrcId,userid,comment,rating,status } = req.body;
 
   const newComment = new Comment({
     submitresrcId:submitresrcId,
     userid:userid,
-    desc:desc,
+  //  desc:desc,
     comment:comment,
     rating:rating,
     status:status,
@@ -32,7 +32,7 @@ exports.add_Comment = async (req, res) => {
  
 
 exports.comment_list = async (req, res) => {
-    await Comment.find({status: "Active" }).populate("userid").populate("submitresrcId").populate({
+    await Comment.find({ $and: [{ submitresrcId: req.params.id }, { status: "Active" }]}).populate("userid").populate("submitresrcId").populate({
         path: "submitresrcId",
         populate: {
           path: "category",

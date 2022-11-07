@@ -88,7 +88,7 @@ exports.addSub_resrc= async (req, res) => {
      }
 
 exports.user_sub_res_lsit = async (req, res) => {
-    await Submit.find({status:"Active"}).populate("category")
+    await Submit.find({aprv_status:"Active"}).populate("category")
       .sort({ createdAt: -1 })
      
       .populate("category").populate("sub_category").populate("language").populate("relYear").populate("userid")

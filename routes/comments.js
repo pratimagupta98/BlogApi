@@ -20,7 +20,7 @@ const {
  
  
  router.post("/user/add_Comment", add_Comment);
- router.get("/user/comment_list", comment_list);
+ router.get("/user/comment_list/:id", comment_list);
  router.get("/admin/admin_comment_list", admin_comment_list);
 router.get("/admin/getone_coment_list/:id", getone_coment_list);
 // router.get("/admin/getoneContactus/:id",     getoneContactus)

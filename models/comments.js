@@ -17,9 +17,9 @@ const thisSchema = new Schema({
         type:String,
         default:"Deactive"
     },
-    desc:{
-        type:String
-    },
+    // desc:{
+    //     type:String
+    // },
     comment:{
         type:String
     },
