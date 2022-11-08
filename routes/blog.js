@@ -10,7 +10,8 @@ const {
   delBlog,
    editBlog,
    popularBlog,
-   recomanded_Blog
+   recomanded_Blog,
+   activeBlog
 
  } = require("../controller/blog");
 
@@ -60,6 +61,8 @@ router.get("/user/recomanded_Blog", recomanded_Blog);
 
 
 router.get("/admin/viewoneBlog/:id", viewoneBlog);
+router.get("/user/activeBlog/:id", activeBlog);
+
 router.get("/admin/delBlog/:id", delBlog);
  router.post("/admin/editBlog/:id",multipleUpload, editBlog);
 
