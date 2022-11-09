@@ -29,7 +29,31 @@ exports.add_like = async (req, res) => {
 exports.my_likes = async (req, res) => {
     await like.find({
         $and: [{ status: "like" }, { userid: req.params.id }],
-     } ).populate("userid").populate("submitresrcId")
+     } ).populate("userid").populate("submitresrcId").populate({
+      path: "submitresrcId",
+      populate: {
+        path: "relYear",
+      },
+    })
+    .populate({
+      path: "submitresrcId",
+      populate: {
+        path: "category",
+      },
+    })
+    .populate({
+      path: "submitresrcId",
+      populate: {
+        path: "sub_category",
+      },
+    })
+    .populate({
+      path: "submitresrcId",
+      populate: {
+        path: "language",
+      },
+    })
+
       .sort({ createdAt: -1 })
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
