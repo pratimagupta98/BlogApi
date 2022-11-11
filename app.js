@@ -32,6 +32,7 @@ const faq = require("./routes/faq")
 const privacy_policy = require("./routes/privacy_policy")
 const terms_condition = require("./routes/terms_condition")
 const how_it_works = require("./routes/how_it_works")
+const notification = require("./routes/notification")
 
 
 //console
@@ -56,6 +57,7 @@ app.use("/", faq);
 app.use("/", privacy_policy);
 app.use("/", terms_condition);
 app.use("/", how_it_works);
+app.use("/", notification);
 
 
 
