@@ -14,8 +14,6 @@ exports.add_Comment = async (req, res) => {
     comment:comment,
     rating:rating,
     status:status,
-
-    
   })
   // const findexist = await Comment.findOne({
   //   $and: [{ submitresrcId: submitresrcId }, { userid: userid }] }

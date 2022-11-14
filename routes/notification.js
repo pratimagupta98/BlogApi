@@ -23,5 +23,6 @@ router.post("/admin/edit_notification/:id", edit_notification);
 
 router.get("/admin/dlt_notification/:id", dlt_notification);
 
+
 module.exports = router;
  
