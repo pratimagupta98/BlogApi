@@ -12,18 +12,18 @@ exports.add_like = async (req, res) => {
     status:status,
     
   })
-  const findexist = await like.findOne({
-    $and: [{ submitresrcId: submitresrcId }, { userid: userid }] }
-     )
-     if (findexist) {
-       resp.alreadyr(res);
-     }else{
+  // const findexist = await like.findOne({
+  //   $and: [{ submitresrcId: submitresrcId }, { userid: userid }] }
+  //    )
+  //    if (findexist) {
+  //      resp.alreadyr(res);
+  //    }else{
   newlike
        .save()
        .then((data) => resp.successr(res, data))
        .catch((error) => resp.errorr(res, error));
      }
- }
+ 
  
 
 exports.my_likes = async (req, res) => {
@@ -66,15 +66,9 @@ exports.my_likes = async (req, res) => {
   };
   
 
-  exports.like_unlike = async (req, res) => {
-    await like.findOneAndUpdate(
-      {
-        _id: req.params.id,
-      },
-      { $set: {status:req.body.status} },
-      { new: true }
-    )
-      .then((data) => resp.successr(res, data))
+  exports.dislike = async (req, res) => {
+    await like.deleteOne({ _id: req.params.id })
+      .then((data) => resp.deleter(res, data))
       .catch((error) => resp.errorr(res, error));
   };
   

@@ -6,7 +6,7 @@ const {
     add_like,
     my_likes,
     getoneContactus,
-    like_unlike,
+    dislike,
     dltContactus
 } = require("../controller/like");
 
@@ -15,7 +15,7 @@ const {
  router.post("/user/add_like", add_like);
 router.get("/user/my_likes/:id", my_likes);
 // router.get("/admin/getoneContactus/:id",     getoneContactus)
- router.post("/user/like_unlike/:id",     like_unlike);
+ router.get("/user/dislike/:id",     dislike);
 // router.get("/admin/dltContactus/:id",     dltContactus)
 
 
