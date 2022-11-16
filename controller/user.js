@@ -158,3 +158,12 @@ exports.signup = async (req, res) => {
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   };
+
+  exports.total_user = async(req,res) =>{
+    await User.countDocuments()
+    .sort({ createdAt: -1 })
+    .then((data) => resp.successr(res, data))
+    .catch((error) => resp.errorr(res, error));
+  }
+
+ // countDocuments()

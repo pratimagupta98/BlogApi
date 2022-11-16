@@ -10,7 +10,8 @@ const {
     getoneUser,
     userlist,
     dltUser,
-    user_aprv_sts
+    user_aprv_sts,
+    total_user
   
 } = require("../controller/user");
 
@@ -61,6 +62,7 @@ router.get("/admin/userlist", userlist);
 
 router.get("/admin/dltUser/:id", dltUser);
 router.post("/admin/user_aprv_sts/:id", user_aprv_sts);
+router.get("/admin/total_user", total_user);
 
 
 module.exports = router;

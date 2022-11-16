@@ -14,7 +14,8 @@ const {
     approve_submit_resrc,
     listbycategory,
     listbysubcategory,
-    Promotions
+    Promotions,
+    total_sub_resrc
    
 } = require("../controller/submit_resrc");
 
@@ -68,6 +69,7 @@ const storage = multer.diskStorage({
  router.get("/admin/listbycategory/:id", listbycategory);
  router.get("/admin/listbysubcategory/:id", listbysubcategory);
  router.get("/user/Promotions", Promotions);
+ router.get("/admin/total_sub_resrc", total_sub_resrc);
 
 
  

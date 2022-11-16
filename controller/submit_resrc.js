@@ -220,3 +220,12 @@ data.sub_category =sub_category
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
 }
+
+
+
+exports.total_sub_resrc = async (req, res) => {
+  await Submit.countDocuments({ usertype: "user" }).populate("category")
+    
+    .then((data) => resp.successr(res, data))
+    .catch((error) => resp.errorr(res, error));
+};
