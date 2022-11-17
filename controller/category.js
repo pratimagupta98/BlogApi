@@ -103,3 +103,10 @@ exports.getallCategory = async (req, res) => {
       .catch((error) => resp.errorr(res, error));
   };
   
+
+  exports.total_category = async (req, res) => {
+    await Category.countDocuments()
+      .sort({ createdAt: -1 })
+      .then((data) => resp.successr(res, data))
+      .catch((error) => resp.errorr(res, error));
+  };

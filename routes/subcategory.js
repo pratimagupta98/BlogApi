@@ -8,7 +8,8 @@ const {
     getallSubCategory,
     getoneSubCategory,
     editSubCategory,
-    dltSubCategory
+    dltSubCategory,
+    total_subcategory
    
 } = require("../controller/subcategory");
 
@@ -55,6 +56,7 @@ const storage = multer.diskStorage({
  router.get("/admin/getoneSubCategory/:id", getoneSubCategory);
  router.post("/admin/editSubCategory/:id",multipleUpload, editSubCategory);
  router.get("/admin/dltSubCategory/:id", dltSubCategory);
+ router.get("/admin/total_subcategory", total_subcategory);
 
 module.exports = router;
 

@@ -114,3 +114,10 @@ exports.getallSubCategory = async (req, res) => {
         .then((data) => resp.successr(res, data))
         .catch((error) => resp.errorr(res, error));
     };
+
+    exports.total_subcategory = async (req, res) => {
+      await SubCategory.countDocuments()
+        .sort({ createdAt: -1 })
+        .then((data) => resp.successr(res, data))
+        .catch((error) => resp.errorr(res, error));
+    };

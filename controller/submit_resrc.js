@@ -196,7 +196,7 @@ data.sub_category =sub_category
       {
         _id: req.params.id,
       },
-      { $set: {aprv_status:req.body.aprv_status} },
+      { $set: {aprv_status:req.body.aprv_status,status:req.body.status} },
       { new: true }
     )
       .then((data) => resp.successr(res, data))
@@ -229,3 +229,21 @@ exports.total_sub_resrc = async (req, res) => {
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
 };
+
+
+exports.total_paid_resrc = async (req, res) => {
+  await Submit.countDocuments({ $and:[{usertype: "user" },{type:"Paid"}]}).populate("category")
+    
+    .then((data) => resp.successr(res, data))
+    .catch((error) => resp.errorr(res, error));
+};
+
+exports.total_free_resrc = async (req, res) => {
+  await Submit.countDocuments({ $and:[{usertype: "user" },{type:"Paid"}]}).populate("category")
+    
+    .then((data) => resp.successr(res, data))
+    .catch((error) => resp.errorr(res, error));
+};
+
+
+//and: [{ status: "Active" }, { _id: req.params.id }]

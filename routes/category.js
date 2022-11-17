@@ -8,7 +8,8 @@ const {
     getallCategory,
     getoneCategory,
     editCategory,
-    dltCategory
+    dltCategory,
+    total_category
    
 } = require("../controller/category");
 
@@ -54,6 +55,7 @@ const storage = multer.diskStorage({
  router.get("/admin/getoneCategory/:id", getoneCategory);
  router.post("/admin/editCategory/:id",multipleUpload, editCategory);
  router.get("/admin/dltCategory/:id", dltCategory);
+ router.get("/admin/total_category", total_category);
 
 module.exports = router;
 
