@@ -66,11 +66,11 @@ exports.my_likes = async (req, res) => {
   };
   
 
-  exports.dislike = async (req, res) => {
-    await like.deleteOne({ _id: req.params.id })
-      .then((data) => resp.deleter(res, data))
-      .catch((error) => resp.errorr(res, error));
-  };
+  // exports.dislike = async (req, res) => {
+  //   await like.deleteOne({ _id: req.params.id })
+  //     .then((data) => resp.deleter(res, data))
+  //     .catch((error) => resp.errorr(res, error));
+  // };
   
 
   exports.dlt_news_ltr= async (req, res) => {
@@ -78,4 +78,18 @@ exports.my_likes = async (req, res) => {
       .then((data) => resp.deleter(res, data))
       .catch((error) => resp.errorr(res, error));
   };
+
+  exports.dis_book_mark = async (req, res) => {
+    await like.findOneAndUpdate(
+      {
+        _id: req.params.id,
+      },
+      { $set: {status:req.body.status} },
+      { new: true }
+    )
+      .then((data) => resp.successr(res, data))
+      .catch((error) => resp.errorr(res, error));
+  };
+
+
   
