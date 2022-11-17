@@ -88,6 +88,17 @@ exports.addSub_resrc= async (req, res) => {
      }
 
 exports.user_sub_res_lsit = async (req, res) => {
+    await Submit.find({ usertype: "user" }).populate("category")
+      .sort({ createdAt: -1 })
+     
+      .populate("category").populate("sub_category").populate("language").populate("relYear").populate("userid")
+      .then((data) => resp.successr(res, data))
+      .catch((error) => resp.errorr(res, error));
+  };
+
+
+
+  exports.active_resrc_lsit = async (req, res) => {
     await Submit.find({$and: [{ usertype: "user" }, { aprv_status: "Active" }]}).populate("category")
       .sort({ createdAt: -1 })
      
