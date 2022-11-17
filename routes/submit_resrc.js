@@ -72,11 +72,13 @@ const storage = multer.diskStorage({
  router.get("/admin/listbysubcategory/:id", listbysubcategory);
  router.get("/user/Promotions", Promotions);
  router.get("/admin/total_sub_resrc", total_sub_resrc);
+ router.get("/admin/total_paid_resrc", total_paid_resrc);
+
  router.get("/admin/total_free_resrc", total_free_resrc);
 
  
 module.exports = router;
 
 
-
+ 
 

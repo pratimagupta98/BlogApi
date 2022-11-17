@@ -250,7 +250,7 @@ exports.total_paid_resrc = async (req, res) => {
 };
 
 exports.total_free_resrc = async (req, res) => {
-  await Submit.countDocuments({ $and:[{usertype: "user" },{type:"Paid"}]}).populate("category")
+  await Submit.countDocuments({ $and:[{usertype: "user" },{type:"Free"}]}).populate("category")
     
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
