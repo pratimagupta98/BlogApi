@@ -37,7 +37,7 @@ exports.add_like = async (req, res) => {
 
 exports.my_likes = async (req, res) => {
     await like.find({
-        $and: [{ status: "like" }, { userid: req.params.id }],
+        $and: [{ status: "true" }, { userid: req.params.id }],
      } ).populate("userid").populate("submitresrcId").populate({
       path: "submitresrcId",
       populate: {
