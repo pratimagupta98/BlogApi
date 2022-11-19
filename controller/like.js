@@ -12,17 +12,26 @@ exports.add_like = async (req, res) => {
     status:status,
     
   })
-  // const findexist = await like.findOne({
-  //   $and: [{ submitresrcId: submitresrcId }, { userid: userid }] }
-  //    )
-  //    if (findexist) {
-  //      resp.alreadyr(res);
-  //    }else{
+  const findexist = await like.findOne({
+    $and: [{ submitresrcId: submitresrcId }, { userid: userid }] }
+     )
+     if (findexist) {
+      resp.alreadyr(res);
+      // let aa= await like.deleteOne({ _id: req.body.cart });
+      // console.log("aa",aa)
+
+     }
+     else{
+
+  
+
+
   newlike
        .save()
        .then((data) => resp.successr(res, data))
        .catch((error) => resp.errorr(res, error));
      }
+    }
  
  
 
@@ -92,4 +101,8 @@ exports.my_likes = async (req, res) => {
   };
 
 
-  
+  // exports.dltmany = async (req, res) => {
+  //   await like.deleteMany()
+  //     .then((data) => resp.deleter(res, data))
+  //     .catch((error) => resp.errorr(res, error));
+  // };

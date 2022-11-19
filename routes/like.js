@@ -7,7 +7,8 @@ const {
     my_likes,
     getoneContactus,
     dis_book_mark,
-    dltContactus
+    dltContactus,
+   // dltmany
 } = require("../controller/like");
 
  
@@ -16,7 +17,7 @@ const {
 router.get("/user/my_likes/:id", my_likes);
 // router.get("/admin/getoneContactus/:id",     getoneContactus)
  router.post("/user/dis_book_mark/:id",     dis_book_mark);
-// router.get("/admin/dltContactus/:id",     dltContactus)
+//router.get("/admin/dltmany",     dltmany)
 
 
 module.exports = router;
