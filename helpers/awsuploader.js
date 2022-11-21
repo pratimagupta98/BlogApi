@@ -16,7 +16,7 @@ exports.uploadFile = (filePath,fileName,type) => {
 
     // Setting up S3 upload parameters
     const params = {
-        Bucket: 'experteducation',
+        Bucket: 'blog123',
         Key: `${fileName}.${type}`, // File name you want to save as in S3
         Body: fileContent,
         ContentEncoding: 'base64',
@@ -42,7 +42,7 @@ exports.uploadBase64ImageFile = (base64Data,fileName,type) => {
     
     // Setting up S3 upload parameters
     const params = {
-        Bucket: 'experteducation',
+        Bucket: 'blog123',
         Key: `${fileName}.${type}`, // File name you want to save as in S3
         Body: base64Data,
         ContentEncoding: 'base64',
