@@ -14,6 +14,23 @@ const cloudinary = require("cloudinary").v2;
  });
  
 
+ const { uploadBase64ImageFile } = require("../helpers/awsuploader");
+var signatures = {
+  JVBERi0: "application.pdf",
+  R0lGODdh: "image.gif",
+  R0lGODlh: "image.gif",
+  iVBORw0KGgo: "image.png",
+  "/9j/": "image.jpg"
+};
+
+function detectMimeType(b64) {
+  for (var s in signatures) {
+    if (b64.indexOf(s) === 0) {
+      return signatures[s];
+    }
+  }
+}
+
 
 exports.signup = async (req, res) => {
     const {
@@ -96,36 +113,72 @@ exports.signup = async (req, res) => {
   if(abt_us){
     data.abt_us = abt_us
   }
-  if (req.files) {
-    if (req.files.profileImg) {
-      alluploads = [];
-      for (let i = 0; i < req.files.profileImg.length; i++) {
-        // console.log(i);
-        const resp = await cloudinary.uploader.upload(req.files.profileImg[i].path, {
-          use_filename: true,
-          unique_filename: false,
-        });
-        fs.unlinkSync(req.files.profileImg[i].path);
-        alluploads.push(resp.secure_url);
-      }
-      // newStore.storeImg = alluploads;
-      data.profileImg = alluploads;
-    }
- }
 
- await User.findOneAndUpdate(
-  {
-    _id: req.params.id,
-    //  console.log(req.params._id);
-  },
-  {
-    $set: data,
-  },
-  { new: true }
-)
-      .then((data) => resp.successr(res, data))
-      .catch((error) => resp.errorr(res, error));
-  };
+
+
+  if(profileImg){
+    if(profileImg){
+  const base64Data   = new Buffer.from(profileImg.replace(/^data:image\/\w+;base64,/, ""),'base64')
+  detectMimeType(base64Data);
+  const type = detectMimeType(profileImg);
+     // console.log(newCourse,"@@@@@");
+     const geturl = await uploadBase64ImageFile(
+      base64Data,
+      data.id,
+     type
+    );
+    console.log(geturl,"&&&&");
+    if (geturl) {
+      data.profileImg = geturl.Location;
+     
+      //fs.unlinkSync(`../uploads/${req.files.course_image[0]?.filename}`);
+    }
+  }
+}
+  await User.findOneAndUpdate(
+    { _id: req.params.id },
+    { $set: data },
+    { new: true }
+  )
+    .then((data) => resp.successr(res, data))
+    .catch((error) => resp.errorr(res, error));
+};
+
+
+
+
+
+
+//   if (req.files) {
+//     if (req.files.profileImg) {
+//       alluploads = [];
+//       for (let i = 0; i < req.files.profileImg.length; i++) {
+//         // console.log(i);
+//         const resp = await cloudinary.uploader.upload(req.files.profileImg[i].path, {
+//           use_filename: true,
+//           unique_filename: false,
+//         });
+//         fs.unlinkSync(req.files.profileImg[i].path);
+//         alluploads.push(resp.secure_url);
+//       }
+//       // newStore.storeImg = alluploads;
+//       data.profileImg = alluploads;
+//     }
+//  }
+
+//  await User.findOneAndUpdate(
+//   {
+//     _id: req.params.id,
+//     //  console.log(req.params._id);
+//   },
+//   {
+//     $set: data,
+//   },
+//   { new: true }
+// )
+//       .then((data) => resp.successr(res, data))
+//       .catch((error) => resp.errorr(res, error));
+//   };
   exports.getoneUser = async (req, res) => {
     await User.findOne({ _id: req.params.id })
       .then((data) => resp.successr(res, data))

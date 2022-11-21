@@ -7,8 +7,26 @@ const SubCategory = require("../models/subcategory");
  const cloudinary = require("cloudinary").v2;
  const fs = require("fs");
 
+ const { uploadBase64ImageFile } = require("../helpers/awsuploader");
+ var signatures = {
+   JVBERi0: "application.pdf",
+   R0lGODdh: "image.gif",
+   R0lGODlh: "image.gif",
+   iVBORw0KGgo: "image.png",
+   "/9j/": "image.jpg"
+ };
+ 
+ function detectMimeType(b64) {
+   for (var s in signatures) {
+     if (b64.indexOf(s) === 0) {
+       return signatures[s];
+     }
+   }
+ }
+ 
+
 exports.addSub_resrc= async (req, res) => {
-  const { userid,link,category,sub_category,type,format,language,topics,desc,resTitle,creatorName,relYear,res_desc,comment} = req.body;
+  const { userid,link,category,sub_category,type,format,language,topics,desc,resTitle,creatorName,relYear,res_desc,comment,img} = req.body;
 
   const newSubmit= new Submit({
     userid:userid,
@@ -27,26 +45,52 @@ exports.addSub_resrc= async (req, res) => {
     comment:comment,
     usertype:"user"
    });
-    if (req.files) {
-      if (req.files.img) {
-        alluploads = [];
-        for (let i = 0; i < req.files.img.length; i++) {
-          const resp = await cloudinary.uploader.upload(
-            req.files.img[i].path,
-            { use_filename: true, unique_filename: false }
-          );
-          fs.unlinkSync(req.files.img[i].path);
-          alluploads.push(resp.secure_url);
+    // if (req.files) {
+    //   if (req.files.img) {
+    //     alluploads = [];
+    //     for (let i = 0; i < req.files.img.length; i++) {
+    //       const resp = await cloudinary.uploader.upload(
+    //         req.files.img[i].path,
+    //         { use_filename: true, unique_filename: false }
+    //       );
+    //       fs.unlinkSync(req.files.img[i].path);
+    //       alluploads.push(resp.secure_url);
+    //     }
+    //     newSubmit.img = alluploads;
+    //   }
+    // }
+
+
+    if (img) {
+      if (img) {
+        
+
+        const base64Data = new Buffer.from(img.replace(/^data:image\/\w+;base64,/, ""), 'base64');
+        detectMimeType(base64Data);
+        const type = detectMimeType(img);
+        // console.log(newCourse,"@@@@@");
+        const geturl = await uploadBase64ImageFile(
+          base64Data,
+          newSubmit.id,
+         type
+        );
+        console.log(geturl,"&&&&");
+        if (geturl) {
+          newSubmit.img = geturl.Location;
+         
+          //fs.unlinkSync(`../uploads/${req.files.img[0]?.filename}`);
         }
-        newSubmit.img = alluploads;
       }
-    }
+
+
+
+
     newSubmit
        .save()
        .then((data) => resp.successr(res, data))
        .catch((error) => resp.errorr(res, error));
    }
- 
+  }
  
 
    exports.admin_Sub_resrc= async (req, res) => {
