@@ -45,42 +45,42 @@ exports.addSub_resrc= async (req, res) => {
     comment:comment,
     usertype:"user"
    });
-    // if (req.files) {
-    //   if (req.files.img) {
-    //     alluploads = [];
-    //     for (let i = 0; i < req.files.img.length; i++) {
-    //       const resp = await cloudinary.uploader.upload(
-    //         req.files.img[i].path,
-    //         { use_filename: true, unique_filename: false }
-    //       );
-    //       fs.unlinkSync(req.files.img[i].path);
-    //       alluploads.push(resp.secure_url);
-    //     }
-    //     newSubmit.img = alluploads;
-    //   }
-    // }
+    if (req.files) {
+      if (req.files.img) {
+        alluploads = [];
+        for (let i = 0; i < req.files.img.length; i++) {
+          const resp = await cloudinary.uploader.upload(
+            req.files.img[i].path,
+            { use_filename: true, unique_filename: false }
+          );
+          fs.unlinkSync(req.files.img[i].path);
+          alluploads.push(resp.secure_url);
+        }
+        newSubmit.img = alluploads;
+      }
+    }
 
 
-    if (img) {
-      if (img) {
+    // if (img) {
+    //   if (img) {
         
 
-        const base64Data = new Buffer.from(img.replace(/^data:image\/\w+;base64,/, ""), 'base64');
-        detectMimeType(base64Data);
-        const type = detectMimeType(img);
-        // console.log(newCourse,"@@@@@");
-        const geturl = await uploadBase64ImageFile(
-          base64Data,
-          newSubmit.id,
-         type
-        );
-        console.log(geturl,"&&&&");
-        if (geturl) {
-          newSubmit.img = geturl.Location;
+    //     const base64Data = new Buffer.from(img.replace(/^data:image\/\w+;base64,/, ""), 'base64');
+    //     detectMimeType(base64Data);
+    //     const type = detectMimeType(img);
+    //     // console.log(newCourse,"@@@@@");
+    //     const geturl = await uploadBase64ImageFile(
+    //       base64Data,
+    //       newSubmit.id,
+    //      type
+    //     );
+    //     console.log(geturl,"&&&&");
+    //     if (geturl) {
+    //       newSubmit.img = geturl.Location;
          
-          //fs.unlinkSync(`../uploads/${req.files.img[0]?.filename}`);
-        }
-      }
+    //       //fs.unlinkSync(`../uploads/${req.files.img[0]?.filename}`);
+    //     }
+    //   }
 
 
 
@@ -90,7 +90,82 @@ exports.addSub_resrc= async (req, res) => {
        .then((data) => resp.successr(res, data))
        .catch((error) => resp.errorr(res, error));
    }
-  }
+  
+
+
+
+
+  exports.App_Sub_resrc= async (req, res) => {
+    const { userid,link,category,sub_category,type,format,language,topics,desc,resTitle,creatorName,relYear,res_desc,comment,img} = req.body;
+  
+    const newSubmit= new Submit({
+      userid:userid,
+      link:link,
+      category:category,
+      sub_category:sub_category,
+      type:type,
+      format:format,
+      language:language,
+      topics:topics,
+      desc:desc,
+      resTitle:resTitle,
+      creatorName:creatorName,
+      relYear:relYear,
+      res_desc:res_desc,
+      comment:comment,
+      usertype:"user"
+     });
+      // if (req.files) {
+      //   if (req.files.img) {
+      //     alluploads = [];
+      //     for (let i = 0; i < req.files.img.length; i++) {
+      //       const resp = await cloudinary.uploader.upload(
+      //         req.files.img[i].path,
+      //         { use_filename: true, unique_filename: false }
+      //       );
+      //       fs.unlinkSync(req.files.img[i].path);
+      //       alluploads.push(resp.secure_url);
+      //     }
+      //     newSubmit.img = alluploads;
+      //   }
+      // }
+  
+  
+      if (img) {
+        if (img) {
+          
+  
+          const base64Data = new Buffer.from(img.replace(/^data:image\/\w+;base64,/, ""), 'base64');
+          detectMimeType(base64Data);
+          const type = detectMimeType(img);
+          // console.log(newCourse,"@@@@@");
+          const geturl = await uploadBase64ImageFile(
+            base64Data,
+            newSubmit.id,
+           type
+          );
+          console.log(geturl,"&&&&");
+          if (geturl) {
+            newSubmit.img = geturl.Location;
+           
+            //fs.unlinkSync(`../uploads/${req.files.img[0]?.filename}`);
+          }
+        }
+  
+  
+  
+  
+      newSubmit
+         .save()
+         .then((data) => resp.successr(res, data))
+         .catch((error) => resp.errorr(res, error));
+     }
+    }
+   
+
+
+
+
  
 
    exports.admin_Sub_resrc= async (req, res) => {

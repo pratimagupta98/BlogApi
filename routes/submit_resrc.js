@@ -19,7 +19,8 @@ const {
     total_paid_resrc,
     total_free_resrc,
     getone_submitresrc_list,
-    my_content_meteros
+    my_content_meteros,
+    App_Sub_resrc
    
 } = require("../controller/submit_resrc");
 
@@ -61,6 +62,8 @@ const storage = multer.diskStorage({
   
  
  router.post("/user/addSub_resrc",multipleUpload, addSub_resrc);
+ router.post("/user/App_Sub_resrc",multipleUpload, App_Sub_resrc);
+
  router.post("/admin/admin_Sub_resrc",multipleUpload, admin_Sub_resrc);
 
  router.get("/user/user_sub_res_lsit", user_sub_res_lsit);
