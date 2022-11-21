@@ -1,5 +1,7 @@
 const Comment = require("../models/comments");
 const resp = require("../helpers/apiResponse");
+const User = require("../models/user");
+
 // const cloudinary = require("cloudinary").v2;
 // const fs = require("fs");
 const Blogcomment = require("../models/blog_comnt");
@@ -66,15 +68,50 @@ exports.comment_list = async (req, res) => {
   
 
   exports.admin_edit_coment = async (req, res) => {
-    await Comment.findOneAndUpdate(
+   const upateone= await Comment.findOneAndUpdate(
       {
         _id: req.params.id,
       },
       { $set: req.body},
       { new: true }
     )
-      .then((data) => resp.successr(res, data))
-      .catch((error) => resp.errorr(res, error));
+    if(upateone.status == "Active"){
+      //   const getpoint = upateone.meteors
+      //   console.log("getpoint",getpoint)
+  
+      //  const totalmetors = parseInt(getpoint)+ parseInt(10)
+      const getdata = await Comment.findOne({_id :req.params.id}).populate("userid")
+      console.log("STRING",getdata)
+      const getuser = (getdata.userid)
+      console.log("getuser",getuser)
+      const findmeteros =getuser.meteors 
+      console.log("METEROS",findmeteros)
+  
+      var total =parseInt (findmeteros) + parseInt(2)
+  
+      const updateuser =  await User.findOneAndUpdate(
+        {
+          _id:getuser ,
+        },
+        { $set: {meteors:total} },
+        { new: true }
+  
+      )
+  
+      
+   // const getmet  = updateuser.meteors
+    console.log("SSSS",updateuser)
+      res.status(200).json({
+        status: true,
+        status: "success",
+        data: upateone,
+        meteors:updateuser.meteors
+      });
+      }
+
+
+      // .then((data) => resp.successr(res, data))
+      // .catch((error) => resp.errorr(res, error));
   };
   
 

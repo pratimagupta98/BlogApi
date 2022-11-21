@@ -1,4 +1,6 @@
 const Submit = require("../models/submit_resrc");
+const User = require("../models/user");
+
 const resp = require("../helpers/apiResponse");
 const SubCategory = require("../models/subcategory");
 
@@ -205,16 +207,66 @@ data.sub_category =sub_category
   };
 
   exports.approve_submit_resrc = async (req, res) => {
-    await Submit.findOneAndUpdate(
+
+    
+  const upateone =  await Submit.findOneAndUpdate(
       {
         _id: req.params.id,
       },
       { $set: {aprv_status:req.body.aprv_status,status:req.body.status} },
       { new: true }
     )
-      .then((data) => resp.successr(res, data))
-      .catch((error) => resp.errorr(res, error))
+    
+    if(upateone.aprv_status == "Active"){
+    //   const getpoint = upateone.meteors
+    //   console.log("getpoint",getpoint)
+
+    //  const totalmetors = parseInt(getpoint)+ parseInt(10)
+    const getdata = await Submit.findOne({_id :req.params.id}).populate("userid")
+    console.log("STRING",getdata)
+    const getuser = (getdata.userid)
+    console.log("getuser",getuser)
+    const findmeteros =getuser.meteors 
+    console.log("METEROS",findmeteros)
+
+    var total =parseInt (findmeteros) + parseInt(10)
+
+    const updateuser =  await User.findOneAndUpdate(
+      {
+        _id:getuser ,
+      },
+      { $set: {meteors:total} },
+      { new: true }
+
+    )
+
+    
+ // const getmet  = updateuser.meteors
+  console.log("SSSS",updateuser)
+    res.status(200).json({
+      status: true,
+      status: "success",
+      data: upateone,
+      meteors:updateuser.meteors
+    });
+    }
+    // if (upateone) {
+    //   res.status(200).json({
+    //     status: true,
+    //     msg: "success",
+    //     data: upateone,
+    //   });
+     else {
+      res.status(200).json({
+        status: true,
+        status: "success",
+        data: upateone,
+      });
+    }
+    // .then((data) => resp.successr(res, data))
+    // .catch((error) => resp.errorr(res, error))
   };
+
 
 
   exports.listbycategory = async (req, res) => {
@@ -260,3 +312,23 @@ exports.total_free_resrc = async (req, res) => {
 
 
 //and: [{ status: "Active" }, { _id: req.params.id }]
+
+
+exports.my_content_meteros =  async (req, res) => {
+  const getmeteros=  await User.findOne({_id:req.params.id} )
+
+  if(getmeteros){
+    res.status(200).json({
+      status :true,
+      msg :"success",
+      meteors :getmeteros.meteors,
+      
+    })
+  }else{
+    res.status(400).json({
+      status: false,
+      msg: "error",
+      error: "error",
+    });
+  }
+  }

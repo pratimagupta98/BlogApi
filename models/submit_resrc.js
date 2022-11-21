@@ -65,6 +65,10 @@ userid:{
         status:{
             type: String,
             default:"Deactive"   
+        },
+        meteors:{
+            type: Number,
+            default:0  
         }
 
 

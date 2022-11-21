@@ -27,7 +27,19 @@ const thisSchema = new Schema(
     status:{
       type: String,
       default:"Active"
-    }
+    },
+    meteors:{
+      type: Number,
+      default:0  
+  },
+  rating_meteros:{
+    type:Number,
+    default:0
+  },
+  review_meteros:{
+    type:Number,
+    default:0
+  }
 
   },
 
