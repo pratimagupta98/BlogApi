@@ -20,7 +20,9 @@ const {
     total_free_resrc,
     getone_submitresrc_list,
     my_content_meteros,
-    App_Sub_resrc
+    App_Sub_resrc,
+    filterbyfree_subresrc,
+    filterbypaid_subresrc
    
 } = require("../controller/submit_resrc");
 
@@ -82,6 +84,10 @@ const storage = multer.diskStorage({
  router.get("/admin/total_free_resrc", total_free_resrc);
 // router.get("/user/getone_submitresrc_list", getone_submitresrc_list);
 router.get("/user/my_content_meteros/:id", my_content_meteros);
+router.get("/user/filterbyfree_subresrc", filterbyfree_subresrc);
+router.get("/user/filterbypaid_subresrc", filterbypaid_subresrc);
+
+
 
  
 module.exports = router;

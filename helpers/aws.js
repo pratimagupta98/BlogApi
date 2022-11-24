@@ -6,13 +6,15 @@ const s3 = new AWS.S3({
     accessKeyId: process.env.AWS_ACCESS_KEY,
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
 });
+console.log("ss3333",s3)
 
 
 const params = {
-    Bucket: 'experteducation',
+    Bucket: 'blogsbuckets',
     CreateBucketConfiguration: {
         // Set your region here
         LocationConstraint: "ap-south-1"
+        //Asia Pacific (Mumbai) ap-south-1
     }
 };
 

@@ -451,3 +451,28 @@ exports.my_content_meteros =  async (req, res) => {
     });
   }
   }
+
+  ({$and: [{ usertype: "user" }, { aprv_status: "Active" }]})
+
+  exports.filterbypaid_subresrc = async (req, res) => {
+    const findall = await Submit.find({$and: [
+      
+{$and:[{"type": "Paid"}]},{$or:[{status :"Active"},{aprv_status: "Active"}]}
+    ]}).populate("category").populate("sub_category").populate("relYear").populate("language")
+      .then((data) => resp.successr(res, data))
+      .catch((error) => resp.errorr(res, error));
+  };
+
+
+  exports.filterbyfree_subresrc = async (req, res) => {
+    const findall = await Submit.find({$and: [
+       
+{$and:[{"type": "Free"}]},{$or:[{status :"Active"},{aprv_status: "Active"}]}
+    ]}).populate("category").populate("sub_category").populate("relYear").populate("language")
+    
+    .then((data) => resp.successr(res, data))
+    .catch((error) => resp.errorr(res, error));
+  };
+
+
+   
