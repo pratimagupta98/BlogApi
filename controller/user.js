@@ -68,8 +68,8 @@ exports.signup = async (req, res) => {
   };
 
   exports.login = async (req, res) => {
-    const {  email, password } = req.body;
-    const user = await User.findOne( { email: email 
+    const {  email, password,username } = req.body;
+    const user = await User.findOne( {   $or: [{ email: email }, { username: username }],
     });
     console.log("user", user);
     if (user) {
