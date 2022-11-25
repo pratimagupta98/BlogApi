@@ -146,9 +146,6 @@ exports.signup = async (req, res) => {
 
 
 
-
-
-
 //   if (req.files) {
 //     if (req.files.profileImg) {
 //       alluploads = [];
