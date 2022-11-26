@@ -161,12 +161,12 @@ exports.my_likes = async (req, res) => {
         path: "sub_category",
       },
     })
-    .populate({
-      path: "submitresrcId",
-      populate: {
-        path: "language",
-      },
-    })
+    // .populate({
+    //   path: "submitresrcId",
+    //   populate: {
+    //     path: "language",
+    //   },
+   // })
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   };
