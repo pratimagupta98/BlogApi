@@ -56,12 +56,7 @@ exports.my_likes = async (req, res) => {
         path: "sub_category",
       },
     })
-    .populate({
-      path: "submitresrcId",
-      populate: {
-        path: "language",
-      },
-    })
+   
 
       .sort({ createdAt: -1 })
       .then((data) => resp.successr(res, data))
