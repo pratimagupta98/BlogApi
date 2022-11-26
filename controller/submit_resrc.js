@@ -227,7 +227,7 @@ exports.user_sub_res_lsit = async (req, res) => {
     await Submit.find({ usertype: "user" }).populate("category")
       .sort({ createdAt: -1 })
      
-      .populate("category").populate("sub_category").populate("language").populate("relYear").populate("userid")
+      .populate("category").populate("sub_category").populate("relYear").populate("userid")
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   };
@@ -238,7 +238,7 @@ exports.user_sub_res_lsit = async (req, res) => {
     await Submit.find({$and: [{ usertype: "user" }, { aprv_status: "Active" }]}).populate("category")
       .sort({ createdAt: -1 })
      
-      .populate("category").populate("sub_category").populate("language").populate("relYear").populate("userid")
+      .populate("category").populate("sub_category").populate("relYear").populate("userid")
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   };
@@ -247,7 +247,7 @@ exports.user_sub_res_lsit = async (req, res) => {
     await Submit.find({usertype:"admin"}).populate("category")
       .sort({ createdAt: -1 })
      
-      .populate("category").populate("sub_category").populate("language").populate("relYear").populate("userid")
+      .populate("category").populate("sub_category").populate("relYear").populate("userid")
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   };
@@ -256,7 +256,7 @@ exports.user_sub_res_lsit = async (req, res) => {
     await Submit.find({$and: [{ usertype: "admin" }, { status: "Active" }]}).populate("category")
       .sort({ createdAt: -1 })
      
-      .populate("category").populate("sub_category").populate("language").populate("relYear").populate("userid")
+      .populate("category").populate("sub_category").populate("relYear").populate("userid")
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   };
@@ -264,7 +264,7 @@ exports.user_sub_res_lsit = async (req, res) => {
 
 
   exports.getone_reslist = async (req, res) => {
-    await Submit.findOne({ _id: req.params.id }).populate("category").populate("sub_category").populate("language").populate("relYear").populate("userid")
+    await Submit.findOne({ _id: req.params.id }).populate("category").populate("sub_category").populate("relYear").populate("userid")
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   };
@@ -410,7 +410,7 @@ data.sub_category =sub_category
     };
   
     exports.listbysubcategory = async (req, res) => {
-  const findall = await Submit.find({ sub_category: req.params.id }).populate("category").populate("sub_category").populate("relYear").populate("language")
+  const findall = await Submit.find({ sub_category: req.params.id }).populate("category").populate("sub_category").populate("relYear")
     .sort({ sortorder: 1 })
      
     
@@ -471,7 +471,7 @@ exports.my_content_meteros =  async (req, res) => {
     const findall = await Submit.find({$and: [
       
 {$and:[{"type": "Paid"}]},{$or:[{status :"Active"},{aprv_status: "Active"}]}
-    ]}).populate("category").populate("sub_category").populate("relYear").populate("language")
+    ]}).populate("category").populate("sub_category").populate("relYear")
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   };
