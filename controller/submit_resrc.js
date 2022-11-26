@@ -481,7 +481,7 @@ exports.my_content_meteros =  async (req, res) => {
     const findall = await Submit.find({$and: [
        
 {$and:[{type: req.params.id}]},{$or:[{status :"Active"},{aprv_status: "Active"}]}
-    ]}).populate("category").populate("sub_category").populate("relYear").populate("language")
+    ]}).populate("category").populate("sub_category").populate("relYear")
     
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
@@ -493,7 +493,7 @@ exports.my_content_meteros =  async (req, res) => {
     const findall = await Submit.find({$and: [
       
 {$and:[{format: req.params.id}]},{$or:[{status :"Active"},{aprv_status: "Active"}]}
-    ]}).populate("category").populate("sub_category").populate("relYear").populate("language")
+    ]}).populate("category").populate("sub_category").populate("relYear")
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   };
@@ -503,7 +503,7 @@ exports.my_content_meteros =  async (req, res) => {
     const findall = await Submit.find({$and: [
        
 {$and:[{"format": "Text"}]},{$or:[{status :"Active"},{aprv_status: "Active"}]}
-    ]}).populate("category").populate("sub_category").populate("relYear").populate("language")
+    ]}).populate("category").populate("sub_category").populate("relYear")
     
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
