@@ -106,3 +106,67 @@ exports.my_likes = async (req, res) => {
   //     .then((data) => resp.deleter(res, data))
   //     .catch((error) => resp.errorr(res, error));
   // };
+
+
+  // exports.getone_mylikes = async (req, res) => {
+  //   await like.findOne({
+  //       $and: [ { userid: req.params.userid },{submitresrcId: req.params.submitresrcId }, ],
+  //    } )
+  //   //  .populate("userid").populate("submitresrcId").populate({
+  //   //   path: "submitresrcId",
+  //   //   populate: {
+  //   //     path: "relYear",
+  //   //   },
+  //   // })
+  //   // .populate({
+  //   //   path: "submitresrcId",
+  //   //   populate: {
+  //   //     path: "category",
+  //   //   },
+  //   // })
+  //   // .populate({
+  //   //   path: "submitresrcId",
+  //   //   populate: {
+  //   //     path: "sub_category",
+  //   //   },
+  //   // })
+  //   // .populate({
+  //   //   path: "submitresrcId",
+  //   //   populate: {
+  //   //     path: "language",
+  //   //   },
+  //   // })
+
+  //     .sort({ createdAt: -1 })
+  //     .then((data) => resp.successr(res, data))
+  //     .catch((error) => resp.errorr(res, error));
+  // };
+
+  exports.getone_mylikes = async (req, res) => {
+    await like.find({ $and: [{ userid: req.params.userid }, { submitresrcId: req.params.submitresrcId }] }).populate("userid").populate("submitresrcId").populate({
+      path: "submitresrcId",
+      populate: {
+        path: "relYear",
+      },
+    })
+    .populate({
+      path: "submitresrcId",
+      populate: {
+        path: "category",
+      },
+    })
+    .populate({
+      path: "submitresrcId",
+      populate: {
+        path: "sub_category",
+      },
+    })
+    .populate({
+      path: "submitresrcId",
+      populate: {
+        path: "language",
+      },
+    })
+      .then((data) => resp.successr(res, data))
+      .catch((error) => resp.errorr(res, error));
+  };
