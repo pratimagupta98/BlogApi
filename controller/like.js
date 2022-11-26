@@ -143,24 +143,7 @@ exports.my_likes = async (req, res) => {
   // };
 
   exports.getone_mylikes = async (req, res) => {
-    await like.find({ $and: [{ userid: req.params.userid }, { submitresrcId: req.params.submitresrcId }] }).populate("userid").populate("submitresrcId").populate({
-      path: "submitresrcId",
-      populate: {
-        path: "relYear",
-      },
-    })
-    .populate({
-      path: "submitresrcId",
-      populate: {
-        path: "category",
-      },
-    })
-    .populate({
-      path: "submitresrcId",
-      populate: {
-        path: "sub_category",
-      },
-    })
+    await like.find({ $and: [{ userid: req.params.userid }, { submitresrcId: req.params.submitresrcId }] }) 
     // .populate({
     //   path: "submitresrcId",
     //   populate: {
