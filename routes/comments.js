@@ -14,7 +14,9 @@ const {
     adminBlog_Cmntlist,
     getoneBlog_Cmntlist,
     editBlog_Cmntlist,
-    dltBlog_Cmntlist
+    dltBlog_Cmntlist,
+    filterByRating,
+     
 } = require("../controller/comments");
 
  
@@ -34,6 +36,8 @@ router.get("/admin/getoneBlog_Cmntlist/:id", getoneBlog_Cmntlist);
 // router.get("/admin/getoneContactus/:id",     getoneContactus)
  router.post("/admin/editBlog_Cmntlist/:id", editBlog_Cmntlist);
  router.get("/admin/dltBlog_Cmntlist/:id",     dltBlog_Cmntlist)
+ router.get("/user/filterByRating/:id",     filterByRating)
+
 
 module.exports = router;
 

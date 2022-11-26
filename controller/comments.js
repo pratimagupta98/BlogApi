@@ -31,6 +31,9 @@ exports.add_Comment = async (req, res) => {
  }
  
 
+
+
+
 exports.comment_list = async (req, res) => {
     await Comment.find({ $and: [{ submitresrcId: req.params.id }, { status: "Active" }]}).populate("userid").populate("submitresrcId").populate({
         path: "submitresrcId",
@@ -185,5 +188,21 @@ exports.comment_list = async (req, res) => {
   exports.dltBlog_Cmntlist= async (req, res) => {
     await Blogcomment.deleteOne({ _id: req.params.id })
       .then((data) => resp.deleter(res, data))
+      .catch((error) => resp.errorr(res, error));
+  };
+
+
+
+  exports.filterByRating= async (req, res) => {
+    await Comment.find({rating:req.params.id})
+      .sort({ createdAt: -1 }).populate("userid").populate("submitresrcId").populate({
+        path: "submitresrcId",
+        populate: {
+          path: "category",
+        },
+      })
+    
+      
+      .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   };
