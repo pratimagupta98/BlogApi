@@ -22,7 +22,8 @@ const {
     my_content_meteros,
     App_Sub_resrc,
     filter_type,
-    filterbypaid_subresrc
+    filterbypaid_subresrc,
+    filterbyFormat
    
 } = require("../controller/submit_resrc");
 
@@ -85,10 +86,10 @@ const storage = multer.diskStorage({
 // router.get("/user/getone_submitresrc_list", getone_submitresrc_list);
 router.get("/user/my_content_meteros/:id", my_content_meteros);
 router.get("/user/filter_type/:id", filter_type);
-router.get("/user/filterbypaid_subresrc", filterbypaid_subresrc);
+router.get("/user/filterbyFormat/:id", filterbyFormat);
 
 
-
+ 
  
 module.exports = router;
 
