@@ -141,7 +141,7 @@ exports.dis_book_mark = async (req, res) => {
 // };
 
 exports.getone_mylikes = async (req, res) => {
-  await like.find({ $and: [{ userid: req.params.userid }, { submitresrcId: req.params.submitresrcId }] })
+  await like.findOne({ $and: [{ userid: req.params.userid }, { submitresrcId: req.params.submitresrcId }] })
     // .populate({
     //   path: "submitresrcId",
     //   populate: {
