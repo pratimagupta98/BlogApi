@@ -13,7 +13,8 @@ const thisSchema = new Schema({
         ref: "user"
     },
     status:{
-        type:String
+        type:String,
+        default:"true"
     }
     //like,unlike
      
