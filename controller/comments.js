@@ -1,6 +1,7 @@
 const Comment = require("../models/comments");
 const resp = require("../helpers/apiResponse");
 const User = require("../models/user");
+var _ = require('lodash');
 
 // const cloudinary = require("cloudinary").v2;
 // const fs = require("fs");
@@ -206,3 +207,62 @@ exports.comment_list = async (req, res) => {
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   };
+ // {"razorpay_payment_id": {$ne: ''  }},{"razorpay_payment_id":{ $ne: undefined }
+
+  // ({$and: [
+      
+  //   {$and:[{"type": "Paid"}]},{$or:[{status :"Active"},{aprv_status: "Active"}]}
+  //       ]})
+
+
+  exports.average_rating = async (req, res) => {
+  //  const getrating= await Comment.find({ $and: [{ submitresrcId: req.params.id }, { status: "Active" }]})
+
+ const getrating = await Comment.find ({$and: [
+      
+    {$and:[{submitresrcId: req.params.id},{status: "Active"}]},{$or:[{"rating": {$ne: ''  }},{"rating":{ $ne: undefined }}]}
+        ]})
+   if(getrating){
+       var newarr1 = getrating.map(function (value) {
+       // return value+= value;
+return value.rating
+      });
+
+      // let total = newarr1/
+
+      console.log("New Array",newarr1)
+      console.log(newarr1.length); // undefined
+       var ttlr = newarr1.length
+       console.log("tt",ttlr)
+      let ratingttl = _.sumBy([...newarr1]);
+      console.log("rTotal",ratingttl);
+let average = ratingttl/ttlr
+console.log("Avrage",average)
+res.status(200).json({
+  status:"true",
+  msg :"success",
+  data :average
+})
+   }else{
+res.status(400).json({
+  status: false,
+  msg: "error",
+  error: "error",
+});
+   }
+};
+     
+        // for (let i = 0; i <= getr.length; i++) {
+        //   if (getr[i].rating == undefined) {
+        //   } else {
+        //     sum += getr[i].rating;
+        //     totalRating.push(getr[i].rating);
+        //   }
+        // } 
+        // console.log("result",totalRating)
+      
+      // let sumprofit1 = _.sumBy([...newarr1]);
+      // console.log("PROFIT11",sumprofit1)
+
+       
+  
