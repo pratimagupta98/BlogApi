@@ -236,7 +236,7 @@ return value.rating
        console.log("tt",ttlr)
       let ratingttl = _.sumBy([...newarr1]);
       console.log("rTotal",ratingttl);
-let average = ratingttl/ttlr
+let average = (ratingttl/ttlr).toFixed(1)
 console.log("Avrage",average)
 res.status(200).json({
   status:"true",
