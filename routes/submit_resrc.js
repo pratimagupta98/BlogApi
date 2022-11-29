@@ -65,7 +65,7 @@ const storage = multer.diskStorage({
   
  
  router.post("/user/addSub_resrc",multipleUpload, addSub_resrc);
- router.post("/user/App_Sub_resrc",multipleUpload, App_Sub_resrc);
+ router.post("/user/App_Sub_resrc",uploads.single("img"), App_Sub_resrc);
 
  router.post("/admin/admin_Sub_resrc",multipleUpload, admin_Sub_resrc);
 
@@ -73,7 +73,7 @@ const storage = multer.diskStorage({
  router.get("/admin/admin_sub_res_lsit", admin_sub_res_lsit);
 
  router.get("/admin/getone_reslist/:id", getone_reslist);
- router.post("/admin/edit_submit_rsrc/:id",multipleUpload, edit_submit_rsrc);
+  router.post("/admin/edit_submit_rsrc/:id",multipleUpload, edit_submit_rsrc);
  router.get("/admin/dlt_subres_list/:id", dlt_subres_list);
  router.post("/admin/approve_submit_resrc/:id", approve_submit_resrc);
  router.get("/admin/listbycategory/:id", listbycategory);

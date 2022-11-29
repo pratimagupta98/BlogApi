@@ -37,7 +37,7 @@ userid:{
         },
 
         img: {
-            type: Array,
+            type: String,
         },
         resTitle:{
             type: String,

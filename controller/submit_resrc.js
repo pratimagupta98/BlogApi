@@ -6,6 +6,11 @@ const SubCategory = require("../models/subcategory");
 
  const cloudinary = require("cloudinary").v2;
  const fs = require("fs");
+ cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
  const { uploadBase64ImageFile } = require("../helpers/awsuploader");
  var signatures = {
@@ -113,6 +118,7 @@ exports.addSub_resrc= async (req, res) => {
       res_desc:res_desc,
       comment:comment,
       language:language,
+      img:img,
       usertype:"user"
      });
       // if (req.files) {
@@ -153,22 +159,40 @@ exports.addSub_resrc= async (req, res) => {
       //   }
   
       //$$$$$$$$$$$
-      if (req.files) {
-        if (req.files.img) {
-          alluploads = [];
-          for (let i = 0; i < req.files.img.length; i++) {
-            const resp = await cloudinary.uploader.upload(
-              req.files.img[i].path,
-              { use_filename: true, unique_filename: false }
-            );
-            fs.unlinkSync(req.files.img[i].path);
-            alluploads.push(resp.secure_url);
-          }
-          newSubmit.img = alluploads;
-        }
+      // if (req.files) {
+      //   if (req.files.img) {
+      //     alluploads = [];
+      //     for (let i = 0; i < req.files.img.length; i++) {
+      //       const resp = await cloudinary.uploader.upload(
+      //         req.files.img[i].path,
+      //         { use_filename: true, unique_filename: false }
+      //       );
+      //       fs.unlinkSync(req.files.img[i].path);
+      //       alluploads.push(resp.secure_url);
+      //     }
+      //     newSubmit.img = alluploads;
+      //   }
+      // }
+      // if (req.files) {
+      //   if (req.files.img) {
+      //     alluploads = [];
+      //     for (let i = 0; i < req.files.img.length; i++) {
+      //       const resp = await cloudinary.uploader.upload(
+      //         req.files.img[i].path,
+      //         { use_filename: true, unique_filename: false }
+      //       );
+      //       fs.unlinkSync(req.files.img[i].path);
+      //       alluploads.push(resp.secure_url);
+      //     }
+      //     newSubmit.img = alluploads;
+      //   }
+      // }
+      if (req.file) {
+        const resp = await cloudinary.uploader.upload(req.file.path);
+        // if (resp) {
+          newSubmit.img = resp.secure_url;
+        fs.unlinkSync(req.file.path);
       }
-  
-  
       newSubmit
          .save()
          .then((data) => resp.successr(res, data))
