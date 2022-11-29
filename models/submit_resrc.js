@@ -25,10 +25,10 @@ userid:{
         format: {
             type: String,
         },
-        // language: [{
-        //     type: mongoose.Schema.Types.ObjectId,
-        //     ref: "language"
-        // }],
+        language: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "language"
+        }],
         topics: [{
             type: String
         }],

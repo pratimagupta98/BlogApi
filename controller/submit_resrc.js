@@ -96,7 +96,7 @@ exports.addSub_resrc= async (req, res) => {
 
 
   exports.App_Sub_resrc= async (req, res) => {
-    const { userid,link,category,sub_category,type,format,topics,desc,resTitle,creatorName,relYear,res_desc,comment,img} = req.body;
+    const { userid,link,category,sub_category,type,format,topics,desc,resTitle,creatorName,relYear,res_desc,comment,language,img} = req.body;
   
     const newSubmit= new Submit({
       userid:userid,
@@ -112,6 +112,7 @@ exports.addSub_resrc= async (req, res) => {
       relYear:relYear,
       res_desc:res_desc,
       comment:comment,
+      language:language,
       usertype:"user"
      });
       // if (req.files) {
