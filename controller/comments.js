@@ -2,6 +2,7 @@ const Comment = require("../models/comments");
 const resp = require("../helpers/apiResponse");
 const User = require("../models/user");
 var _ = require('lodash');
+const Submit = require("../models/submit_resrc");
 
 // const cloudinary = require("cloudinary").v2;
 // const fs = require("fs");
@@ -237,12 +238,27 @@ return value.rating
       let ratingttl = _.sumBy([...newarr1]);
       console.log("rTotal",ratingttl);
 let average = (ratingttl/ttlr).toFixed(1)
+//ava_rating
+const getone = await Submit.findOneAndUpdate(
+  {
+    _id:req.params.id,
+  },
+  { $set:{ava_rating:average}},
+  { new: true }
+
+)
+//const getone = await Submit.findOne({_id:req.params.id})
+console.log("GETONE",getone)
 console.log("Avrage",average)
+if(getone){
 res.status(200).json({
   status:"true",
   msg :"success",
-  data :average
+  data :average,
+  datas:getone
+ // avarageRating:getone.average
 })
+}
    }else{
 res.status(400).json({
   status: false,

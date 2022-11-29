@@ -96,9 +96,7 @@ exports.addSub_resrc= async (req, res) => {
        .catch((error) => resp.errorr(res, error));
    }
   
-
-
-
+ 
 
   exports.App_Sub_resrc= async (req, res) => {
     const { userid,link,category,sub_category,type,format,topics,desc,resTitle,creatorName,relYear,res_desc,comment,language,img} = req.body;

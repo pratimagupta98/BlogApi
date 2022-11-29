@@ -69,7 +69,12 @@ userid:{
         meteors:{
             type: Number,
             default:0  
-        }
+        },
+        ava_rating:{
+            type: String,
+            default:0  
+          }
+       
 
 
     },
