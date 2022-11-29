@@ -1,5 +1,6 @@
 const Submit = require("../models/submit_resrc");
 const User = require("../models/user");
+const Category = require("../models/category");
 
 const resp = require("../helpers/apiResponse");
 const SubCategory = require("../models/subcategory");
@@ -409,20 +410,71 @@ data.sub_category =sub_category
 
 
   exports.listbycategory = async (req, res) => {
-    await SubCategory.find({ category: req.params.id }).populate("category") 
+  const getone =   await SubCategory.find({ category: req.params.id }).populate("category") 
         .sort({ sortorder: 1 })
-         
-        .then((data) => resp.successr(res, data))
-        .catch((error) => resp.errorr(res, error));
+        console.log("getone",getone)
+
+        if(getone){
+      //  var sublength = getone.length
+        //  console.log("subcategoryLength",sublength)
+          const finddata = await Category.findOneAndUpdate(
+            {
+              _id:req.params.id,
+            },
+            { $set:{subCount:getone.length}},
+            { new: true }
+          
+          )
+          console.log("finddata",finddata)
+          res.status(200).json({
+          status: true,
+          message: "success",
+         count: getone.length,
+          data: getone,
+          })
+        }else{
+          res.status(400).json({
+          status: false,
+          message: "error",
+          error: error,
+        })
+      }
+        // .then((data) => resp.successr(res, data))
+        // .catch((error) => resp.errorr(res, error));
     };
   
     exports.listbysubcategory = async (req, res) => {
-  const findall = await Submit.find({ sub_category: req.params.id }).populate("category").populate("sub_category").populate("relYear")
+  const getone = await Submit.find({ sub_category: req.params.id }).populate("category").populate("sub_category").populate("relYear")
     .sort({ sortorder: 1 })
+
+    if(getone){
+
+      const finddata = await SubCategory.findOneAndUpdate(
+        {
+          _id:req.params.id,
+        },
+        { $set:{conent_count:getone.length}},
+        { new: true }
+      
+      )
+      console.log("finddata",finddata)
+      res.status(200).json({
+      status: true,
+      message: "success",
+     count: getone.length,
+      data: getone,
+      })
+    }else{
+      res.status(400).json({
+      status: false,
+      message: "error",
+      error: error,
+    })
+  }
      
     
-    .then((data) => resp.successr(res, data))
-    .catch((error) => resp.errorr(res, error));
+    // .then((data) => resp.successr(res, data))
+    // .catch((error) => resp.errorr(res, error));
 }
 
 

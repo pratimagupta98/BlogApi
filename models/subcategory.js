@@ -16,6 +16,10 @@ ref:"category"
        },
        Subcat_img:{
         type :Array
+       },
+       conent_count:{
+        type:Number,
+        default:0
        }
        
       },

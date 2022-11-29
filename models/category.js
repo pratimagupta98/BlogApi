@@ -13,7 +13,11 @@ const thisSchema = new Schema(
        },
        cat_img:{
         type :Array
+       },
+       subCount:{
+        type:Number,
        }
+
       },
      
     { timestamps: true }
