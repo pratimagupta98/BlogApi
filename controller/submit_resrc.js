@@ -50,20 +50,12 @@ exports.addSub_resrc= async (req, res) => {
     comment:comment,
     usertype:"user"
    });
-    if (req.files) {
-      if (req.files.img) {
-        alluploads = [];
-        for (let i = 0; i < req.files.img.length; i++) {
-          const resp = await cloudinary.uploader.upload(
-            req.files.img[i].path,
-            { use_filename: true, unique_filename: false }
-          );
-          fs.unlinkSync(req.files.img[i].path);
-          alluploads.push(resp.secure_url);
-        }
-        newSubmit.img = alluploads;
-      }
-    }
+   if (req.file) {
+    const resp = await cloudinary.uploader.upload(req.file.path);
+    // if (resp) {
+      newSubmit.img = resp.secure_url;
+    fs.unlinkSync(req.file.path);
+  }
 
 
     // if (img) {
@@ -224,20 +216,12 @@ exports.addSub_resrc= async (req, res) => {
       comment:comment,
       usertype:"admin"
      });
-      if (req.files) {
-        if (req.files.img) {
-          alluploads = [];
-          for (let i = 0; i < req.files.img.length; i++) {
-            const resp = await cloudinary.uploader.upload(
-              req.files.img[i].path,
-              { use_filename: true, unique_filename: false }
-            );
-            fs.unlinkSync(req.files.img[i].path);
-            alluploads.push(resp.secure_url);
-          }
-          newSubmit.img = alluploads;
-        }
-      }
+     if (req.file) {
+      const resp = await cloudinary.uploader.upload(req.file.path);
+      // if (resp) {
+        newSubmit.img = resp.secure_url;
+      fs.unlinkSync(req.file.path);
+    }
       newSubmit
          .save()
          .then((data) => resp.successr(res, data))
