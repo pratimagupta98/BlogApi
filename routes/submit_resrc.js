@@ -23,7 +23,8 @@ const {
     App_Sub_resrc,
     filter_type,
     filterbypaid_subresrc,
-    filterbyFormat
+    filterbyFormat,
+    search_topic_title
    
 } = require("../controller/submit_resrc");
 
@@ -89,7 +90,8 @@ router.get("/user/filter_type/:id", filter_type);
 router.get("/user/filterbyFormat/:id", filterbyFormat);
 
 
- 
+router.post("/user/search_topic_title", search_topic_title);
+
  
 module.exports = router;
 

@@ -570,4 +570,40 @@ exports.my_content_meteros =  async (req, res) => {
   };
 
 
-   
+  exports.searchinputproduct = async (req, res) => {
+    const { oneinput } = req.body;
+    await Product.find({ product_name: { $regex: oneinput, $options: "i" } })
+      .then((data) => {
+        res.status(200).json({
+          status: true,
+          data: data,
+        });
+      })
+      .catch((error) => {
+        res.status(400).json({
+          status: false,
+          msg: "error",
+          error: error,
+        });
+      });
+  };
+
+  exports.search_topic_title = async(req,res) =>{
+    const {searchinput} = req.body
+    await Submit.find({$or :[{resTitle:{$regex:searchinput , $options:"i"}},
+    {topics : {$regex:searchinput,$options:"i"}}
+  ]})
+  .then((data) => {
+    res.status(200).json({
+      status: true,
+      data: data,
+    });
+  })
+  .catch((error) => {
+    res.status(400).json({
+      status: false,
+      msg: "error",
+      error: error,
+    });
+  });
+  }
