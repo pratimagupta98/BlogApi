@@ -508,6 +508,9 @@ exports.my_content_meteros =  async (req, res) => {
       status :true,
       msg :"success",
       meteors :getmeteros.meteors,
+      rating_meteros:getmeteros.rating_meteros,
+      review_meteros:getmeteros.review_meteros
+
       
     })
   }else{
