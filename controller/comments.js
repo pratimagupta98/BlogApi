@@ -73,45 +73,93 @@ exports.comment_list = async (req, res) => {
   
 
   exports.admin_edit_coment = async (req, res) => {
+    const {userid,rating} = req.body
    const upateone= await Comment.findOneAndUpdate(
       {
         _id: req.params.id,
       },
-      { $set: req.body},
+      { $set: {status:"Active"}},
       { new: true }
     )
-    if(upateone.status == "Active"){
-      //   const getpoint = upateone.meteors
-      //   console.log("getpoint",getpoint)
+    console.log("STATUS",upateone)
+    if(upateone?.status == "Active"){
+      const getone = await Comment.findOne({$and:[{userid:userid},{rating:rating}]})
+      console.log("getone",getone)
+    
+      const getoneComment = await Comment.findOne({$and:[{userid:userid},{comment:comment}]})
+      console.log("getoneComment",getoneComment)
+      const bothfind = await Comment.findOne({$and:[{$and:[{userid:userid}]},{$and:[{rating:rating},{comment:comment}]}]
+    })
+    if(getone){
+
+      const getuser = await User.findOne({_id:req.body.userid})
+    const findmeteros = getuser.meteors
+    console.log("findmeteros",findmeteros)
+   
+   
+    var total =parseInt (findmeteros) + parseInt(2)
+  console.log("TOTAL",total)
+    const updateuser =  await User.findOneAndUpdate(
+      {
+        _id:getuser ,
+      },
+      { $set: {meteors:total,rating_meteros:2}},
+      { new: true }
   
-      //  const totalmetors = parseInt(getpoint)+ parseInt(10)
-      const getdata = await Comment.findOne({_id :req.params.id}).populate("userid")
-      console.log("STRING",getdata)
-      const getuser = (getdata.userid)
-      console.log("getuser",getuser)
-      const findmeteros =getuser.meteors 
-      console.log("METEROS",findmeteros)
-  
-      var total =parseInt (findmeteros) + parseInt(2)
-  
+    )
+      newComment
+         .save()
+         .then((data) => resp.successr(res, data))
+         .catch((error) => resp.errorr(res, error));
+    }  if(getoneComment) {
+      const getuser = await User.findOne({_id:req.body.userid})
+      const findmeteros = getuser.meteors
+      console.log("findmeteros",findmeteros)
+     
+     
+      var total =parseInt (findmeteros) + parseInt(5)
+    console.log("TOTAL",total)
       const updateuser =  await User.findOneAndUpdate(
         {
           _id:getuser ,
         },
-        { $set: {meteors:total} },
+        { $set: {meteors:total,review_meteros:5}},
         { new: true }
-  
+    
       )
-  
+        newComment
+           .save()
+           .then((data) => resp.successr(res, data))
+           .catch((error) => resp.errorr(res, error));
+  } if(bothfind){
+    // if(bothfind){
+       const getuser = await User.findOne({_id:req.body.userid})
+       const findmeteros = getuser.meteors
+       console.log("findmeteros",findmeteros)
       
-   // const getmet  = updateuser.meteors
-    console.log("SSSS",updateuser)
-      res.status(200).json({
-        status: true,
-        status: "success",
-        data: upateone,
-        meteors:updateuser.meteors
-      });
+      
+       var total =parseInt (findmeteros) + parseInt(7)
+     console.log("TOTAL",total)
+       const updateuser =  await User.findOneAndUpdate(
+         {
+           _id:getuser ,
+         },
+         { $set: {meteors:total,rating_meteros:2,review_meteros:5}},
+         { new: true }
+     
+       )
+         newComment
+            .save()
+            .then((data) => resp.successr(res, data))
+            .catch((error) => resp.errorr(res, error));
+            console.log("updateuser",updateuser)
+}
+  }
+      else{
+        res.status(400).json({
+          status:false,
+          error:"error"
+        })
       }
 
 

@@ -190,16 +190,9 @@ exports.addSub_resrc= async (req, res) => {
          .then((data) => resp.successr(res, data))
          .catch((error) => resp.errorr(res, error));
      }
-    
-   
-
-
-
-
- 
 
    exports.admin_Sub_resrc= async (req, res) => {
-    const { link,category,sub_category,type,format,language,topics,desc,resTitle,creatorName,relYear,res_desc,comment} = req.body;
+    const { link,category,sub_category,type,format,language,topics,desc,resTitle,creatorName,relYear,res_desc,comment,img} = req.body;
   
     const newSubmit= new Submit({
         
@@ -216,6 +209,7 @@ exports.addSub_resrc= async (req, res) => {
       relYear:relYear,
       res_desc:res_desc,
       comment:comment,
+      img:img,
       usertype:"admin"
      });
      if (req.file) {
