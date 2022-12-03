@@ -33,6 +33,8 @@ const privacy_policy = require("./routes/privacy_policy")
 const terms_condition = require("./routes/terms_condition")
 const how_it_works = require("./routes/how_it_works")
 const notification = require("./routes/notification")
+const planet_position = require("./routes/planet_position")
+
 
 
 //console
@@ -58,6 +60,7 @@ app.use("/", privacy_policy);
 app.use("/", terms_condition);
 app.use("/", how_it_works);
 app.use("/", notification);
+app.use("/", planet_position );
 
 
 
