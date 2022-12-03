@@ -617,3 +617,15 @@ exports.my_content_meteros =  async (req, res) => {
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   };
+
+
+  exports.filterbyLanguage = async (req, res) => {
+
+
+    const findall = await Submit.find({$and: [
+      
+{$and:[{language:req.params.id}]},{$or:[{status :"Active"},{aprv_status: "Active"}]}
+    ]}).populate("category").populate("sub_category").populate("relYear")
+      .then((data) => resp.successr(res, data))
+      .catch((error) => resp.errorr(res, error));
+  };

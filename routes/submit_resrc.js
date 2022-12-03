@@ -25,7 +25,8 @@ const {
     filterbypaid_subresrc,
     filterbyFormat,
     search_topic_title,
-    filterbyyear
+    filterbyyear,
+    filterbyLanguage
    
 } = require("../controller/submit_resrc");
 
@@ -94,7 +95,8 @@ router.get("/user/filterbyFormat/:id", filterbyFormat);
 router.post("/user/search_topic_title", search_topic_title);
 router.get("/user/filterbyyear", filterbyyear);
 
- 
+router.get("/user/filterbyLanguage/:id", filterbyLanguage);
+
 module.exports = router;
 
 
