@@ -7,11 +7,11 @@ const thisSchema = new Schema({
     planet_name:{
         type: String
     },
-    points:{
+    point_range:{
         type: String
     },
     doller_rupees:{
-        type: Number
+        type: String
     },
     img:{
         type: String
