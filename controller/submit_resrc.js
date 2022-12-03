@@ -604,3 +604,16 @@ exports.my_content_meteros =  async (req, res) => {
     });
   });
   }
+
+
+  
+  exports.filterbyyear = async (req, res) => {
+
+
+    const findall = await Submit.find({$and: [
+      
+{$or:[{relYear:"634d0a280711bbf60281b73e"},{relYear:"634d0a280711bbf60281b73f"}]},{$or:[{status :"Active"},{aprv_status: "Active"}]}
+    ]}).populate("category").populate("sub_category").populate("relYear")
+      .then((data) => resp.successr(res, data))
+      .catch((error) => resp.errorr(res, error));
+  };

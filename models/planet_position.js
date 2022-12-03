@@ -13,9 +13,12 @@ const thisSchema = new Schema({
     doller_rupees:{
         type: Number
     },
+    img:{
+        type: String
+    }
     
 },
     { timestamps: true }
 )
 
-module.exports = mongoose.model("leaderbored", thisSchema)
+module.exports = mongoose.model("plant_position", thisSchema)
