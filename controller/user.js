@@ -217,3 +217,54 @@ exports.signup = async (req, res) => {
   }
 
  // countDocuments()
+
+ exports.karma_crrnt_month = async (req, res) => {
+//   const currentMonth = new Date().getMonth() + 1;
+//   console.log(currentMonth);
+
+// //console.log("GET CURRENT MONTH",name)
+
+// console.log(new Date().toLocaleString(
+//   'en-US', {month: 'long'})
+  let qq=new Date(new Date().setFullYear(new Date().getFullYear() ))
+
+  const date1 = ("0" + qq.getDate()).slice(-2);
+  console.log("date1",date1)
+  const month = ("0" + (qq.getMonth() + 1)).slice(-2);
+  const year = qq.getFullYear();
+  console.log("month",month)
+
+  var createdAt = "2022-12-03T12:44:20.221+00:00"
+  var date = new Date(createdAt)
+  console.log(date.getDate() +  " " + date.toLocaleString('default', { month: 'long' }) + " " + date.getFullYear())
+  
+  // Or even more concise (Thanks @RobG)
+  console.log(date.toLocaleString('en-GB', {day:'numeric', month: 'long', year:'numeric'}))
+
+
+  //javascriptCopyvar timestamp = 1607110465663
+// var date = new Date(timestamp);
+
+// console.log("Date: "+date.getDate()+
+//           "/"+(date.getMonth()+1)+
+//           "/"+date.getFullYear()+
+//           " "+date.getHours()+
+//           ":"+date.getMinutes()+
+//           ":"+date.getSeconds());
+function toTimestamp(strDate){
+  var datum = Date.parse(strDate);
+  return datum/1000;
+}
+
+var timeStamp = Date.now()
+var date = new Date(timeStamp);
+console.log(date)
+
+var date = new Date();
+var firstDay = new Date(date.getFullYear(), date.getMonth(), 2);
+var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+console.log("FIRST",firstDay)
+console.log("lAST",lastDay)
+
+
+ }

@@ -4,7 +4,7 @@ const multer = require("multer");
 const fs = require("fs");
 
 const {
-    add_planet_position,user_planet_position
+    add_planet_position,user_planet_position,edit_planet_position
    
 } = require("../controller/planet_position.js");
 
@@ -44,7 +44,7 @@ const storage = multer.diskStorage({
  
  router.post("/admin/add_planet_position",uploads.single("img"), add_planet_position);
  router.get("/user/user_planet_position", user_planet_position);
-// // router.get("/admin/getoneContactus/:id",     getoneContactus)
+ router.post("/admin/edit_planet_position/:id",edit_planet_position)
 //  router.post("/user/dis_book_mark/:id",     dis_book_mark);
 // //router.get("/admin/dltmany",     dltmany)
 // router.get("/user/getone_mylikes/:userid/:submitresrcId",getone_mylikes);

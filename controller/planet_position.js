@@ -33,3 +33,15 @@ exports.add_planet_position = async (req, res) => {
     .catch((error) => resp.errorr(res, error));
 };
  
+
+exports.edit_planet_position = async (req, res) => {
+  await Planet.findOneAndUpdate(
+    {
+      _id: req.params.id,
+    },
+    { $set: req.body },
+    { new: true }
+  )
+    .then((data) => resp.successr(res, data))
+    .catch((error) => resp.errorr(res, error));
+};
