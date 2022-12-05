@@ -108,7 +108,7 @@ exports.getallSubCategory = async (req, res) => {
   
 
   exports.listbysubCategory = async (req, res) => {
-    await SubCategory.find({ category: req.params.id }).populate("category").populate("relYear")
+    await SubCategory.find({$and:[{ category: req.params.id},{aprv_status:"Active"} ]}).populate("category").populate("relYear")
         .sort({ sortorder: 1 })
          
         .then((data) => resp.successr(res, data))

@@ -439,7 +439,7 @@ data.sub_category =sub_category
     };
   
     exports.listbysubcategory = async (req, res) => {
-  const getone = await Submit.find({ sub_category: req.params.id }).populate("category").populate("sub_category").populate("relYear")
+  const getone = await Submit.find({$and:[{sub_category: req.params.id },{aprv_status:"Active"}]}).populate("category").populate("sub_category").populate("relYear")
     .sort({ sortorder: 1 })
 
     if(getone){
