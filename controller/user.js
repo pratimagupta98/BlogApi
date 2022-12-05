@@ -53,8 +53,8 @@ exports.signup = async (req, res) => {
     
     });
   
-    const findexist = await User.findOne({
-   email: email }
+    const findexist = await User.findOne({$or:[{
+   email: email },{username: username }]}
     )
     if (findexist) {
       resp.alreadyr(res);
