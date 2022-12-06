@@ -537,7 +537,7 @@ exports.my_content_meteros =  async (req, res) => {
   exports.filter_type = async (req, res) => {
     const findall = await Submit.find({$and: [
        
-{$and:[{type: req.params.id}]},{$or:[{status :"Active"},{aprv_status: "Active"}]}
+{$and:[{sub_category:req.params.sub_category},{type: req.params.id}]},{$and:[{aprv_status: "Active"}]}
     ]}).populate("category").populate("sub_category").populate("relYear").populate("language")
     
     .then((data) => resp.successr(res, data))

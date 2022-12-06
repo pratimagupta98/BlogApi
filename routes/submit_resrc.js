@@ -88,7 +88,7 @@ const storage = multer.diskStorage({
  router.get("/admin/total_free_resrc", total_free_resrc);
 // router.get("/user/getone_submitresrc_list", getone_submitresrc_list);
 router.get("/user/my_content_meteros/:id", my_content_meteros);
-router.get("/user/filter_type/:id", filter_type);
+router.get("/user/filter_type/:sub_category/:id", filter_type);
 router.get("/user/filterbyFormat/:id", filterbyFormat);
 
 
