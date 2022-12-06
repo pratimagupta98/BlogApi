@@ -89,13 +89,13 @@ const storage = multer.diskStorage({
 // router.get("/user/getone_submitresrc_list", getone_submitresrc_list);
 router.get("/user/my_content_meteros/:id", my_content_meteros);
 router.get("/user/filter_type/:sub_category/:id", filter_type);
-router.get("/user/filterbyFormat/:id", filterbyFormat);
+router.get("/user/filterbyFormat/:sub_category/:id", filterbyFormat);
 
 
 router.post("/user/search_topic_title", search_topic_title);
-router.get("/user/filterbyyear", filterbyyear);
+router.get("/user/filterbyyear/:sub_category/:id", filterbyyear);
 
-router.get("/user/filterbyLanguage/:id", filterbyLanguage);
+router.get("/user/filterbyLanguage/:sub_category/:id", filterbyLanguage);
 
 module.exports = router;
 

@@ -549,7 +549,7 @@ exports.my_content_meteros =  async (req, res) => {
   exports.filterbyFormat = async (req, res) => {
     const findall = await Submit.find({$and: [
       
-{$and:[{format: req.params.id}]},{$or:[{status :"Active"},{aprv_status: "Active"}]}
+{$and:[{sub_category:req.params.sub_category},{format: req.params.id}]},{$and:[{aprv_status: "Active"}]}
     ]}).populate("category").populate("sub_category").populate("relYear").populate("language")
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
@@ -559,7 +559,7 @@ exports.my_content_meteros =  async (req, res) => {
   exports.filterbytext = async (req, res) => {
     const findall = await Submit.find({$and: [
        
-{$and:[{"format": "Text"}]},{$or:[{status :"Active"},{aprv_status: "Active"}]}
+{$and:[{sub_category:req.params.sub_category},{"format": "Text"}]},{$and:[ {aprv_status: "Active"}]}
     ]}).populate("category").populate("sub_category").populate("relYear").populate("language")
     
     .then((data) => resp.successr(res, data))
@@ -612,7 +612,7 @@ exports.my_content_meteros =  async (req, res) => {
 
     const findall = await Submit.find({$and: [
       
-{$or:[{relYear:"634d0a280711bbf60281b73e"},{relYear:"634d0a280711bbf60281b73f"}]},{$or:[{status :"Active"},{aprv_status: "Active"}]}
+{$or:[{sub_category:req.params.sub_category},{relYear:req.params.id}]},{$and:[{aprv_status: "Active"}]}
     ]}).populate("category").populate("sub_category").populate("relYear").populate("language")
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
@@ -624,7 +624,7 @@ exports.my_content_meteros =  async (req, res) => {
 
     const findall = await Submit.find({$and: [
       
-{$and:[{language:req.params.id}]},{$or:[{status :"Active"},{aprv_status: "Active"}]}
+{$and:[{sub_category:req.params.sub_category},{language:req.params.id}]},{$and:[{aprv_status: "Active"}]}
     ]}).populate("category").populate("sub_category").populate("relYear").populate("language")
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
