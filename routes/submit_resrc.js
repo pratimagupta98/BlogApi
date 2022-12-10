@@ -30,33 +30,20 @@ const {
    
 } = require("../controller/submit_resrc");
 
+if (!fs.existsSync("./uploads")) {
+  fs.mkdirSync("./uploads");
+}
+
 const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      //console.log(file);
-      let path = `./uploads`;
-      if (!fs.existsSync("uploads")) {
-        fs.mkdirSync("uploads");
-      }
-      cb(null, path);
-    },
-    filename: function (req, file, cb) {
-      cb(null, file.originalname);
-    },
-  });
-  
-  const fileFilter = (req, file, cb) => {
-    if (
-      file.mimetype.includes("jpeg") ||
-      file.mimetype.includes("png") ||
-      file.mimetype.includes("jpg") ||
-       file.mimetype.includes("pdf")
-    ) {
-      cb(null, true);
-    } else {
-      cb(null, false);
-    }
-  };
-  
+  destination: function (req, file, cb) {
+    cb(null, "./uploads");
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    cb(null, file.fieldname + "-" + uniqueSuffix);
+  },
+});
+
   let uploads = multer({ storage: storage });
   
   let multipleUpload = uploads.fields([

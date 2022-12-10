@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
+const AWS = require("aws-sdk");
+const fs = require("fs");
 
 require("dotenv").config();
 const mongoose = require("mongoose");
@@ -75,6 +77,17 @@ app.get("/", (req, res) => {
 });
 
 //console.log(process.env.DB);
+// const s3 = new AWS.S3({
+//   accessKeyId: process.env.AWS_ACCESS_KEY,
+//   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+// });
+
+
+const s3 = new AWS.S3({
+  accessKeyId: process.env.AWS_ACCESS_KEY,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+});
+//console.log("ss3333",s3)
 mongoose
   .connect(process.env.DB, {
     useNewUrlParser: true,

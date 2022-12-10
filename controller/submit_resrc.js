@@ -13,7 +13,12 @@ const SubCategory = require("../models/subcategory");
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
+//uploadFile
+ const { imageUpload } = require("../helpers/awsuploader");
+
  const { uploadBase64ImageFile } = require("../helpers/awsuploader");
+
+
  var signatures = {
    JVBERi0: "application.pdf",
    R0lGODdh: "image.gif",
@@ -129,26 +134,26 @@ exports.addSub_resrc= async (req, res) => {
       // }
   
   //##############
-      // if (img) {
-      //   if (img) {
-          
-  
-      //     const base64Data = new Buffer.from(img.replace(/^data:image\/\w+;base64,/, ""), 'base64');
-      //     detectMimeType(base64Data);
-      //     const type = detectMimeType(img);
-      //     // console.log(newCourse,"@@@@@");
-      //     const geturl = await uploadBase64ImageFile(
-      //       base64Data,
-      //       newSubmit.id,
-      //      type
-      //     );
-      //     console.log(geturl,"&&&&");
-      //     if (geturl) {
-      //       newSubmit.img = geturl.Location;
-           
-      //       //fs.unlinkSync(`../uploads/${req.files.img[0]?.filename}`);
-      //     }
-      //   }
+  if (img) {
+    if (img) {
+      
+
+      const base64Data = new Buffer.from(img.replace(/^data:image\/\w+;base64,/, ""), 'base64');
+      detectMimeType(base64Data);
+      const type = detectMimeType(img);
+      // console.log(newCourse,"@@@@@");
+      const geturl = await uploadBase64ImageFile(
+        base64Data,
+        newSubmit.id,
+       type
+      );
+      console.log(geturl,"&&&&");
+      if (geturl) {
+        newSubmit.img = geturl.Location;
+       
+        //fs.unlinkSync(`../uploads/${req.files.course_image[0]?.filename}`);
+      }
+    }
   
       //$$$$$$$$$$$
       // if (req.files) {
@@ -179,17 +184,21 @@ exports.addSub_resrc= async (req, res) => {
       //     newSubmit.img = alluploads;
       //   }
       // }
-      if (req.file) {
-        const resp = await cloudinary.uploader.upload(req.file.path);
-        // if (resp) {
-          newSubmit.img = resp.secure_url;
-        fs.unlinkSync(req.file.path);
-      }
+
+
+
+      // if (req.file) {
+      //   const resp = await cloudinary.uploader.upload(req.file.path);
+      //   // if (resp) {
+      //     newSubmit.img = resp.secure_url;
+      //   fs.unlinkSync(req.file.path);
+      // }
       newSubmit
          .save()
          .then((data) => resp.successr(res, data))
          .catch((error) => resp.errorr(res, error));
      }
+    }
 
    exports.admin_Sub_resrc= async (req, res) => {
     const { link,category,sub_category,type,format,language,topics,desc,resTitle,creatorName,relYear,res_desc,comment,img} = req.body;
@@ -440,7 +449,7 @@ data.sub_category =sub_category
   
     exports.listbysubcategory = async (req, res) => {
   const getone = await Submit.find({$and:[{sub_category: req.params.id },{aprv_status:"Active"}]}).populate("category").populate("sub_category").populate("relYear")
-    .sort({ sortorder: 1 })
+    .sort({ sortorder: 1 }).populate("language")
 
     if(getone){
 
@@ -555,7 +564,7 @@ exports.my_content_meteros =  async (req, res) => {
       .catch((error) => resp.errorr(res, error));
   };
 
-
+// NO USE
   exports.filterbytext = async (req, res) => {
     const findall = await Submit.find({$and: [
        
@@ -612,7 +621,7 @@ exports.my_content_meteros =  async (req, res) => {
 
     const findall = await Submit.find({$and: [
       
-{$or:[{sub_category:req.params.sub_category},{relYear:req.params.id}]},{$and:[{aprv_status: "Active"}]}
+{$and:[{sub_category:req.params.sub_category},{relYear:req.params.id}]},{$and:[{aprv_status: "Active"}]}
     ]}).populate("category").populate("sub_category").populate("relYear").populate("language")
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
