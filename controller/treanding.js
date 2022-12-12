@@ -17,14 +17,14 @@ exports.addTrending  = async (req, res) => {
 
 
 exports.getTrending = async (req, res) => {
-    await Treanding.find()
+    await Treanding.find().populate("submit_rsrcId")
       .sort({ sortorder: 1 })
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   };
 
   exports.getoneTrending = async (req, res) => {
-    await Treanding.findOne({ _id: req.params.id })
+    await Treanding.findOne({ _id: req.params.id }).populate("submit_rsrcId")
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   };

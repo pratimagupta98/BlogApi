@@ -6,7 +6,7 @@ const thisSchema = new Schema(
      
        submit_rsrcId:{
         type:mongoose.Schema.Types.ObjectId,
-ref:"category"
+ref:"submitRsrc"
        },
        status:{
         type:String

@@ -713,7 +713,7 @@ exports.my_content_meteros =  async (req, res) => {
     exports.filterbyHashTag = async (req, res) => {
 
 
-       await Submit.find({$and:[{topics:req.params.topics},{aprv_status: "Active"}]}
+       await Submit.find({$and:[{topics:topics},{aprv_status: "Active"}]}
       ).populate("category").populate("sub_category").populate("relYear").populate("language")
         .then((data) => resp.successr(res, data))
         .catch((error) => resp.errorr(res, error));
