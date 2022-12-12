@@ -2,10 +2,10 @@ const Treanding = require("../models/treanding");
 const resp = require("../helpers/apiResponse");
 
 exports.addTrending  = async (req, res) => {
-  const { submit_rsrcId} = req.body;
+  const {topics} = req.body;
 
   const newTreanding = new Treanding({
-    submit_rsrcId:submit_rsrcId,
+    topics:topics,
    });
    
    newTreanding
@@ -17,14 +17,14 @@ exports.addTrending  = async (req, res) => {
 
 
 exports.getTrending = async (req, res) => {
-    await Treanding.find().populate("submit_rsrcId")
+    await Treanding.find()
       .sort({ sortorder: 1 })
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   };
 
   exports.getoneTrending = async (req, res) => {
-    await Treanding.findOne({ _id: req.params.id }).populate("submit_rsrcId")
+    await Treanding.findOne({ _id: req.params.id })
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   };

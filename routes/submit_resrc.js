@@ -87,7 +87,7 @@ router.get("/user/filterbyyear/:sub_category/:id", filterbyyear);
 router.get("/user/filterbyLanguage/:sub_category/:id", filterbyLanguage);
 
 router.get("/user/treding_topics", treding_topics);
-router.get("/user/filterbyHashTag/:topics", filterbyHashTag);
+router.get("/user/filterbyHashTag/:id", filterbyHashTag);
 
  
 

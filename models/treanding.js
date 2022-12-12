@@ -4,10 +4,9 @@ const thisSchema = new Schema(
     {
      
      
-       submit_rsrcId:{
-        type:mongoose.Schema.Types.ObjectId,
-ref:"submitRsrc"
-       },
+        topics:{
+        type:String
+        },
        status:{
         type:String
        },
