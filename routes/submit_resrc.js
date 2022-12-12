@@ -26,8 +26,10 @@ const {
     filterbyFormat,
     search_topic_title,
     filterbyyear,
-    filterbyLanguage
-   
+    filterbyLanguage,
+    treding_topics,
+    filterbyHashTag
+    
 } = require("../controller/submit_resrc");
 
 if (!fs.existsSync("./uploads")) {
@@ -84,8 +86,12 @@ router.get("/user/filterbyyear/:sub_category/:id", filterbyyear);
 
 router.get("/user/filterbyLanguage/:sub_category/:id", filterbyLanguage);
 
-module.exports = router;
+router.get("/user/treding_topics", treding_topics);
+router.get("/user/filterbyHashTag", filterbyHashTag);
 
+ 
+
+module.exports = router;
 
 
 

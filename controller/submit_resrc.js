@@ -100,6 +100,20 @@ exports.addSub_resrc= async (req, res) => {
   exports.App_Sub_resrc= async (req, res) => {
     const { userid,link,category,sub_category,type,format,topics,desc,resTitle,creatorName,relYear,res_desc,comment,language,img} = req.body;
   
+  //  const coursedetail = await Submit.findOne({ topics:topics });
+    // if (coursedetail) {
+      //console.log(coursedetail.popularity)
+     // let increment = coursedetail.trendingPoint + 1;
+    //   await Submit.findOneAndUpdate(
+    //     {
+    //       userid: req.body.id,
+    //     },
+    //     { $set: { trendingPoint: increment } },
+    //     { new: true }
+    //   )
+   // }
+
+
     const newSubmit= new Submit({
       userid:userid,
       link:link,
@@ -116,7 +130,8 @@ exports.addSub_resrc= async (req, res) => {
       comment:comment,
       language:language,
       img:img,
-      usertype:"user"
+      usertype:"user",
+    //  trendingPoint:increment
      });
       // if (req.files) {
       //   if (req.files.img) {
@@ -638,3 +653,70 @@ exports.my_content_meteros =  async (req, res) => {
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   };  
+
+
+
+
+    exports.treding_topics =async (req, res) => {
+
+      const getrating = await Submit.find ({status: "Active"})
+      console.log("GETRATING",getrating)
+
+            
+    //   const getratingg = await Submit.find({status: "Active"}).distinct("topics") 
+    //   console.log("GETRATING",getratingg)
+
+      if(getrating){
+        var newarr1 = getrating.map(function (value) {
+        // return value+= value;
+    return value.topics
+       });
+
+    //    let uniq = [...new Set(getrating)]
+
+        console.log("UNIQUE",newarr1)
+      }
+    //    const uniqueMembers = [...newarr1];
+    //    console.log("sss",uniqueMembers);
+    //    // let total = newarr1/
+    
+    //    console.log("New Array",newarr1)
+    //   // let gettr = newarr1.#java
+    //    console.log(newarr1.length); // undefined
+    //     var ttlr = newarr1.length
+    //     console.log("tt",ttlr)
+    //   }
+
+
+    // let  a = [newarr1]
+    // let b = uniqBy(a, JSON.stringify)
+    //   console.log("B",b) 
+
+
+    const getratingg = await Submit.find({status: "Active"}).distinct("topics") 
+      console.log("GETRATING",getratingg)
+
+      if(getratingg){
+        var newarr1 = getratingg.map(function (value) {
+        // return value+= value;
+    return value.topics
+       });
+      }
+
+      let uniq = [...new Set(getratingg)]
+
+      console.log("UNIQUE",uniq)
+
+
+    }
+
+    exports.filterbyHashTag = async (req, res) => {
+
+
+       await Submit.find({$and:[{topics:req.params.topics},{aprv_status: "Active"}]}
+      ).populate("category").populate("sub_category").populate("relYear").populate("language")
+        .then((data) => resp.successr(res, data))
+        .catch((error) => resp.errorr(res, error));
+    };
+
+    
