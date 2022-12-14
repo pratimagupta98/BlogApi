@@ -910,7 +910,7 @@ exports.posted_by_me= async (req, res) => {
 
   { $and: [{ userid:req.params.id }, { aprv_status:"Active" }] }, { $and: [{ format: "Video" }] }
 ]
-}).populate("userid")
+}).populate("userid").populate("relYear").populate("language")
   
  .then((data) => resp.successr(res, data))
  .catch((error) => resp.errorr(res, error));
