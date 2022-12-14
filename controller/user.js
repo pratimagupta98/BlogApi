@@ -236,7 +236,7 @@ const getdata = await Submit.find({ $and: [
   }
 ]
 }).sort({meteors:-1}).populate("userid")
-.sort({ createdAt: -1 }).limit(6)
+.sort({ createdAt: -1 }).limit(9)
 // console.log("GETONE",getdata)
 // const getlength = getdata.length
 // console.log("LENGTH",getlength)
@@ -279,7 +279,7 @@ const getdata = await Submit.find({ $and: [
 
 exports.all_time_karma= async (req, res) => {
    await Submit.find({aprv_status:"Active"})
-  .sort({meteors:-1}).limit(6).populate("userid")
+  .sort({meteors:-1}).limit(9).populate("userid")
   // .sort({ createdAt: -1 }).limit(6)
    
   .then((data) => resp.successr(res, data))
