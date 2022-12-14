@@ -899,3 +899,20 @@ exports.approve_submit_resrc = async (req, res) => {
   }
 
 }
+
+
+exports.posted_by_me= async (req, res) => {
+//   await Submit.find({$and :[{userid:req.params.id},{aprv_status:"Active"}]})
+//  .sort({meteors:-1}).limit(6).populate("userid")
+ // .sort({ createdAt: -1 }).limit(6)
+
+ await Submit.find({$and: [
+
+  { $and: [{ userid:req.params.id }, { aprv_status:"Active" }] }, { $and: [{ format: "Video" }] }
+]
+}).populate("userid")
+  
+ .then((data) => resp.successr(res, data))
+ .catch((error) => resp.errorr(res, error));
+  
+}
