@@ -9,32 +9,41 @@ exports.add_like = async (req, res) => {
   const newlike = new like({
     submitresrcId: submitresrcId,
     userid: userid,
-    status: status,
+    status: "true",
 
   })
   const findexist = await like.findOne({
     $and: [{ submitresrcId: submitresrcId }, { userid: userid }]
   }
   )
-  // if (findexist) {
-  //   await like.findOneAndUpdate(
-  //     {
-  //       _id:findexist._id
+  if (findexist) {
+     await like.findOneAndUpdate(
+      {
+    //     _id:findexist._id
 
-  //     },
-  //     {$set :{status:req.body.status}},
-  //     {new:true}
-  //   )
-  //   .then((data) => resp.successr(res, data))
-  //   .catch((error) => resp.errorr(res, error));
-  // }
-  // else {
+    //   },
+    //   {$set :{status:"false"}},
+    //   {new:true}
+    // )
+    
+      $and: [
+        { $and: [{ submitresrcId: submitresrcId }, { userid: userid }] },
+        //{ $and: [{ sender: req.params.id }, { receiver: req.userId }] },
+      ],
+    },
+    {$set :{status:"false"}},
+    { new: true }
+  )
+    .then((data) => resp.successr(res, data))
+    .catch((error) => resp.errorr(res, error));
+  }
+  else {
     newlike
       .save()
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   }
-//}
+}
 
 
 
