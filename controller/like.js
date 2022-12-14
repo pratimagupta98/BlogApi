@@ -9,7 +9,7 @@ exports.add_like = async (req, res) => {
   const newlike = new like({
     submitresrcId: submitresrcId,
     userid: userid,
-    status: "true",
+    status: status,
 
   })
   const findexist = await like.findOne({
@@ -31,7 +31,7 @@ exports.add_like = async (req, res) => {
         //{ $and: [{ sender: req.params.id }, { receiver: req.userId }] },
       ],
     },
-    {$set :{status:"false"}},
+    {$set :{status:req.body.status}},
     { new: true }
   )
     .then((data) => resp.successr(res, data))
