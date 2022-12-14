@@ -16,25 +16,25 @@ exports.add_like = async (req, res) => {
     $and: [{ submitresrcId: submitresrcId }, { userid: userid }]
   }
   )
-  if (findexist) {
-    await like.findOneAndUpdate(
-      {
-        _id:findexist._id
+  // if (findexist) {
+  //   await like.findOneAndUpdate(
+  //     {
+  //       _id:findexist._id
 
-      },
-      {$set :{status:req.body.status}},
-      {new:true}
-    )
-    .then((data) => resp.successr(res, data))
-    .catch((error) => resp.errorr(res, error));
-  }
-  else {
+  //     },
+  //     {$set :{status:req.body.status}},
+  //     {new:true}
+  //   )
+  //   .then((data) => resp.successr(res, data))
+  //   .catch((error) => resp.errorr(res, error));
+  // }
+  // else {
     newlike
       .save()
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   }
-}
+//}
 
 
 
