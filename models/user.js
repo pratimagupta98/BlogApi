@@ -39,8 +39,19 @@ const thisSchema = new Schema(
   review_meteros:{
     type:Number,
     default:0
+  },
+  creaditedAmt:{
+type:Number,
+default:0
+  },
+  payout:{
+    type:Number,
+    default:0
+  },
+  remaining:{
+    type:Number,
+    default:0
   }
-
   },
 
 

@@ -114,7 +114,22 @@ exports.signup = async (req, res) => {
   if(abt_us){
     data.abt_us = abt_us
   }
-
+  // if (req.files) {
+  //   if (req.files.profileImg) {
+  //     alluploads = [];
+  //     for (let i = 0; i < req.files.profileImg.length; i++) {
+  //       // console.log(i);
+  //       const resp = await cloudinary.uploader.upload(req.files.profileImg[i].path, {
+  //         use_filename: true,
+  //         unique_filename: false,
+  //       });
+  //       fs.unlinkSync(req.files.profileImg[i].path);
+  //       alluploads.push(resp.secure_url);
+  //     }
+  //     // newStore.storeImg = alluploads;
+  //     data.profileImg = alluploads;
+  //   }
+  // }
 
 
   if(profileImg){
@@ -287,3 +302,11 @@ exports.all_time_karma= async (req, res) => {
   
    
 }
+
+
+exports.payoutlist = async (req, res) => {
+  await User.find()
+    .sort({ createdAt: -1 })
+    .then((data) => resp.successr(res, data))
+    .catch((error) => resp.errorr(res, error));
+};

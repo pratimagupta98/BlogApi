@@ -581,8 +581,6 @@ exports.search_topic_title = async (req, res) => {
     });
 }
 
-
-
 exports.filterbyyear = async (req, res) => {
 
 
@@ -783,6 +781,7 @@ exports.filterbyHashTag = async (req, res) => {
 //     // .then((data) => resp.successr(res, data))
 //     // .catch((error) => resp.errorr(res, error))
 //   };
+const Planet = require("../models/planet_position.js");
 
 exports.approve_submit_resrc = async (req, res) => {
   const upateone = await Submit.findOneAndUpdate(
@@ -856,10 +855,6 @@ exports.approve_submit_resrc = async (req, res) => {
         // updatemetores:updateuser.meteors
 
       });
-
-
-
-
     }
     else {
       console.log("ELSE")
@@ -872,9 +867,7 @@ exports.approve_submit_resrc = async (req, res) => {
         },
         { $set: { meteors: total } },
         { new: true }
-
       )
-
       //  var total =parseInt (findmetors) + parseInt(10)
       const usermtrs = getonemetrs + parseInt(10)
       const updatmetores = await User.findOneAndUpdate(
@@ -897,22 +890,60 @@ exports.approve_submit_resrc = async (req, res) => {
       });
     }
   }
+  const getcredited = await Submit.findOne({_id: req.params.id}).populate("userid")
+  var getuserid = getcredited.userid
+  var getmetores = getuserid.meteors
+  console.log("USER",getuserid)
+  var amt =getuserid.creaditedAmt
+  
+  var getplanet =  await Planet.find()
+  console.log("PLANET",getplanet)
+  const before_ = getplanetstr.split('_')[0];
+
+console.log(before_);
+
+  console.log("METEORS",getmetores)
+  if(getmetores >0 && getmetores<500){
+    var totlamt = amt+5
+   
+    console.log("IF")
+    const updateAmt = await User.findOneAndUpdate(
+      {
+        _id: getuserid,
+      },
+      { $set: { creaditedAmt:totlamt } },
+      { new: true }
+
+    )
+    console.log("updateAmt",updateAmt)
+    // res.status(200).json({
+    //   status: true,
+    //   status: "success",
+    //   data: updateAmt
+    //   // meteors:updatecontent.meteors,
+    // //  update: updateAmt
+    // })
+  }else if(getmetores <500 && getmetores>1000){
+    console.log("sucess")
+
+  }
 
 }
 
 
-exports.posted_by_me= async (req, res) => {
-//   await Submit.find({$and :[{userid:req.params.id},{aprv_status:"Active"}]})
-//  .sort({meteors:-1}).limit(6).populate("userid")
- // .sort({ createdAt: -1 }).limit(6)
+exports.posted_by_me = async (req, res) => {
+  //   await Submit.find({$and :[{userid:req.params.id},{aprv_status:"Active"}]})
+  //  .sort({meteors:-1}).limit(6).populate("userid")
+  // .sort({ createdAt: -1 }).limit(6)
 
- await Submit.find({$and: [
+  await Submit.find({
+    $and: [
 
-  { $and: [{ userid:req.params.id }, { aprv_status:"Active" }] }, { $and: [{ format: "Video" }] }
-]
-}).populate("userid").populate("relYear").populate("language")
-  
- .then((data) => resp.successr(res, data))
- .catch((error) => resp.errorr(res, error));
-  
+      { $and: [{ userid: req.params.id }, { aprv_status: "Active" }] }, { $and: [{ format: "Video" }] }
+    ]
+  }).populate("userid").populate("relYear").populate("language")
+
+    .then((data) => resp.successr(res, data))
+    .catch((error) => resp.errorr(res, error));
+
 }

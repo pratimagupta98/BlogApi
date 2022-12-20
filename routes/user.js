@@ -13,7 +13,8 @@ const {
     user_aprv_sts,
     total_user,
     karma_crrnt_month,
-    all_time_karma
+    all_time_karma,
+    payoutlist
   
 } = require("../controller/user");
 
@@ -67,6 +68,8 @@ router.post("/admin/user_aprv_sts/:id", user_aprv_sts);
 router.get("/admin/total_user", total_user);
 router.get("/user/karma_crrnt_month", karma_crrnt_month);
 router.get("/user/all_time_karma", all_time_karma);
+router.get("/user/payoutlist", payoutlist);
+
 
 
 
