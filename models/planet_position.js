@@ -11,7 +11,7 @@ const thisSchema = new Schema({
         type: String
     },
     doller_rupees:{
-        type: String
+        type: Number
     },
     img:{
         type: String

@@ -54,7 +54,7 @@ exports.signup = async (req, res) => {
     
     });
   
-    const findexist = await User.findOne({$or:[{
+    const findexist = await User.findOne({$and:[{
    email: email },{username: username }]}
     )
     if (findexist) {
@@ -305,8 +305,44 @@ exports.all_time_karma= async (req, res) => {
 
 
 exports.payoutlist = async (req, res) => {
-  await User.find()
+ var getuser =  await User.find()
     .sort({ createdAt: -1 })
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
+    
 };
+
+
+exports.payout = async (req, res) => {
+  //const getoneuser = await User.findOne({_id: req.params.id })
+  // console.log("USER",getoneuser)
+  // let getcredit = getoneuser.creaditedAmt
+  // console.log("CREDIT AMT",getcredit)
+
+const getpay=   await User.findOneAndUpdate(
+    { _id: req.params.id },
+    { $set: req.body },
+    { new: true }
+  )
+ 
+
+    // .then((data) => resp.successr(res, data))
+    // .catch((error) => resp.errorr(res, error));
+    const getoneuser = await User.findOne({_id: req.params.id })
+
+   // console.log("USER",getpay)
+    let getcredit = getoneuser.remaining
+    console.log("CREDIT AMT",getcredit)
+    let remaing = getcredit - req.body.payout
+    console.log("remaining",remaing)
+
+const getupdate=   await User.findOneAndUpdate(
+    { _id: req.params.id },
+    { $set: {remaining:remaing} },
+    { new: true }
+  )
+  .then((data) => resp.successr(res, data))
+
+  
+ 
+ };

@@ -14,7 +14,8 @@ const {
     total_user,
     karma_crrnt_month,
     all_time_karma,
-    payoutlist
+    payoutlist,
+    payout
   
 } = require("../controller/user");
 
@@ -70,6 +71,7 @@ router.get("/user/karma_crrnt_month", karma_crrnt_month);
 router.get("/user/all_time_karma", all_time_karma);
 router.get("/user/payoutlist", payoutlist);
 
+router.post("/admin/payout/:id", payout);
 
 
 

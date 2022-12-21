@@ -22,8 +22,11 @@ const thisSchema = new Schema(
       type: String,
     },
     profileImg:{
-      type :Array
+      type :Array,
+      default:
+        "https://cdn.pixabay.com/photo/2015/03/04/22/35/head-659651_960_720.png",
     },
+     
     status:{
       type: String,
       default:"Active"
