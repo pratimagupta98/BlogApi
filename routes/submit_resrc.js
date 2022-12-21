@@ -29,7 +29,8 @@ const {
     filterbyLanguage,
     treding_topics,
     filterbyHashTag,
-    posted_by_me
+    posted_by_me,
+    edit_promotion
     
 } = require("../controller/submit_resrc");
 
@@ -90,9 +91,11 @@ router.get("/user/filterbyLanguage/:sub_category/:id", filterbyLanguage);
 router.get("/user/treding_topics", treding_topics);
 router.get("/user/filterbyHashTag/:id", filterbyHashTag);
 router.get("/user/posted_by_me/:id", posted_by_me);
+router.post("/admin/edit_promotion/:id", edit_promotion);
 
 
- 
+
+
 
 module.exports = router;
 
