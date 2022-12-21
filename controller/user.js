@@ -332,17 +332,26 @@ const getpay=   await User.findOneAndUpdate(
 
    // console.log("USER",getpay)
     let getcredit = getoneuser.remaining
+    //let getamt  = getoneuser.creaditedAmt
+
     console.log("CREDIT AMT",getcredit)
     let remaing = getcredit - req.body.payout
     console.log("remaining",remaing)
-
+if(remaing == 0){
+  const getupdate=   await User.findOneAndUpdate(
+    { _id: req.params.id },
+    { $set: {remaining:remaing,creaditedAmt:0} },
+    { new: true }
+  )
+  .then((data) => resp.successr(res, data))
+}else{
 const getupdate=   await User.findOneAndUpdate(
     { _id: req.params.id },
     { $set: {remaining:remaing} },
     { new: true }
   )
   .then((data) => resp.successr(res, data))
-
+}
   
  
  };
