@@ -668,7 +668,11 @@ exports.filterbyHashTag = async (req, res) => {
 
 
   await Submit.find({
-    $and: [{ topics: req.params.id }, { $and: [{ aprv_status: "Active" }] }
+    // $and: [{ topics: req.params.id }, { $and: [{ aprv_status: "Active" }] }
+    // ]
+    $and: [
+
+      { $and: [{ sub_category: req.params.sub_category }, { topics: req.params.id }] }, { $and: [{ aprv_status: "Active" }] }
     ]
   }
   ).populate("category").populate("sub_category").populate("relYear").populate("language")

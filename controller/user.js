@@ -353,3 +353,95 @@ const getupdate=   await User.findOneAndUpdate(
   .then((data) => resp.successr(res, data))
 }
  };
+
+
+ exports.sendotp = async (req, res) => {
+  const defaultotp = Math.ceil(100000 + Math.random() * 900000);
+  const { email, mobile } = req.body;
+  const http = require("https");
+
+  const options = {
+    method: "GET",
+    hostname: "api.msg91.com",
+    port: null,
+    path: `/api/v5/otp?template_id=620deb009f5d151055640942&mobile=91${mobile}&authkey=${process.env.OTPAUTH}`,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  const requestmain = http.request(options, function (res) {
+    const chunks = [];
+
+    res.on("data", function (chunk) {
+      chunks.push(chunk);
+    });
+
+    res.on("end", function () {
+      const body = Buffer.concat(chunks);
+      console.log(body.toString());
+    });
+  });
+
+  //requestmain.write("{\"OTP\":\"6786\"}");
+  requestmain.end();
+
+  const finddetails = await Customer.findOneAndUpdate(
+    {
+      $or: [{ mobile: mobile }, { email: email }],
+    },
+    { $set: { otp: defaultotp } },
+    { new: true }
+  );
+
+  //console.log(mobile_no.length);
+  //console.log(finddetails);
+  //console.log(finddetails.customer_email);
+  if (finddetails) {
+    //const {to,text,} = req.body
+    const subject = `Buynaa Email Verification`;
+    const text = `<h4>Your verfication code is ${defaultotp}</h4>`;
+
+    //Generate test SMTP service account from ethereal.email
+    //Only needed if you don't have a real mail account for testing
+    let testAccount = await nodemailer.createTestAccount();
+
+    // create reusable transporter object using the default SMTP transport
+    let transporter = nodemailer.createTransport({
+      host: "smtpout.secureserver.net",
+      port: 587,
+      secure: false, // true for 465, false for other ports
+      auth: {
+        user: "support@brizebond.com", // generated ethereal user
+        pass: "Buynaa@02771", // generated ethereal password
+      },
+    });
+
+    // // send mail with defined transport object
+    let info = await transporter.sendMail({
+      from: '"Buynaa Support" <support@buynaa.com>', // sender address
+      to: finddetails.email, // list of receivers
+      subject: subject, // Subject line
+      text: text, // plain text body
+      html: `<b>${text}</b>`, // html body
+    })
+
+    console.log("Message sent: %s", info);
+    // // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+
+    // // Preview only available when sending through an Ethereal account
+    console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+    res.status(200).json({
+      status: true,
+      msg: "otp send successfully",
+      email: email,
+      mobile: mobile,
+      otp: defaultotp,
+    });
+  } else {
+    res.status(400).json({
+      status: false,
+      msg: "error occured",
+    });
+  }
+};

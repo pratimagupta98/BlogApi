@@ -89,7 +89,7 @@ router.get("/user/filterbyyear/:sub_category/:id", filterbyyear);
 router.get("/user/filterbyLanguage/:sub_category/:id", filterbyLanguage);
 
 router.get("/user/treding_topics", treding_topics);
-router.get("/user/filterbyHashTag/:id", filterbyHashTag);
+router.get("/user/filterbyHashTag/:sub_category/:id", filterbyHashTag);
 router.get("/user/posted_by_me/:id", posted_by_me);
 router.post("/admin/edit_promotion/:id", edit_promotion);
 
