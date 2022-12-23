@@ -54,7 +54,7 @@ exports.signup = async (req, res) => {
     
     });
   
-    const findexist = await User.findOne({$and:[{
+    const findexist = await User.findOne({$or:[{
    email: email },{username: username }]}
     )
     if (findexist) {
@@ -319,13 +319,13 @@ exports.payout = async (req, res) => {
   // let getcredit = getoneuser.creaditedAmt
   // console.log("CREDIT AMT",getcredit)
 
+  const getuser = await User.findOne({_id: req.params.id })
+
 const getpay=   await User.findOneAndUpdate(
     { _id: req.params.id },
     { $set: req.body },
     { new: true }
   )
- 
-
     // .then((data) => resp.successr(res, data))
     // .catch((error) => resp.errorr(res, error));
     const getoneuser = await User.findOne({_id: req.params.id })
@@ -352,6 +352,4 @@ const getupdate=   await User.findOneAndUpdate(
   )
   .then((data) => resp.successr(res, data))
 }
-  
- 
  };
