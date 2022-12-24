@@ -5,11 +5,11 @@ const thisSchema = new Schema(
 
     username: {
       type: String,
-      required:true
+      required: true
     },
     email: {
       type: String,
-      required:true
+      required: true
     },
     mobile: {
       type: Number,
@@ -17,48 +17,48 @@ const thisSchema = new Schema(
     },
     password: {
       type: String,
-      required:true
+      required: true
     },
-    display_name:{
+    display_name: {
       type: String,
     },
-    abt_us:{
+    abt_us: {
       type: String,
     },
-    profileImg:{
-      type :Array,
+    profileImg: {
+      type: Array,
       default:
         "https://cdn.pixabay.com/photo/2015/03/04/22/35/head-659651_960_720.png",
     },
-     
-    status:{
+
+    status: {
       type: String,
-      default:"Active"
+      default: "Active"
     },
-    meteors:{
+    meteors: {
       type: Number,
-      default:0  
-  },
-  rating_meteros:{
-    type:Number,
-    default:0
-  },
-  review_meteros:{
-    type:Number,
-    default:0
-  },
-  creaditedAmt:{
-type:Number,
-default:0
-  },
-  payout:{
-    type:Number,
-    default:0
-  },
-  remaining:{
-    type:Number,
-    default:0
-  }
+      default: 0
+    },
+    rating_meteros: {
+      type: Number,
+      default: 0
+    },
+    review_meteros: {
+      type: Number,
+      default: 0
+    },
+    creaditedAmt: {
+      type: Number,
+      default: 0
+    },
+    payout: {
+      type: Number,
+      default: 0
+    },
+    remaining: {
+      type: Number,
+      default: 0
+    }
   },
 
 
