@@ -13,7 +13,7 @@ const thisSchema = new Schema(
     },
     mobile: {
       type: Number,
-      required:true
+      //required:true
     },
     password: {
       type: String,
