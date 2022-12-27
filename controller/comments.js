@@ -95,6 +95,7 @@ exports.comment_list = async (req, res) => {
       { $set: {status:"Active"}},
       { new: true }
     ).populate("userid")
+    if(upateone){
     console.log("STATUS",upateone)
     const getcommt = upateone.comment
     const getrting = upateone.rating
@@ -175,6 +176,7 @@ if(getuser && getcommt && getrting){
           .catch((error) => resp.errorr(res, error));
       }
     }
+  }
       else{
         res.status(400).json({
           status:false,

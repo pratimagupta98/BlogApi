@@ -50,10 +50,10 @@
 
 // // These id's and secrets should come from .env file.
 
-// const CLIENT_ID = '78813466355-rn3l8a5rbfnfnole0s6dag6u1nf8p98e.apps.googleusercontent.com';
-// const CLEINT_SECRET = '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';
+// const CLIENT_ID = '78813466355-slkfaq7juqkp22ho2dj12h5u2a26u9j8.apps.googleusercontent.com';
+// const CLEINT_SECRET = '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';
 // const REDIRECT_URI = 'https://developers.google.com/oauthplayground';
-// const REFRESH_TOKEN = '4/0AWgavdf50H8YcKYecPp2XFtwHoTksYkvidhsgVe5wyFfodv7npsPTGIfCrfaYVGjqC9Z-Q';
+// const REFRESH_TOKEN = '1//04qvb03l1rrzjCgYIARAAGAQSNwF-L9Ir5MD_ZMQnBbV2nduYyq_bYNVCy2jLzBE7iIrLgZGnBr5bCVGWH6mYXJTT4JSMRGa9MKM';
 
 // const oAuth2Client = new google.auth.OAuth2(
 //     CLIENT_ID,
@@ -61,7 +61,7 @@
 //     REDIRECT_URI
 // );
 // oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
-
+// exports.sendmail = async (req,res) =>{
 // async function sendMail() {
 //     try {
 //         const accessToken = await oAuth2Client.getAccessToken();
@@ -87,7 +87,7 @@
 //             html: '<h1>Hello from gmail email using API</h1>',
 //         };
 
-//         const result = await transport.sendMail(mailOptions);
+//         const result =await transport.sendMail(mailOptions);
 //         return result;
 //     } catch (error) {
 //         return error;
@@ -95,5 +95,22 @@
 // }
 
 // sendMail()
-//     .then((result) => console.log('Email sent...', result))
-//     .catch((error) => console.log(error.message));
+//     .then((result) => {
+//         res.status(200).json({
+//             status:true,
+//             msg:"success",
+//             data :result
+//         })
+//     }
+//    // console.log('Email sent...', result)
+//     )
+//     .catch((error) => {
+//         res.status(200).json({
+//             status:false,
+//             msg:"success",
+//             data :error.message
+//         })
+//     }
+//     //console.log(error.message)
+//     );
+// }
