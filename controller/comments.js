@@ -19,17 +19,31 @@ exports.add_Comment = async (req, res) => {
     rating:rating,
     status:status,
   })
-  // const findexist = await Comment.findOne({
-  //   $and: [{ submitresrcId: submitresrcId }, { userid: userid }] }
-  //    )
-  //    if (findexist) {
-  //      resp.alreadyr(res);
-  //    }else{
+  
+  const getuserid = await Submit.findOne({_id:req.body.submitresrcId})
+  const findexist = await Comment.findOne({
+    $and: [{ submitresrcId: submitresrcId }, { userid: userid }] }
+     )
+  console.log("STRING",getuserid)
+  if(getuserid){
+    const getuserdetail = getuserid.userid
+    console.log("user",getuserdetail)
+    const alreadyexist = await Comment.findOne({userid:getuserdetail})
+    res.status(201).json({
+      status:false,
+      msg : "not able to comment"
+    })
+  } else if (findexist) {
+       resp.alreadyr(res);
+     }
+   
+  
+    else{
         newComment
        .save()
        .then((data) => resp.successr(res, data))
        .catch((error) => resp.errorr(res, error));
-     //}
+     }
  }
  
 

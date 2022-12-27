@@ -6,6 +6,9 @@ const cloudinary = require("cloudinary").v2;
   const dotenv = require("dotenv");
   const fs = require("fs");
   const Submit = require("../models/submit_resrc");
+  const { sendmail } = require("./mail");
+  const nodemailer = require("nodemailer");
+
 
   dotenv.config();
  cloudinary.config({
@@ -60,13 +63,52 @@ exports.signup = async (req, res) => {
     if (findexist) {
       resp.alreadyr(res);
     } else {
+
       newuser
         .save()
-        .then((data) => resp.successr(res, data))
+        const subject = `Buynaa Email Verification`;
+        // let text = `<h4>Your verfication code is ${defaultotp}</h4>`;
+        // let text = customer.html
+        // const fs = require("fs");
+        // const text = fs.readFileSync('./customer.html');
+        // Read HTML Template
+        //  let text = fs.readFileSync("customer.htm");
+        let testAccount = await nodemailer.createTestAccount();
+        let transporter = nodemailer.createTransport({
+          host: "smtpout.secureserver.net",
+          port: 587,
+          secure: false, // true for 465, false for other ports
+          auth: {
+            user: "support@brizebond.com", // generated ethereal user
+            pass: "Buynaa@02771", // generated ethereal password
+          },
+        });
+        const fs = require("fs");
+        const text = fs.readFileSync('./customer.html');
+        let info = await transporter.sendMail({
+          from: '"Buynaa Support" <support@buynaa.com>', // sender address
+          to: result.email, // list of receivers
+          subject: subject, // Subject line
+          //text:  `<b>${text}</b>`, // plain text body
+          html: `<b>${text}</b>`, // html body
+        })
+        console.log("Message sent: %s", info);
+        transporter.sendMail(info, function (err, data) {
+          if (err) {
+            console.log(err)
+            console.log('Error Occurs');
+          }
+          else {
+            console.log('Email sent successfully');
+            res.send("Email sent successfully")
+          }
+        });
+      }
+        // .then((data) => resp.successr(res, data))
         
-        .catch((error) => resp.errorr(res, error));
+        // .catch((error) => resp.errorr(res, error));
     }
-  };
+  //};
 
   exports.login = async (req, res) => {
     const {  email, password,username } = req.body;
