@@ -19,6 +19,7 @@ const cloudinary = require("cloudinary").v2;
  
 
  const { uploadBase64ImageFile } = require("../helpers/awsuploader");
+const { values } = require("lodash");
 var signatures = {
   JVBERi0: "application.pdf",
   R0lGODdh: "image.gif",
@@ -144,9 +145,10 @@ exports.signup = async (req, res) => {
   const  {username,email,display_name,abt_us,profileImg} = req.body
 
   data = {};
-  if(username){
-    data.username = username;
-  }
+  // if(username){
+  //   data.username = username;
+  // }
+ // console.log("username",username)
   if (email) {
     data.email = email
   }
@@ -193,14 +195,27 @@ exports.signup = async (req, res) => {
     }
   }
 }
+ 
+const getdetail =  await User.findOne({ username: req.body.username})
+//console.log("getdetail",getdetail)
+
+if (getdetail) {
+  // resp.alreadyr(res);
+  res.status(201).json({
+    status:false,
+    message : "Username Already Exist"
+  })
+}else{
   await User.findOneAndUpdate(
     { _id: req.params.id },
-    { $set: data },
+    { $set: data ,username:req.body.username},
     { new: true }
   )
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
-};
+  }
+}
+ 
 
 
 
