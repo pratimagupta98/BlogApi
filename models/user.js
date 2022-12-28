@@ -58,6 +58,9 @@ const thisSchema = new Schema(
     remaining: {
       type: Number,
       default: 0
+    },
+    oldpassword:{
+      type: String,
     }
   },
 

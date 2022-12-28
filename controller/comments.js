@@ -86,110 +86,122 @@ exports.comment_list = async (req, res) => {
   };
   
 
-  exports.admin_edit_coment = async (req, res) => {
-    const {userid,rating,comment} = req.body
-   const upateone= await Comment.findOneAndUpdate(
-      {
-        _id: req.params.id,
-      },
-      { $set: {status:"Active"}},
-      { new: true }
-    ).populate("userid")
-    if(upateone){
-    console.log("STATUS",upateone)
-    const getcommt = upateone.comment
-    const getrting = upateone.rating
-    const getuser =upateone.userid
-    const findmeteros =getuser.meteors
-    const rating_metors =getuser.rating_meteros
-    const reviwmtors =getuser.review_meteros
+//   exports.admin_edit_coment = async (req, res) => {
+//     const {userid,rating,comment} = req.body
+//    const upateone= await Comment.findOneAndUpdate(
+//       {
+//         _id: req.params.id,
+//       },
+//       { $set: {status:"Active"}},
+//       { new: true }
+//     ).populate("userid")
+//     if(upateone){
+//     console.log("STATUS",upateone)
+//     const getcommt = upateone.comment
+//     const getrting = upateone.rating
+//     const getuser =upateone.userid
+//     const findmeteros =getuser.meteors
+//     const rating_metors =getuser.rating_meteros
+//     const reviwmtors =getuser.review_meteros
 
 
-    console.log("FINDUSER",getuser)
-    console.log("findmeteros",findmeteros)
-    console.log("GETCOMMENT",getcommt)
+//     console.log("FINDUSER",getuser)
+//     console.log("findmeteros",findmeteros)
+//     console.log("GETCOMMENT",getcommt)
 
-    console.log("GETRATING",getrting)
-    console.log("RATING METORS",rating_metors)
-    console.log("RATING METORS",reviwmtors)
+//     console.log("GETRATING",getrting)
+//     console.log("RATING METORS",rating_metors)
+//     console.log("RATING METORS",reviwmtors)
 
-    if(upateone?.status == "Active"){
-if(getuser && getcommt && getrting){
-  var total =parseInt (findmeteros) + parseInt(7)
-  console.log("TOTAL",total)
+//     if(upateone?.status == "Active"){
+// if(getuser && getcommt && getrting){
+//   var total =parseInt (findmeteros) + parseInt(7)
+//   console.log("TOTAL",total)
 
-  var ratingmetors= parseInt (rating_metors) + parseInt(2)
-  console.log("RATING MTRS TOTAL",ratingmetors)
+//   var ratingmetors= parseInt (rating_metors) + parseInt(2)
+//   console.log("RATING MTRS TOTAL",ratingmetors)
 
 
-  var rviewmetors= parseInt (reviwmtors) + parseInt(5)
-  console.log("REVIEW MTRS TOTAL",rviewmetors)
-    let updateuser =  await User.findOneAndUpdate(
-      {
-        _id:getuser ,
-      },
-      { $set: {meteors:total,review_meteros:rviewmetors,rating_meteros:ratingmetors,}},
-      { new: true }
+//   var rviewmetors= parseInt (reviwmtors) + parseInt(5)
+//   console.log("REVIEW MTRS TOTAL",rviewmetors)
+//     let updateuser =  await User.findOneAndUpdate(
+//       {
+//         _id:getuser ,
+//       },
+//       { $set: {meteors:total,review_meteros:rviewmetors,rating_meteros:ratingmetors,}},
+//       { new: true }
   
-    )
-  //  .then((data) => resp.successr(res, data))
-  //   .catch((error) => resp.errorr(res, error));
-  if(updateuser){
-    console.log("updateuser",updateuser)
+//     )
+//   //  .then((data) => resp.successr(res, data))
+//   //   .catch((error) => resp.errorr(res, error));
+//   if(updateuser){
+//     console.log("updateuser",updateuser)
 
-  }
+//   }
+// }
+//      else if(getuser && getcommt){
+//         var total =parseInt (findmeteros) + parseInt(5)
+//         console.log("TOTAL",total)
+
+//         var rviewmetors= parseInt (reviwmtors) + parseInt(5)
+//         console.log("REVIEW MTRS TOTAL",rviewmetors)
+
+//           let updateuser =  await User.findOneAndUpdate(
+//             {
+//               _id:getuser ,
+//             },
+//             { $set: {meteors:total,review_meteros:rviewmetors}},
+//             { new: true }
+        
+//           )
+//          .then((data) => resp.successr(res, data))
+//           .catch((error) => resp.errorr(res, error));
+//       }
+//      else if(getuser && getrting){
+//         var total =parseInt (findmeteros) + parseInt(2)
+//         console.log("TOTAL",total)
+
+//         var ratingmetors= parseInt (rating_metors) + parseInt(2)
+//         console.log("RATING MTRS TOTAL",ratingmetors)
+
+//           let updateuser =  await User.findOneAndUpdate(
+//             {
+//               _id:getuser ,
+//             },
+//             { $set: {meteors:total,rating_meteros:ratingmetors}},
+//             { new: true }
+        
+//           )
+//          .then((data) => resp.successr(res, data))
+//           .catch((error) => resp.errorr(res, error));
+//       }
+//     }
+//   }
+//       else{
+//         res.status(400).json({
+//           status:false,
+//           error:"error"
+//         })
+//       }
+
+
+//       // .then((data) => resp.successr(res, data))
+//       // .catch((error) => resp.errorr(res, error));
+//   };
+  
+
+exports.admin_edit_coment = async (req, res) => {
+  const {userid,rating,comment} = req.body
+  const upateone= await Comment.findOneAndUpdate(
+          {
+            _id: req.params.id,
+          },
+          { $set: {status:"Active"}},
+          { new: true }
+        ).populate("userid")
+        
+
 }
-     else if(getuser && getcommt){
-        var total =parseInt (findmeteros) + parseInt(5)
-        console.log("TOTAL",total)
-
-        var rviewmetors= parseInt (reviwmtors) + parseInt(5)
-        console.log("REVIEW MTRS TOTAL",rviewmetors)
-
-          let updateuser =  await User.findOneAndUpdate(
-            {
-              _id:getuser ,
-            },
-            { $set: {meteors:total,review_meteros:rviewmetors}},
-            { new: true }
-        
-          )
-         .then((data) => resp.successr(res, data))
-          .catch((error) => resp.errorr(res, error));
-      }
-     else if(getuser && getrting){
-        var total =parseInt (findmeteros) + parseInt(2)
-        console.log("TOTAL",total)
-
-        var ratingmetors= parseInt (rating_metors) + parseInt(2)
-        console.log("RATING MTRS TOTAL",ratingmetors)
-
-          let updateuser =  await User.findOneAndUpdate(
-            {
-              _id:getuser ,
-            },
-            { $set: {meteors:total,rating_meteros:ratingmetors}},
-            { new: true }
-        
-          )
-         .then((data) => resp.successr(res, data))
-          .catch((error) => resp.errorr(res, error));
-      }
-    }
-  }
-      else{
-        res.status(400).json({
-          status:false,
-          error:"error"
-        })
-      }
-
-
-      // .then((data) => resp.successr(res, data))
-      // .catch((error) => resp.errorr(res, error));
-  };
-  
-
   exports.dlt_Coment= async (req, res) => {
     await Comment.deleteOne({ _id: req.params.id })
       .then((data) => resp.deleter(res, data))
