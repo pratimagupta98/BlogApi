@@ -550,15 +550,7 @@ exports.forgetPassword = async (req, res) => {
 
 
 exports.resetPassword = async (req, res) => {
-
   const { oldpassword ,password, cnfrmPassword } = req.body
-
-  //  const salt = await bcrypt.genSalt(10);
-  //  const hashPassword = await bcrypt.hash(password, salt);
-  //  const hashPassword1 = await bcrypt.hash(cnfrmPassword, salt)
-
-  // const validPass = String.compare(req.body.password, req.body.cnfrmPassword);
-  // console.log("Result",validPass)
   const userData = await User.findOne({_id : req.params.id})
   if(userData){
   const passwordMatch = await bcrypt.compare(oldpassword,userData.password)
@@ -589,8 +581,6 @@ exports.resetPassword = async (req, res) => {
         
       });
     }
-
-
   }else{
     res.status(400).json({
           status: false,
@@ -600,39 +590,4 @@ exports.resetPassword = async (req, res) => {
       }
   
   }
-  
-  
-  // if (password === cnfrmPassword) {
-
-
-  //   const salt = await bcrypt.genSalt(10);
-  //   const hashPassword = await bcrypt.hash(password, salt);
-
-  //   const findandUpdateEntry = await User.findOneAndUpdate(
-  //     {
-  //       _id: req.userId
-  //     },
-  //     { $set: { password: hashPassword, cnfrmPassword: hashPassword } },
-  //     { new: true }
-  //   );
-  //   if (findandUpdateEntry) {
-  //     res.status(200).json({
-  //       status: true,
-  //       msg: "success",
-  //       data: findandUpdateEntry,
-  //     });
-  //   } else {
-  //     res.status(400).json({
-  //       status: false,
-  //       msg: "error",
-  //       error: "error",
-  //     });
-  //   }
-  // } else {
-  //   res.status(400).json({
-  //     status: false,
-  //     msg: "error",
-  //     error: "Password not matched",
-  //   })
-  // }
 };

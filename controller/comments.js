@@ -21,14 +21,15 @@ exports.add_Comment = async (req, res) => {
   })
   
   const getuserid = await Submit.findOne({_id:req.body.submitresrcId})
+  const getuserdetail = getuserid.userid
   const findexist = await Comment.findOne({
-    $and: [{ submitresrcId: submitresrcId }, { userid: userid }] }
+    $or: [{ submitresrcId: submitresrcId }, { userid: userid }] }
      )
   console.log("STRING",getuserid)
-  if(getuserid){
-    const getuserdetail = getuserid.userid
-    console.log("user",getuserdetail)
-    const alreadyexist = await Comment.findOne({userid:getuserdetail})
+  if(getuserdetail ==userid ){
+   // const getuserdetail = getuserid.userid
+   // console.log("user",getuserdetail)
+   // const alreadyexist = await Comment.findOne({userid:getuserdetail})
     res.status(201).json({
       status:false,
       msg : "not able to comment"
@@ -199,7 +200,7 @@ exports.admin_edit_coment = async (req, res) => {
           { $set: {status:"Active"}},
           { new: true }
         ).populate("userid")
-        
+
 
 }
   exports.dlt_Coment= async (req, res) => {
