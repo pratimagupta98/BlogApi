@@ -502,96 +502,7 @@ const getupdate=   await User.findOneAndUpdate(
  };
 
 
- exports.sendotp = async (req, res) => {
-  const defaultotp = Math.ceil(100000 + Math.random() * 900000);
-  const { email, mobile } = req.body;
-  const http = require("https");
-
-  const options = {
-    method: "GET",
-    hostname: "api.msg91.com",
-    port: null,
-    path: `/api/v5/otp?template_id=620deb009f5d151055640942&mobile=91${mobile}&authkey=${process.env.OTPAUTH}`,
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-
-  const requestmain = http.request(options, function (res) {
-    const chunks = [];
-
-    res.on("data", function (chunk) {
-      chunks.push(chunk);
-    });
-
-    res.on("end", function () {
-      const body = Buffer.concat(chunks);
-      console.log(body.toString());
-    });
-  });
-
-  //requestmain.write("{\"OTP\":\"6786\"}");
-  requestmain.end();
-
-  const finddetails = await Customer.findOneAndUpdate(
-    {
-      $or: [{ mobile: mobile }, { email: email }],
-    },
-    { $set: { otp: defaultotp } },
-    { new: true }
-  );
-
-  //console.log(mobile_no.length);
-  //console.log(finddetails);
-  //console.log(finddetails.customer_email);
-  if (finddetails) {
-    //const {to,text,} = req.body
-    const subject = `Buynaa Email Verification`;
-    const text = `<h4>Your verfication code is ${defaultotp}</h4>`;
-
-    //Generate test SMTP service account from ethereal.email
-    //Only needed if you don't have a real mail account for testing
-    let testAccount = await nodemailer.createTestAccount();
-
-    // create reusable transporter object using the default SMTP transport
-    let transporter = nodemailer.createTransport({
-      host: "smtpout.secureserver.net",
-      port: 587,
-      secure: false, // true for 465, false for other ports
-      auth: {
-        user: "support@brizebond.com", // generated ethereal user
-        pass: "Buynaa@02771", // generated ethereal password
-      },
-    });
-
-    // // send mail with defined transport object
-    let info = await transporter.sendMail({
-      from: '"Buynaa Support" <support@buynaa.com>', // sender address
-      to: finddetails.email, // list of receivers
-      subject: subject, // Subject line
-      text: text, // plain text body
-      html: `<b>${text}</b>`, // html body
-    })
-
-    console.log("Message sent: %s", info);
-    // // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-
-    // // Preview only available when sending through an Ethereal account
-    console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-    res.status(200).json({
-      status: true,
-      msg: "otp send successfully",
-      email: email,
-      mobile: mobile,
-      otp: defaultotp,
-    });
-  } else {
-    res.status(400).json({
-      status: false,
-      msg: "error occured",
-    });
-  }
-};
+  
 
 exports.forgetPassword = async (req, res) => {
 
@@ -745,10 +656,10 @@ async function sendMail() {
               console.log("transport",transport)
       
               const mailOptions = {
-                  from: 'SENDER NAME <contactus@brahmaand.space>',
+                from: '<b>contactus@brahmaand.space</b>',
                   to:  req.body.email,
                   subject: 'Hello from gmail using API',
-                  subject: `<b>${subject},b>`, // Subject line
+                  subject: `<b>${subject}b>`, // Subject line
                   text: `<b>${text}</b>`, // plain text body
                   html: `<b>${text}</b>`, // html body
                   // text: 'Hello from gmail email using API',
@@ -771,7 +682,7 @@ sendMail()
     const hashPassword = await bcrypt.hash(password, salt);
    
      //  newuser.password = await bcrypt.hash(password, salt);
-    console.log("PASS", newuser.password = hashPassword)
+ //   console.log("PASS", newuser.password = hashPassword)
     newuser.save()
 //  savepass =newuser.password
 //  newuser.savepass =hashPassword
@@ -800,6 +711,54 @@ exports.verifyotp = async (req, res) => {
     //console.log("user")
     if (req.body.otp == getuser.otp) {
       console.log("sucess")
+//************* 
+const oAuth2Client = new google.auth.OAuth2(
+  process.env.CLIENT_ID,
+  process.env.CLEINT_SECRET,
+  process.env.REDIRECT_URI
+);
+oAuth2Client.setCredentials({ refresh_token: process.env.REFRESH_TOKEN });
+async function sendMail() {
+  try {
+    const accessToken = await oAuth2Client.getAccessToken();
+    const subject = `Hello from Brahmaand Space`;
+    const text = `<h4> ${getuser.username} You Successful Register</h4>`;
+    const transport = nodemailer.createTransport({
+                  service: 'gmail',
+                  auth: {
+                      type: 'OAuth2',
+                      user: 'contactus@brahmaand.space',
+                      clientId: process.env.CLIENT_ID,
+                      clientSecret: process.env.CLEINT_SECRET,
+                      refreshToken: process.env.REFRESH_TOKEN,
+                      accessToken: process.env.accessToken,
+                  },
+              });
+              console.log("transport",transport)
+      
+              const mailOptions = {
+                  from: '<b>contactus@brahmaand.space</b>',
+                  to:  req.body.email,
+                //  subject: 'Hello from gmail using API',
+                  subject: `<b>${subject}</b>`, // Subject line
+                  text: `<b>${text}</b>`, // plain text body
+                  html: `<b>${text}</b>`, // html body
+                  // text: 'Hello from gmail email using API',
+                  // html: '<h1>Hello from gmail email using API</h1>',
+              };
+
+    const result = await transport.sendMail(mailOptions);
+    return result;
+    
+  } catch (error) {
+    return error;
+  }
+}
+
+sendMail()
+.then((result) => console.log('Email sent...', result))
+.catch((error) => console.log(error.message));
+      //#############
       res.status(200).json({
         status:true,
         msg:"verification successful",
