@@ -8,7 +8,8 @@ const cloudinary = require("cloudinary").v2;
   const Submit = require("../models/submit_resrc");
   const { sendmail } = require("./mail");
   const nodemailer = require("nodemailer");
-
+  
+  const { google } = require('googleapis');
 
   dotenv.config();
  cloudinary.config({
@@ -37,79 +38,162 @@ function detectMimeType(b64) {
 }
 
 
-exports.signup = async (req, res) => {
-    const {
-      username,
-      email,
-      status,
-      password,
+// exports.signup = async (req, res) => {
+//   const defaultotp = Math.ceil(100000 + Math.random() * 900000);
+//     const {
+//       username,
+//       email,
+//       status,
+//       password,
       
-    } = req.body;
+//     } = req.body;
   
-    const salt = await bcrypt.genSalt(10);
-    const hashPassword = await bcrypt.hash(password, salt);
+//     const salt = await bcrypt.genSalt(10);
+//     const hashPassword = await bcrypt.hash(password, salt);
    
     
-    const newuser = new User({
-        username: username,
-      email: email,
-      status,status,
-      password: hashPassword,
+//     const newuser = new User({
+//         username: username,
+//       email: email,
+//       status,status,
+//       password: hashPassword,
     
-    });
+//     });
   
-    const findexist = await User.findOne({$or:[{
-   email: email },{username: username }]}
-    )
-    if (findexist) {
-      resp.alreadyr(res);
-    } else {
+//     const findexist = await User.findOne({$or:[{
+//    email: email },{username: username }]}
+//     )
+//     if (findexist) {
+//       resp.alreadyr(res);
+//     } else {
+//       const subject = `Hello from Brahmaand Space`;
+//       const text = `<h4>Your verfication code is ${defaultotp}</h4>`;
+//       // let text = customer.html
+//       // const fs = require("fs");
+//       // const text = fs.readFileSync('./customer.html');
+//       // Read HTML Template
+//       //  let text = fs.readFileSync("customer.htm");
+//       const oAuth2Client = new google.auth.OAuth2(
+//         process.env.CLIENT_ID,
+//         process.env.CLEINT_SECRET,
+//         process.env.REDIRECT_URI
+//     );
+//     oAuth2Client.setCredentials({ refresh_token: process.env.REFRESH_TOKEN });
+//     const accessToken = await oAuth2Client.getAccessToken();
 
-      newuser
-        .save()
-      //   const subject = `Buynaa Email Verification`;
-      //   // let text = `<h4>Your verfication code is ${defaultotp}</h4>`;
-      //   // let text = customer.html
-      //   // const fs = require("fs");
-      //   // const text = fs.readFileSync('./customer.html');
-      //   // Read HTML Template
-      //   //  let text = fs.readFileSync("customer.htm");
-      //   let testAccount = await nodemailer.createTestAccount();
-      //   let transporter = nodemailer.createTransport({
-      //     host: "smtpout.secureserver.net",
-      //     port: 587,
-      //     secure: false, // true for 465, false for other ports
-      //     auth: {
-      //       user: "support@brizebond.com", // generated ethereal user
-      //       pass: "Buynaa@02771", // generated ethereal password
-      //     },
-      //   });
-      //   const fs = require("fs");
-      //   const text = fs.readFileSync('./customer.html');
-      //   let info = await transporter.sendMail({
-      //     from: '"Buynaa Support" <support@buynaa.com>', // sender address
-      //     to: result.email, // list of receivers
-      //     subject: subject, // Subject line
-      //     //text:  `<b>${text}</b>`, // plain text body
-      //     html: `<b>${text}</b>`, // html body
-      //   })
-      //   console.log("Message sent: %s", info);
-      //   transporter.sendMail(info, function (err, data) {
-      //     if (err) {
-      //       console.log(err)
-      //       console.log('Error Occurs');
-      //     }
-      //     else {
-      //       console.log('Email sent successfully');
-      //       res.send("Email sent successfully")
-      //     }
-      //   });
-      // }
-         .then((data) => resp.successr(res, data))
+//       let testAccount = await nodemailer.createTestAccount();
+//       let transporter = nodemailer.createTransport({
+//         auth: {
+//           type: 'OAuth2',
+//           user: 'contactus@brahmaand.space',
+//           clientId: process.env.CLIENT_ID,
+//           clientSecret: process.env.CLEINT_SECRET,
+//           refreshToken: process.env.REFRESH_TOKEN,
+//           accessToken: accessToken,
+//       },
+//       });
+      
+//       let info = await transporter.sendMail({
+//         from: 'SENDER NAME <contactus@brahmaand.space>',
+//                 to: req.body.to,
+//                 subject: subject, // Subject line
+//     text: text, // plain text body
+//     html: `<b>${text}</b>`, // html body
+//       })
+//       console.log("Message sent: %s", info);
+//       // // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+  
+//       // // Preview only available when sending through an Ethereal account
+//       console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+//       newuser
+//       .save()
+//       .then((result) => {
+//         res.status(200).json({
+//           status: true,
+//           msg: "otp send successfully",
+//           email: email,
+//           //mobile: mobile,
+//           otp: defaultotp,
+//         });
+//           }
+//       ).catch((err)=>{
+//         console.log("error")
+//         return err;
+//       })
         
-         .catch((error) => resp.errorr(res, error));
-    }
-  };
+//      // console.log('Email sent...', result)
+//      // )
+//   // . catch (error) {
+//   //     return error;
+//   // }
+    
+//     //   async function sendMail() {
+//     //     try {
+//     //         const accessToken = await oAuth2Client.getAccessToken();
+    
+//     //         const transport = nodemailer.createTransport({
+//     //             service: 'gmail',
+//     //             auth: {
+//     //                 type: 'OAuth2',
+//     //                 user: 'contactus@brahmaand.space',
+//     //                 clientId: CLIENT_ID,
+//     //                 clientSecret: CLEINT_SECRET,
+//     //                 refreshToken: REFRESH_TOKEN,
+//     //                 accessToken: accessToken,
+//     //             },
+//     //         });
+//     //         console.log("transport",transport)
+    
+//     //         const mailOptions = {
+//     //             from: 'SENDER NAME <contactus@brahmaand.space>',
+//     //             to: 'pratimadevelopersveltosest@gmail.com',
+//     //             subject: 'Hello from gmail using API',
+//     //             text: 'Hello from gmail email using API',
+//     //             html: '<h1>Hello from gmail email using API</h1>',
+//     //         };
+    
+//     //         const result =await transport.sendMail(mailOptions);
+//     //         //return result;
+//     //         sendMail()
+//     //         .then((result) => {
+//     //             res.status(200).json({
+//     //                 status:true,
+//     //                 msg:"success",
+//     //                 data :result
+//     //             })
+//     //         }
+//     //        // console.log('Email sent...', result)
+//     //         )
+//     //     } catch (error) {
+//     //         return error;
+//     //     }
+    
+    
+//     // // sendMail()
+//     // //     .then((result) => {
+//     // //         res.status(200).json({
+//     // //             status:true,
+//     // //             msg:"success",
+//     // //             data :result
+//     // //         })
+//     // //     }
+//     // //    // console.log('Email sent...', result)
+//     // //     )
+//     // //     .catch((error) => {
+//     // //         res.status(200).json({
+//     // //             status:false,
+//     // //             msg:"success",
+//     // //             data :error.message
+//     // //         })
+//     // //     }
+//     // //     //console.log(error.message)
+//     // //     );
+//     // }
+
+      
+//     // }
+//   };
+// }
 
   exports.login = async (req, res) => {
     const {  email, password,username } = req.body;
@@ -591,3 +675,113 @@ exports.resetPassword = async (req, res) => {
   
   }
 };
+
+
+exports.signup = async (req,res) =>{
+
+
+  const defaultotp = Math.ceil(1000 + Math.random() * 9000);
+    const {
+      username,
+      email,
+      status,
+      password,
+      
+    } = req.body;
+  
+    // const salt = await bcrypt.genSalt(10);
+    // const hashPassword = await bcrypt.hash(password, salt);
+   
+    
+    const newuser = new User({
+        username: username,
+      email: email,
+      status,status,
+      password: password,
+      otp:defaultotp
+    
+    });
+  
+    const findexist = await User.findOne({
+      // $or:[{
+      // email: email },{username: username }]
+      $and: [
+
+        { $or: [{ email: email }, { username: username }] }, { $and: [{status:"true" }] }
+      ]
+    }
+       )
+       if (findexist) {
+         resp.alreadyr(res);
+       } else {
+const oAuth2Client = new google.auth.OAuth2(
+  process.env.CLIENT_ID,
+  process.env.CLEINT_SECRET,
+  process.env.REDIRECT_URI
+);
+oAuth2Client.setCredentials({ refresh_token: process.env.REFRESH_TOKEN });
+async function sendMail() {
+  try {
+    const accessToken = await oAuth2Client.getAccessToken();
+    const subject = `Hello from Brahmaand Space`;
+    const text = `<h4>Your verfication code is ${defaultotp}</h4>`;
+    const transport = nodemailer.createTransport({
+                  service: 'gmail',
+                  auth: {
+                      type: 'OAuth2',
+                      user: 'contactus@brahmaand.space',
+                      clientId: process.env.CLIENT_ID,
+                      clientSecret: process.env.CLEINT_SECRET,
+                      refreshToken: process.env.REFRESH_TOKEN,
+                      accessToken: process.env.accessToken,
+                  },
+              });
+              console.log("transport",transport)
+      
+              const mailOptions = {
+                  from: 'SENDER NAME <contactus@brahmaand.space>',
+                  to:  req.body.email,
+                  subject: 'Hello from gmail using API',
+                  subject: `<b>${subject},b>`, // Subject line
+                  text: `<b>${text}</b>`, // plain text body
+                  html: `<b>${text}</b>`, // html body
+                  // text: 'Hello from gmail email using API',
+                  // html: '<h1>Hello from gmail email using API</h1>',
+              };
+
+    const result = await transport.sendMail(mailOptions);
+    return result;
+    
+  } catch (error) {
+    return error;
+  }
+}
+
+sendMail()
+  newuser.save()
+  .then(async(data)=> {
+  
+    const salt = await bcrypt.genSalt(10);
+    const hashPassword = await bcrypt.hash(password, salt);
+   
+     //  newuser.password = await bcrypt.hash(password, salt);
+    console.log("PASS", newuser.password = hashPassword)
+    newuser.save()
+//  savepass =newuser.password
+//  newuser.savepass =hashPassword
+    res.status(200).json({
+      status: true,
+      msg: "otp send successfully",
+      username:data.username,
+      email: data.email,
+      mobile: data.mobile,
+      otp: defaultotp,
+    })
+  })
+  .catch((error) => resp.errorr(res, error))
+ // console.log('Email sent...', result
+  
+  // )
+ // .catch((error) => console.log(error.message));
+}
+}

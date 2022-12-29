@@ -16,7 +16,8 @@ const {
     all_time_karma,
     payoutlist,
     payout,
-    resetPassword
+    resetPassword,
+    sendmail
   
 } = require("../controller/user");
 
@@ -74,6 +75,7 @@ router.get("/user/payoutlist", payoutlist);
 
 router.post("/admin/payout/:id", payout);
 router.post("/user/resetPassword/:id", resetPassword);
+//router.post("/user/sendmail", sendmail);
 
 
 

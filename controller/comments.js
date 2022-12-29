@@ -201,6 +201,8 @@ exports.admin_edit_coment = async (req, res) => {
           { new: true }
         ).populate("userid")
 
+  .then((data) => resp.successr(res, data))
+         .catch((error) => resp.errorr(res, error));
 
 }
   exports.dlt_Coment= async (req, res) => {

@@ -13,11 +13,11 @@ const thisSchema = new Schema(
     },
     mobile: {
       type: Number,
-      //required:true
+     // required:true
     },
     password: {
       type: String,
-      required: true
+     required: true
     },
     display_name: {
       type: String,
@@ -33,7 +33,7 @@ const thisSchema = new Schema(
 
     status: {
       type: String,
-      default: "Active"
+      default: "false"
     },
     meteors: {
       type: Number,
@@ -58,6 +58,9 @@ const thisSchema = new Schema(
     remaining: {
       type: Number,
       default: 0
+    },
+    otp: {
+      type: Number,
     },
     oldpassword:{
       type: String,
