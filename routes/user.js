@@ -17,7 +17,8 @@ const {
     payoutlist,
     payout,
     resetPassword,
-    sendmail
+    sendmail,
+    verifyotp
   
 } = require("../controller/user");
 
@@ -75,7 +76,7 @@ router.get("/user/payoutlist", payoutlist);
 
 router.post("/admin/payout/:id", payout);
 router.post("/user/resetPassword/:id", resetPassword);
-//router.post("/user/sendmail", sendmail);
+router.post("/user/verifyotp", verifyotp);
 
 
 

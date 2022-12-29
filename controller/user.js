@@ -197,7 +197,13 @@ function detectMimeType(b64) {
 
   exports.login = async (req, res) => {
     const {  email, password,username } = req.body;
-    const user = await User.findOne( {   $or: [{ email: email }, { username: username }],
+    const user = await User.findOne( {   
+    //  $or: [{ email: email }, { username: username }],
+      $and: [
+
+        { $or: [{ email: email }, { username: username }] }, { $and: [{status:"true" }] }
+      ]
+
     });
     console.log("user", user);
     if (user) {
@@ -784,4 +790,49 @@ sendMail()
   // )
  // .catch((error) => console.log(error.message));
 }
+}
+
+exports.verifyotp = async (req, res) => {
+  const { email, otp } = req.body;
+  const getuser = await User.findOne({ email: email })
+ // console.log("getuser",getuser)
+  if (getuser) {
+    //console.log("user")
+    if (req.body.otp == getuser.otp) {
+      console.log("sucess")
+      res.status(200).json({
+        status:true,
+        msg:"verification successful",
+        _id:getuser._id,
+        username:getuser.username,
+        email:getuser.email
+      })
+      await User.findOneAndUpdate(
+        {
+          _id: getuser._id,
+        },
+        { $set: { status: "true" } },
+        { new: true })
+      //   .then((data)=>{ 
+      // res.status(200).send({
+      //   status: true,
+      //   msg: "otp verified",
+      //   otp: otp,
+      //   _id: getuser._id,
+      //   mobile:getuser.mobile
+      // })
+     // });
+    } else {
+      res.status(200).json({
+        status: false,
+        msg: "Incorrect Otp",
+      });
+    }
+  }else{
+    res.status(400).json({
+      status:false,
+      msg:"error"
+    })
+  }
+
 }
