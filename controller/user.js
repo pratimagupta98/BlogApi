@@ -201,7 +201,7 @@ function detectMimeType(b64) {
     //  $or: [{ email: email }, { username: username }],
       $and: [
 
-        { $or: [{ email: email }, { username: username }] }, { $and: [{status:"true" }] }
+        { $or: [{ email: email }, { username: username }] }, { $or: [{status:"true" }] }
       ]
 
     });
@@ -682,8 +682,8 @@ sendMail()
     const hashPassword = await bcrypt.hash(password, salt);
    
      //  newuser.password = await bcrypt.hash(password, salt);
- //   console.log("PASS", newuser.password = hashPassword)
-    newuser.save()
+   console.log("PASS", newuser.password = hashPassword)
+    newuser.save().hashPassword
 //  savepass =newuser.password
 //  newuser.savepass =hashPassword
     res.status(200).json({
