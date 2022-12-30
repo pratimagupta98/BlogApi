@@ -150,13 +150,33 @@ exports.dis_book_mark = async (req, res) => {
 // };
 
 exports.getone_mylikes = async (req, res) => {
-  await like.findOne({ $and: [{ userid: req.params.userid }, { submitresrcId: req.params.submitresrcId }] }).populate("language").populate("relYear")
-    // .populate({
-    //   path: "submitresrcId",
-    //   populate: {
-    //     path: "language",
-    //   },
-    // })
+  await like.findOne({ $and: [{ userid: req.params.userid }, { submitresrcId: req.params.submitresrcId }] })
+  .populate("userid")
+.populate("submitresrcId")
+    .populate({
+      path: "submitresrcId",
+      populate: {
+        path: "language",
+      },
+    })
+    .populate({
+      path: "submitresrcId",
+      populate: {
+        path: "category",
+      },
+    })
+    .populate({
+      path: "submitresrcId",
+      populate: {
+        path: "sub_category",
+      },
+    })
+    .populate({
+      path: "submitresrcId",
+      populate: {
+        path: "relYear",
+      },
+    })
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
 };
