@@ -788,361 +788,367 @@ exports.filterbyHashTag = async (req, res) => {
 const Planet = require("../models/planet_position.js");
 
 exports.approve_submit_resrc = async (req, res) => {
-  const upateone = await Submit.findOneAndUpdate(
+  //const upateone =
+   await Submit.findOneAndUpdate(
     {
       _id: req.params.id,
     },
     { $set: { aprv_status: req.body.aprv_status, status: req.body.status } },
     { new: true }
-  ).populate("userid")
-  const getsubmitmtrs = upateone.meteors
-  console.log("SUBMIT METORES", getsubmitmtrs)
-  const uderdet = upateone.userid
-  console.log("USER", uderdet)
-  const getonemetrs = uderdet.meteors
-  console.log("GET ONE METROES", getonemetrs)
-
-  if (upateone.aprv_status == "Active") {
-    var date = new Date();
-    var firstDay = new Date(date.getFullYear(), date.getMonth(), 2);
-    var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-    console.log("FIRST", firstDay)
-    console.log("lAST", lastDay)
-    const findexist = await Submit.findOne({
-      $and: [
-        { userid: uderdet },
-        {
-          createdAt: {
-            $gte: new Date(firstDay),
-            $lte: new Date(lastDay)
-          }
-        }
-      ]
-    })
-    if (findexist) {
-      const existuser = findexist.userid
-      console.log("USER", existuser)
-      const existmetores = findexist.meteors
-      console.log("GETMETORES", existmetores)
-      const sttl = parseInt(existmetores) + parseInt(10)
-      //  console.log("GET METORES",sttl)
-      console.log("STTL", sttl)
-
-      const updatecontent = await Submit.findOneAndUpdate(
-        {
-          userid: existuser,
-        },
-        { $set: { meteors: sttl } },
-        { new: true }
-
-      )
-
-      var total = parseInt(getonemetrs) + parseInt(10)
-      console.log("TOTAL", total)
-
-      const updateuser = await User.findOneAndUpdate(
-        {
-          _id: existuser,
-        },
-        { $set: { meteors: total } },
-        { new: true }
-
-      )
-      console.log("UPDATEW", updatecontent)
-      console.log("UPDATTTTTTTTTEEEEE", updateuser)
-      res.status(200).json({
-        status: true,
-        status: "success",
-        data: updatecontent,
-        // meteors:updatecontent.meteors,
-        update: updateuser.meteors,
-        // updatemetores:updateuser.meteors
-
-      });
-    }
-    else {
-      console.log("ELSE")
-
-      var total = parseInt(getsubmitmtrs) + parseInt(10)
-
-      const updateuser = await Submit.findOneAndUpdate(
-        {
-          _id: req.params.id,
-        },
-        { $set: { meteors: total } },
-        { new: true }
-      )
-      //  var total =parseInt (findmetors) + parseInt(10)
-      const usermtrs = getonemetrs + parseInt(10)
-      const updatmetores = await User.findOneAndUpdate(
-        {
-          _id: uderdet,
-        },
-        { $set: { meteors: usermtrs } },
-        { new: true }
-
-      )
-      console.log("UPpppp", updateuser)
-      console.log("UDDDD USER", updatmetores)
-      res.status(200).json({
-        status: true,
-        status: "success",
-        data: updateuser,
-        meteors: updatmetores.meteors,
-
-
-      });
-    }
-  }
-  const getcredited = await Submit.findOne({_id: req.params.id}).populate("userid")
-  var getuserid = getcredited.userid
-  var getmetores = getuserid.meteors
-  console.log("USER",getuserid)
-  var amt =getuserid.creaditedAmt
-  console.log("AMT",amt)
-  
-  var getplanet =  await Planet.find()
-  let string = getplanet.point_range
-  var get1stplanet = await Planet.findOne({_id:"638b3fe9670f7c03afc178e1"})
-  console.log("1ST PLANET",get1stplanet)
-  var str1 =get1stplanet.point_range
-  console.log("p1st point",str1)
-  var rupees1 = get1stplanet.doller_rupees
-  console.log("RANGE1",rupees1)
-  const beforevalue1 = str1.split(/-(.*)/)[0]
-  console.log("BEFORE VALUE 1",beforevalue1)
-  const aftervalue1 = str1.split(/-(.*)/)[1]
-
-  console.log("AFTER VALUE 1",aftervalue1)
-
-  //2nd planet 
-  var get2stplanet = await Planet.findOne({_id:"638b4027670f7c03afc178e5"})
-  var str2 =get2stplanet.point_range
-  console.log("p1st point",str2)
-  var rupees2 = get2stplanet.doller_rupees
-  console.log("RANGE2",rupees2)
-
-  const beforevalue2 = str2.split(/-(.*)/)[0]
-  const aftervalue2 = str2.split(/-(.*)/)[1]
- // var string = "sometext-20202";
-//console.log( "AFTER",get2stplanet)
-
-//console.log(planet1st);
-
-// 3rd planet
- var get3stplanet = await Planet.findOne({_id:"638b405a670f7c03afc178e7"})
-var str3 =get3stplanet.point_range
-console.log("p3st point",str3)
-var rupees3 = get3stplanet.doller_rupees
-console.log("RANGE2",rupees3)
-
-const beforevalue3 = str3.split(/-(.*)/)[0]
-console.log("3RD",beforevalue3)
-const aftervalue3 = str3.split(/-(.*)/)[1]
-console.log("3RD",aftervalue3)
-
-// 4th planet
-var get4stplanet = await Planet.findOne({_id:"638b407f670f7c03afc178e9"})
-var str4 =get4stplanet.point_range
-console.log("p4st point",str4)
-var rupees4 = get4stplanet.doller_rupees
-console.log("RANGE4",rupees4)
-
-const beforevalue4 = str4.split(/-(.*)/)[0]
-console.log("4RD",beforevalue4)
-const aftervalue4 = str4.split(/-(.*)/)[1]
-console.log("4RD",aftervalue4)
-
-// 5TH PLANET
-var get5stplanet = await Planet.findOne({_id:"638b40b5670f7c03afc178eb"})
-var str5 =get5stplanet.point_range
-console.log("p5st point",str5)
-var rupees5 = get5stplanet.doller_rupees
-console.log("RANGE5",rupees5)
-
-const beforevalue5 = str5.split(/-(.*)/)[0]
-console.log("5RD",beforevalue5)
-const aftervalue5 = str5.split(/-(.*)/)[1]
-console.log("5RD",aftervalue5)
-
-//6th planet 
-var get6stplanet = await Planet.findOne({_id:"638b40d9670f7c03afc178ed"})
-var str6 =get6stplanet.point_range
-console.log("6st point",str6)
-var rupees6 = get6stplanet.doller_rupees
-console.log("RANGE6",rupees6)
-
-const beforevalue6 = str6.split(/-(.*)/)[0]
-console.log("6RD",beforevalue6)
-const aftervalue6 = str6.split(/-(.*)/)[1]
-console.log("6RD",aftervalue6)
-
-  //console.log("METEORS",getmetores)
-  // 7th planet
-  var get7stplanet = await Planet.findOne({_id:"638b40f5670f7c03afc178ef"})
-  var str7 =get7stplanet.point_range
-  console.log("7st point",str7)
-  var rupees7 = get7stplanet.doller_rupees
-  console.log("RANGE6",rupees7)
-  
-  const beforevalue7 = str7.split(/-(.*)/)[0]
-  console.log("7RD",beforevalue7)
-  const aftervalue7 = str7.split(/-(.*)/)[1]
-  console.log("7RD",aftervalue7)
-
-  // 8th planet
-  var get8stplanet = await Planet.findOne({_id:"638b4117670f7c03afc178f1"})
-  var str8 =get8stplanet.point_range
-  console.log("8st point",str8)
-  var rupees8 = get8stplanet.doller_rupees
-  console.log("RANGE8",rupees8)
-  
-  const beforevalue8 = str8.split(/-(.*)/)[0]
-  console.log("8RD",beforevalue8)
-  const aftervalue8 = str8.split(/-(.*)/)[1]
-  console.log("8RD",aftervalue8)
-
-
-  // 9th
-  var get9stplanet = await Planet.findOne({_id:"638b4138670f7c03afc178f3"})
-  var str9 =get9stplanet.point_range
-  console.log("9st point",str9)
-  var rupees9 = get9stplanet.doller_rupees
-  console.log("RANGE9",rupees9)
-  
-   const beforevalue9 = str9.replace('+','');
-
-   console.log("9RDdd",beforevalue9)
-  // const aftervalue9 = str9.split(/-(.*)/)[1]
-  // console.log("9RD",aftervalue9)
-  if(getmetores >beforevalue1 &&getmetores <aftervalue1 ){
-    var totlamt = amt+rupees1
-   
-   console.log("ttttt",totlamt)
-    const updateAmtt = await User.findOneAndUpdate(
-      {
-        _id: getuserid,
-      },
-      { $set: { creaditedAmt:totlamt ,remaining:rupees1} },
-      { new: true }
-
-    )
-    console.log("IF")
-    console.log("updateAmt",updateAmtt)
-    // res.status(200).json({
-    //   status: true,
-    //   status: "success",
-    //   data: updateAmt
-    //   // meteors:updatecontent.meteors,
-    // //  update: updateAmt
-    // })
-  }else if(getmetores >beforevalue2 && getmetores< aftervalue2){
-    console.log("2nd")
-    var totlamt2 = amt+rupees2
-   
-    const updateAmt = await User.findOneAndUpdate(
-      {
-        _id: getuserid,
-      },
-      { $set: { creaditedAmt:totlamt2 } },
-      { new: true }
-
-    )
-   // console.log("updateAmt",updateAmt)
-
-  }else if(getmetores>beforevalue3 && getmetores<aftervalue3 ){
-    console.log("3nd")
-    var totlamt3 = amt+rupees3
-   
-    const updateAmt3 = await User.findOneAndUpdate(
-      {
-        _id: getuserid,
-      },
-      { $set: { creaditedAmt:totlamt3 } },
-      { new: true }
-
-    )
-  //  console.log("updateAmt",updateAmt3)
-  }else if(getmetores>beforevalue4 && getmetores<aftervalue4){
-    console.log("4nd")
-    var totlamt4 = amt+rupees4
-   
-    const updateAmt4 = await User.findOneAndUpdate(
-      {
-        _id: getuserid,
-      },
-      { $set: { creaditedAmt:totlamt4 } },
-      { new: true }
-
-    )
-    console.log("updateAmt",updateAmt4)
-  }else if(getmetores>beforevalue5 && getmetores<aftervalue5){
-  console.log("5nd")
-    var totlamt5 = amt+rupees5
-   
-    const updateAmt5 = await User.findOneAndUpdate(
-      {
-        _id: getuserid,
-      },
-      { $set: { creaditedAmt:totlamt5 } },
-      { new: true }
-
-    )
-    //console.log("updateAmt",updateAmt5)
-}else if(getmetores>beforevalue6 && getmetores<aftervalue6){
-  console.log("6nd")
-  var totlamt6 = amt+rupees6
- 
-  const updateAmt6 = await User.findOneAndUpdate(
-    {
-      _id: getuserid,
-    },
-    { $set: { creaditedAmt:totlamt6 } },
-    { new: true }
-
   )
- // console.log("updateAmt6",updateAmt6)
-}else if(getmetores>beforevalue7 && getmetores<aftervalue7){
-  console.log("7nd")
-  var totlamt7 = amt+rupees7
- 
-  const updateAmt7 = await User.findOneAndUpdate(
-    {
-      _id: getuserid,
-    },
-    { $set: { creaditedAmt:totlamt7 } },
-    { new: true }
+  .populate("userid")
+  .then((data) => resp.successr(res, data))
+  .catch((error) => resp.errorr(res, error));
 
-  )
-//  console.log("updateAmt7",updateAmt7)
-}else if(getmetores>beforevalue8 && getmetores<aftervalue8){
-  console.log("8nd")
-  var totlamt8 = amt+rupees8
- 
-  const updateAmt8 = await User.findOneAndUpdate(
-    {
-      _id: getuserid,
-    },
-    { $set: { creaditedAmt:totlamt8 } },
-    { new: true }
+//   const getsubmitmtrs = upateone.meteors
+//   console.log("SUBMIT METORES", getsubmitmtrs)
+//   const uderdet = upateone.userid
+//   console.log("USER", uderdet)
+//   const getonemetrs = uderdet.meteors
+//   console.log("GET ONE METROES", getonemetrs)
 
-  )
-  console.log("updateAmt8",updateAmt8)
-}else if ( getmetores>beforevalue9){
-  console.log("9nd")
-  var totlamt9 = amt+rupees9
- 
-  const updateAmt9 = await User.findOneAndUpdate(
-    {
-      _id: getuserid,
-    },
-    { $set: { creaditedAmt:totlamt9 } },
-    { new: true }
+//   if (upateone.aprv_status == "Active") {
+//     var date = new Date();
+//     var firstDay = new Date(date.getFullYear(), date.getMonth(), 2);
+//     var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+//     console.log("FIRST", firstDay)
+//     console.log("lAST", lastDay)
+//     const findexist = await Submit.findOne({
+//       $and: [
+//         { userid: uderdet },
+//         {
+//           createdAt: {
+//             $gte: new Date(firstDay),
+//             $lte: new Date(lastDay)
+//           }
+//         }
+//       ]
+//     })
+//     if (findexist) {
+//       const existuser = findexist.userid
+//       console.log("USER", existuser)
+//       const existmetores = findexist.meteors
+//       console.log("GETMETORES", existmetores)
+//       const sttl = parseInt(existmetores) + parseInt(10)
+//       //  console.log("GET METORES",sttl)
+//       console.log("STTL", sttl)
 
-  )
-  console.log("updateAmt9",updateAmt9)
+//       const updatecontent = await Submit.findOneAndUpdate(
+//         {
+//           userid: existuser,
+//         },
+//         { $set: { meteors: sttl } },
+//         { new: true }
+
+//       )
+
+//       var total = parseInt(getonemetrs) + parseInt(10)
+//       console.log("TOTAL", total)
+
+//       const updateuser = await User.findOneAndUpdate(
+//         {
+//           _id: existuser,
+//         },
+//         { $set: { meteors: total } },
+//         { new: true }
+
+//       )
+//       console.log("UPDATEW", updatecontent)
+//       console.log("UPDATTTTTTTTTEEEEE", updateuser)
+//       res.status(200).json({
+//         status: true,
+//         status: "success",
+//         data: updatecontent,
+//         // meteors:updatecontent.meteors,
+//         update: updateuser.meteors,
+//         // updatemetores:updateuser.meteors
+
+//       });
+//     }
+//     else {
+//       console.log("ELSE")
+
+//       var total = parseInt(getsubmitmtrs) + parseInt(10)
+
+//       const updateuser = await Submit.findOneAndUpdate(
+//         {
+//           _id: req.params.id,
+//         },
+//         { $set: { meteors: total } },
+//         { new: true }
+//       )
+//       //  var total =parseInt (findmetors) + parseInt(10)
+//       const usermtrs = getonemetrs + parseInt(10)
+//       const updatmetores = await User.findOneAndUpdate(
+//         {
+//           _id: uderdet,
+//         },
+//         { $set: { meteors: usermtrs } },
+//         { new: true }
+
+//       )
+//       console.log("UPpppp", updateuser)
+//       console.log("UDDDD USER", updatmetores)
+//       res.status(200).json({
+//         status: true,
+//         status: "success",
+//         data: updateuser,
+//         meteors: updatmetores.meteors,
+
+
+//       });
+//     }
+//   }
+//   const getcredited = await Submit.findOne({_id: req.params.id}).populate("userid")
+//   var getuserid = getcredited.userid
+//   var getmetores = getuserid.meteors
+//   console.log("USER",getuserid)
+//   var amt =getuserid.creaditedAmt
+//   console.log("AMT",amt)
+  
+//   var getplanet =  await Planet.find()
+//   let string = getplanet.point_range
+//   var get1stplanet = await Planet.findOne({_id:"638b3fe9670f7c03afc178e1"})
+//   console.log("1ST PLANET",get1stplanet)
+//   var str1 =get1stplanet.point_range
+//   console.log("p1st point",str1)
+//   var rupees1 = get1stplanet.doller_rupees
+//   console.log("RANGE1",rupees1)
+//   const beforevalue1 = str1.split(/-(.*)/)[0]
+//   console.log("BEFORE VALUE 1",beforevalue1)
+//   const aftervalue1 = str1.split(/-(.*)/)[1]
+
+//   console.log("AFTER VALUE 1",aftervalue1)
+
+//   //2nd planet 
+//   var get2stplanet = await Planet.findOne({_id:"638b4027670f7c03afc178e5"})
+//   var str2 =get2stplanet.point_range
+//   console.log("p1st point",str2)
+//   var rupees2 = get2stplanet.doller_rupees
+//   console.log("RANGE2",rupees2)
+
+//   const beforevalue2 = str2.split(/-(.*)/)[0]
+//   const aftervalue2 = str2.split(/-(.*)/)[1]
+//  // var string = "sometext-20202";
+// //console.log( "AFTER",get2stplanet)
+
+// //console.log(planet1st);
+
+// // 3rd planet
+//  var get3stplanet = await Planet.findOne({_id:"638b405a670f7c03afc178e7"})
+// var str3 =get3stplanet.point_range
+// console.log("p3st point",str3)
+// var rupees3 = get3stplanet.doller_rupees
+// console.log("RANGE2",rupees3)
+
+// const beforevalue3 = str3.split(/-(.*)/)[0]
+// console.log("3RD",beforevalue3)
+// const aftervalue3 = str3.split(/-(.*)/)[1]
+// console.log("3RD",aftervalue3)
+
+// // 4th planet
+// var get4stplanet = await Planet.findOne({_id:"638b407f670f7c03afc178e9"})
+// var str4 =get4stplanet.point_range
+// console.log("p4st point",str4)
+// var rupees4 = get4stplanet.doller_rupees
+// console.log("RANGE4",rupees4)
+
+// const beforevalue4 = str4.split(/-(.*)/)[0]
+// console.log("4RD",beforevalue4)
+// const aftervalue4 = str4.split(/-(.*)/)[1]
+// console.log("4RD",aftervalue4)
+
+// // 5TH PLANET
+// var get5stplanet = await Planet.findOne({_id:"638b40b5670f7c03afc178eb"})
+// var str5 =get5stplanet.point_range
+// console.log("p5st point",str5)
+// var rupees5 = get5stplanet.doller_rupees
+// console.log("RANGE5",rupees5)
+
+// const beforevalue5 = str5.split(/-(.*)/)[0]
+// console.log("5RD",beforevalue5)
+// const aftervalue5 = str5.split(/-(.*)/)[1]
+// console.log("5RD",aftervalue5)
+
+// //6th planet 
+// var get6stplanet = await Planet.findOne({_id:"638b40d9670f7c03afc178ed"})
+// var str6 =get6stplanet.point_range
+// console.log("6st point",str6)
+// var rupees6 = get6stplanet.doller_rupees
+// console.log("RANGE6",rupees6)
+
+// const beforevalue6 = str6.split(/-(.*)/)[0]
+// console.log("6RD",beforevalue6)
+// const aftervalue6 = str6.split(/-(.*)/)[1]
+// console.log("6RD",aftervalue6)
+
+//   //console.log("METEORS",getmetores)
+//   // 7th planet
+//   var get7stplanet = await Planet.findOne({_id:"638b40f5670f7c03afc178ef"})
+//   var str7 =get7stplanet.point_range
+//   console.log("7st point",str7)
+//   var rupees7 = get7stplanet.doller_rupees
+//   console.log("RANGE6",rupees7)
+  
+//   const beforevalue7 = str7.split(/-(.*)/)[0]
+//   console.log("7RD",beforevalue7)
+//   const aftervalue7 = str7.split(/-(.*)/)[1]
+//   console.log("7RD",aftervalue7)
+
+//   // 8th planet
+//   var get8stplanet = await Planet.findOne({_id:"638b4117670f7c03afc178f1"})
+//   var str8 =get8stplanet.point_range
+//   console.log("8st point",str8)
+//   var rupees8 = get8stplanet.doller_rupees
+//   console.log("RANGE8",rupees8)
+  
+//   const beforevalue8 = str8.split(/-(.*)/)[0]
+//   console.log("8RD",beforevalue8)
+//   const aftervalue8 = str8.split(/-(.*)/)[1]
+//   console.log("8RD",aftervalue8)
+
+
+//   // 9th
+//   var get9stplanet = await Planet.findOne({_id:"638b4138670f7c03afc178f3"})
+//   var str9 =get9stplanet.point_range
+//   console.log("9st point",str9)
+//   var rupees9 = get9stplanet.doller_rupees
+//   console.log("RANGE9",rupees9)
+  
+//    const beforevalue9 = str9.replace('+','');
+
+//    console.log("9RDdd",beforevalue9)
+//   // const aftervalue9 = str9.split(/-(.*)/)[1]
+//   // console.log("9RD",aftervalue9)
+//   if(getmetores >beforevalue1 &&getmetores <aftervalue1 ){
+//     var totlamt = amt+rupees1
+   
+//    console.log("ttttt",totlamt)
+//     const updateAmtt = await User.findOneAndUpdate(
+//       {
+//         _id: getuserid,
+//       },
+//       { $set: { creaditedAmt:totlamt ,remaining:rupees1} },
+//       { new: true }
+
+//     )
+//     console.log("IF")
+//     console.log("updateAmt",updateAmtt)
+//     // res.status(200).json({
+//     //   status: true,
+//     //   status: "success",
+//     //   data: updateAmt
+//     //   // meteors:updatecontent.meteors,
+//     // //  update: updateAmt
+//     // })
+//   }else if(getmetores >beforevalue2 && getmetores< aftervalue2){
+//     console.log("2nd")
+//     var totlamt2 = amt+rupees2
+   
+//     const updateAmt = await User.findOneAndUpdate(
+//       {
+//         _id: getuserid,
+//       },
+//       { $set: { creaditedAmt:totlamt2 } },
+//       { new: true }
+
+//     )
+//    // console.log("updateAmt",updateAmt)
+
+//   }else if(getmetores>beforevalue3 && getmetores<aftervalue3 ){
+//     console.log("3nd")
+//     var totlamt3 = amt+rupees3
+   
+//     const updateAmt3 = await User.findOneAndUpdate(
+//       {
+//         _id: getuserid,
+//       },
+//       { $set: { creaditedAmt:totlamt3 } },
+//       { new: true }
+
+//     )
+//   //  console.log("updateAmt",updateAmt3)
+//   }else if(getmetores>beforevalue4 && getmetores<aftervalue4){
+//     console.log("4nd")
+//     var totlamt4 = amt+rupees4
+   
+//     const updateAmt4 = await User.findOneAndUpdate(
+//       {
+//         _id: getuserid,
+//       },
+//       { $set: { creaditedAmt:totlamt4 } },
+//       { new: true }
+
+//     )
+//     console.log("updateAmt",updateAmt4)
+//   }else if(getmetores>beforevalue5 && getmetores<aftervalue5){
+//   console.log("5nd")
+//     var totlamt5 = amt+rupees5
+   
+//     const updateAmt5 = await User.findOneAndUpdate(
+//       {
+//         _id: getuserid,
+//       },
+//       { $set: { creaditedAmt:totlamt5 } },
+//       { new: true }
+
+//     )
+//     //console.log("updateAmt",updateAmt5)
+// }else if(getmetores>beforevalue6 && getmetores<aftervalue6){
+//   console.log("6nd")
+//   var totlamt6 = amt+rupees6
+ 
+//   const updateAmt6 = await User.findOneAndUpdate(
+//     {
+//       _id: getuserid,
+//     },
+//     { $set: { creaditedAmt:totlamt6 } },
+//     { new: true }
+
+//   )
+//  // console.log("updateAmt6",updateAmt6)
+// }else if(getmetores>beforevalue7 && getmetores<aftervalue7){
+//   console.log("7nd")
+//   var totlamt7 = amt+rupees7
+ 
+//   const updateAmt7 = await User.findOneAndUpdate(
+//     {
+//       _id: getuserid,
+//     },
+//     { $set: { creaditedAmt:totlamt7 } },
+//     { new: true }
+
+//   )
+// //  console.log("updateAmt7",updateAmt7)
+// }else if(getmetores>beforevalue8 && getmetores<aftervalue8){
+//   console.log("8nd")
+//   var totlamt8 = amt+rupees8
+ 
+//   const updateAmt8 = await User.findOneAndUpdate(
+//     {
+//       _id: getuserid,
+//     },
+//     { $set: { creaditedAmt:totlamt8 } },
+//     { new: true }
+
+//   )
+//   console.log("updateAmt8",updateAmt8)
+// }else if ( getmetores>beforevalue9){
+//   console.log("9nd")
+//   var totlamt9 = amt+rupees9
+ 
+//   const updateAmt9 = await User.findOneAndUpdate(
+//     {
+//       _id: getuserid,
+//     },
+//     { $set: { creaditedAmt:totlamt9 } },
+//     { new: true }
+
+//   )
+//   console.log("updateAmt9",updateAmt9)
+// }
 }
-}
+
 
 
 exports.posted_by_me = async (req, res) => {
