@@ -20,7 +20,8 @@ const {
     sendmail,
     verifyotp,
     sendotp,
-    forgetpassword
+    forgetpassword,
+    signinwithgoogle
   
 } = require("../controller/user");
 
@@ -82,6 +83,7 @@ router.post("/user/verifyotp", verifyotp);
 router.post("/user/sendotp", sendotp);
 router.post("/user/forgetpassword/:id", forgetpassword);
 
+router.post("/user/signinwithgoogle", signinwithgoogle);
 
 
  

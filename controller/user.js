@@ -796,8 +796,6 @@ sendMail()
 
 }
 
-
-
 exports.sendotp = async (req,res) =>{
 const {email,username} = req.body
 
@@ -950,5 +948,62 @@ exports.forgetpassword = async (req, res) => {
       msg: "error",
       error: "Password not matched",
     })
+  }
+};
+
+
+exports.signinwithgoogle = async (req, res) => {
+  const {
+    username,
+    email,
+    status,
+    password,
+    
+  } = req.body;
+ 
+ 
+  
+  const newuser = new User({
+      username: username,
+    email: email,
+    status,status,
+     password: password,
+     status:"true"
+
+  });
+
+  const findexist = await User.findOne({$or:[{
+ email: email },{username: username }]}
+  )
+  if (findexist) {
+    resp.alreadyr(res);
+  } else {
+  
+    newuser.save()
+    .then(async(data)=> {
+    
+      const salt = await bcrypt.genSalt(10);
+      const hashPassword = await bcrypt.hash(password, salt);
+     
+       //  newuser.password = await bcrypt.hash(password, salt);
+     console.log("PASS", newuser.password = hashPassword)
+      newuser.save().hashPassword
+  //  savepass =newuser.password
+  //  newuser.savepass =hashPassword
+      res.status(200).json({
+        
+        status: true,
+        message: "success",
+        data:data
+        // username:data.username,
+        // email: data.email,
+        // mobile: data.mobile,
+       // otp: defaultotp,
+      })
+    })
+    
+    .catch((error) => resp.errorr(res, error))
+      
+      .catch((error) => resp.errorr(res, error));
   }
 };
