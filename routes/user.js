@@ -18,7 +18,8 @@ const {
     payout,
     resetPassword,
     sendmail,
-    verifyotp
+    verifyotp,
+    sendotp
   
 } = require("../controller/user");
 
@@ -77,9 +78,11 @@ router.get("/user/payoutlist", payoutlist);
 router.post("/admin/payout/:id", payout);
 router.post("/user/resetPassword/:id", resetPassword);
 router.post("/user/verifyotp", verifyotp);
+router.post("/user/sendotp", sendotp);
 
 
 
+ 
 
 
 module.exports = router;

@@ -795,3 +795,116 @@ sendMail()
   }
 
 }
+
+
+
+exports.sendotp = async (req,res) =>{
+const {email,username} = req.body
+
+  const defaultotp = Math.ceil(1000 + Math.random() * 9000);
+ 
+  
+    const findexist = await User.findOne({
+      // $or:[{
+      // email: email },{username: username }]
+      $and: [
+
+        { $or: [{ email: email }, { username: username }] }, { $and: [{status:"true" }] }
+      ]
+    }
+       )
+        if (findexist) {
+      //    resp.alreadyr(res);
+      //  } else {
+const oAuth2Client = new google.auth.OAuth2(
+  process.env.CLIENT_ID,
+  process.env.CLEINT_SECRET,
+  process.env.REDIRECT_URI
+);
+oAuth2Client.setCredentials({ refresh_token: process.env.REFRESH_TOKEN });
+async function sendMail() {
+  try {
+    const accessToken = await oAuth2Client.getAccessToken();
+    const subject = `Hello from Brahmaand Space`;
+    const text = `<h4>Your verfication code is ${defaultotp}</h4>`;
+    const transport = nodemailer.createTransport({
+                  service: 'gmail',
+                  auth: {
+                      type: 'OAuth2',
+                      user: 'contactus@brahmaand.space',
+                      clientId: process.env.CLIENT_ID,
+                      clientSecret: process.env.CLEINT_SECRET,
+                      refreshToken: process.env.REFRESH_TOKEN,
+                      accessToken: process.env.accessToken,
+                  },
+              });
+              console.log("transport",transport)
+      
+              const mailOptions = {
+                from: '<b>contactus@brahmaand.space</b>',
+                  to:  req.body.email,
+                  subject: 'Hello from gmail using API',
+                  subject: `<b>${subject}b>`, // Subject line
+                  text: `<b>${text}</b>`, // plain text body
+                  html: `<b>${text}</b>`, // html body
+                  // text: 'Hello from gmail email using API',
+                  // html: '<h1>Hello from gmail email using API</h1>',
+              };
+
+    const result = await transport.sendMail(mailOptions);
+    return result;
+    
+  } catch (error) {
+    return error;
+  }
+}
+
+sendMail()
+ // newuser.save()
+  .then(async(data)=> {
+  
+    // const salt = await bcrypt.genSalt(10);
+    // const hashPassword = await bcrypt.hash(password, salt);
+   
+     //  newuser.password = await bcrypt.hash(password, salt);
+  // console.log("PASS", newuser.password = hashPassword)
+  //  newuser.save().hashPassword
+//  savepass =newuser.password
+//  newuser.savepass =hashPassword
+    res.status(200).json({
+      status: true,
+      msg: "otp send successfully",
+      username:data.username,
+      email: data.email,
+      mobile: data.mobile,
+      otp: defaultotp,
+    })
+
+    const finddetails = await User.findOneAndUpdate(
+      {
+        $or: [{ email: email },{ username: username }],
+      },
+      { $set: { otp: defaultotp } },
+      { new: true }
+    );
+  
+  })
+  .catch((error) => {
+    res.status(400).json({
+      status:false,
+      error :"error"
+    })
+  })
+  //resp.errorr(res, error))
+ // console.log('Email sent...', result
+  
+  // )
+ // .catch((error) => console.log(error.message));
+}else{
+  res.status(400).json({
+    status:false,
+    msg :"user does't exist"
+  })
+}
+}
+
