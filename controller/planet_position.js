@@ -48,24 +48,24 @@ let murcury = getplanet[1]
 
 
  //  console.log("index1",index1)
-   let image0= "https://res.cloudinary.com/dc7hzwpbm/image/upload/v1670070249/dasgxnu2tpymxavh2d65.png"  //sun
+   let image0= "https://res.cloudinary.com/dc7hzwpbm/image/upload/v1670070489/vc8jqia4p03mcmsfsu4s.png"  //saturn
    let winner0 ="https://res.cloudinary.com/dc7hzwpbm/image/upload/v1672750483/u9khf64n03seqhbhflc0.png"
-   let image1 = "https://res.cloudinary.com/dc7hzwpbm/image/upload/v1670070311/ofzoh9w2qsu8eozonet0.png"  //mercury
+   let image1 = "https://res.cloudinary.com/dc7hzwpbm/image/upload/v1670070249/dasgxnu2tpymxavh2d65.png"  //sun
     let winner1 = "https://res.cloudinary.com/dc7hzwpbm/image/upload/v1672822945/utvv6gwfv4ymheurmmyl.png"
-    let image2 = "https://res.cloudinary.com/dc7hzwpbm/image/upload/v1670070363/o5kcs94prjzuzx54h0o9.png"  // venus
+    let image2 = "https://res.cloudinary.com/dc7hzwpbm/image/upload/v1670070517/o31vm4pjsespbflctuyc.png"  // uranus
     let winner2 = "https://res.cloudinary.com/dc7hzwpbm/image/upload/v1672823272/uftxvlukaxqk7nnznhbw.png"
-    let image3 = "https://res.cloudinary.com/dc7hzwpbm/image/upload/v1670070399/zqgnmvxositu1slptgcm.png" // mars
+    let image3 = "https://res.cloudinary.com/dc7hzwpbm/image/upload/v1670070363/o5kcs94prjzuzx54h0o9.png" // venus
    let wineer3 = "https://res.cloudinary.com/dc7hzwpbm/image/upload/v1672823746/ey1tgcxpilhhull8yvah.png"
-    let image4 = "https://res.cloudinary.com/dc7hzwpbm/image/upload/v1670070454/ypbhsfzcpp9c2v7zt2wf.png"  //jupiter
+    let image4 = "https://res.cloudinary.com/dc7hzwpbm/image/upload/v1670070584/fmufwdrrfio0fp6rcypc.png"  //earth
    let wineer4 = "https://res.cloudinary.com/dc7hzwpbm/image/upload/v1672823788/ifox0b7v8sbtn8mr7bro.png"
-    let image5 = "https://res.cloudinary.com/dc7hzwpbm/image/upload/v1670070489/vc8jqia4p03mcmsfsu4s.png" //saturan
+    let image5 = "https://res.cloudinary.com/dc7hzwpbm/image/upload/v1670070454/ypbhsfzcpp9c2v7zt2wf.png" //Jupiter
 let wineer5 ="https://res.cloudinary.com/dc7hzwpbm/image/upload/v1672823824/vemlpgfizofxr6ndv5vx.png"
-let image6 = "https://res.cloudinary.com/dc7hzwpbm/image/upload/v1670070517/o31vm4pjsespbflctuyc.png"  // uranus
+let image6 = "https://res.cloudinary.com/dc7hzwpbm/image/upload/v1670070311/ofzoh9w2qsu8eozonet0.png"  // mercury
 let wineer6 = "https://res.cloudinary.com/dc7hzwpbm/image/upload/v1672823863/qwpk9vuw8evdbumyv5lk.png"
-let image7 = "https://res.cloudinary.com/dc7hzwpbm/image/upload/v1670070551/bp73dcy0nucyebx6jky5.png"  // neptune
+let image7 = "https://res.cloudinary.com/dc7hzwpbm/image/upload/v1670070399/zqgnmvxositu1slptgcm.png"  // mars
 let wineer7 ="https://res.cloudinary.com/dc7hzwpbm/image/upload/v1672823901/azinlej2el29pw8uxjgj.png"
-let image8 = "https://res.cloudinary.com/dc7hzwpbm/image/upload/v1670070584/fmufwdrrfio0fp6rcypc.png" // earth
-let wineer8 = "https://res.cloudinary.com/dc7hzwpbm/image/upload/v1672823901/azinlej2el29pw8uxjgj.png"
+let image8 = "https://res.cloudinary.com/dc7hzwpbm/image/upload/v1670070551/bp73dcy0nucyebx6jky5.png" // neptune
+let wineer8 = "https://res.cloudinary.com/dc7hzwpbm/image/upload/v1672837692/yc4dpakf5nbvgzmrizu1.png"
 
  const getdata =   await User.findOneAndUpdate(
       {
@@ -123,7 +123,7 @@ let wineer8 = "https://res.cloudinary.com/dc7hzwpbm/image/upload/v1672823901/azi
     console.log("getdata5",getdata5)
     const getdata6 =   await User.findOneAndUpdate(
       {
-        _id :getuser[4],
+        _id :getuser[6],
       },
       { $set:{ planetImg:image6,winnerImg:wineer6} },
       { new: true }
@@ -166,51 +166,9 @@ let wineer8 = "https://res.cloudinary.com/dc7hzwpbm/image/upload/v1672823901/azi
 
    
    })
-//   let getmetores = index0.meteors
-//   console.log("getmetores",getmetores)
-//   //console.log("index0",index0)
-
-
-    
-  
-//   if(getmetores>sunv1 && getmetores<sunv2 ){
-//     console.log("success")
-//   }else if(getmetores >m1 && getmetores<m2 ){
-// console.log("2nd success")
-
-// res.status(200).json({
-//   status:true,
-//   msg :"success",
-//   planet:getp2,
-//   user:index0
-// })
-
-//   }
-
-
-//   let index1 = getuser[1]
-//   let user1 = index1.meteors
-//   console.log("getmetores",user1)
-//   if(user1>sunv1 && user1<sunv2 ){
-//     console.log("success")
-//   }else if(user1 >m1 && user1<m2 ){
-// console.log("2nd success")
-
-// res.status(200).json({
-//   status:true,
-//   msg :"success",
-//   planet:getp2,
-//   user:index1
-// })
-
-//   }
  
-   // .sort({ sortorder: 1 })
-    //.then((data) => resp.successr(res, data))
-    // console.log("USER",getuser)
-    // console.log("METORES",newarr1)
-
-  //  .catch((error) => resp.errorr(res, error));
+ 
+ 
 };
 
 exports.user_planet_position= async (req, res) => {

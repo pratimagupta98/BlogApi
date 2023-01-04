@@ -1170,8 +1170,6 @@ exports.posted_by_me = async (req, res) => {
 
 
 exports.edit_promotion = async (req, res) => {
- 
-
   await Submit.findOneAndUpdate(
     {
       _id: req.params.id,
@@ -1179,6 +1177,23 @@ exports.edit_promotion = async (req, res) => {
     { $set: req.body },
     { new: true }
   )
+    .then((data) => resp.successr(res, data))
+    .catch((error) => resp.errorr(res, error));
+};
+
+
+exports.filterbyid = async (req, res) => {
+
+
+  await Submit.find({
+    // $and: [{ topics: req.params.id }, { $and: [{ aprv_status: "Active" }] }
+    // ]
+    $and: [
+
+      { $and: [{ sub_category: req.params.sub_category }, { topics: req.params.id }] }, { $and: [{ aprv_status: "Active" },{}] }
+    ]
+  }
+  ).populate("category").populate("sub_category").populate("relYear").populate("language")
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
 };
