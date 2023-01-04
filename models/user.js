@@ -64,7 +64,14 @@ const thisSchema = new Schema(
     },
     oldpassword:{
       type: String,
+    },
+    planetImg:{
+      type:String
+    },
+    winnerImg:{
+      type:String
     }
+
   },
 
 

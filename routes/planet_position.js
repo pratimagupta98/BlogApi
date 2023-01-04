@@ -4,7 +4,7 @@ const multer = require("multer");
 const fs = require("fs");
 
 const {
-    add_planet_position,user_planet_position,edit_planet_position
+    add_planet_position,user_planet_position,edit_planet_position,all_time_karma
    
 } = require("../controller/planet_position.js");
 
@@ -48,6 +48,7 @@ const storage = multer.diskStorage({
 //  router.post("/user/dis_book_mark/:id",     dis_book_mark);
 // //router.get("/admin/dltmany",     dltmany)
 // router.get("/user/getone_mylikes/:userid/:submitresrcId",getone_mylikes);
+router.get("/user/all_time_karma", all_time_karma);
 
 
 module.exports = router;

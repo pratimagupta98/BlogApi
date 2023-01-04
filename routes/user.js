@@ -74,7 +74,7 @@ router.get("/admin/dltUser/:id", dltUser);
 router.post("/admin/user_aprv_sts/:id", user_aprv_sts);
 router.get("/admin/total_user", total_user);
 router.get("/user/karma_crrnt_month", karma_crrnt_month);
-router.get("/user/all_time_karma", all_time_karma);
+//router.get("/user/all_time_karma", all_time_karma);
 router.get("/user/payoutlist", payoutlist);
 
 router.post("/admin/payout/:id", payout);
