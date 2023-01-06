@@ -1,7 +1,8 @@
 const Submit = require("../models/submit_resrc");
 const User = require("../models/user");
 const Category = require("../models/category");
-
+const { Query } = require("mongo-filter-query");
+var MongoQS = require('mongo-querystring');
 const resp = require("../helpers/apiResponse");
 const SubCategory = require("../models/subcategory");
 
@@ -1183,17 +1184,100 @@ exports.edit_promotion = async (req, res) => {
 
 
 exports.filterbyid = async (req, res) => {
-
-
   await Submit.find({
-    // $and: [{ topics: req.params.id }, { $and: [{ aprv_status: "Active" }] }
-    // ]
-    $and: [
-
-      { $and: [{ sub_category: req.params.sub_category }, { topics: req.params.id }] }, { $and: [{ aprv_status: "Active" },{}] }
-    ]
-  }
+    // $and: [
+       sub_category: req.params.sub_category , aprv_status: "Active" ,type: req.params.type,format:req.params.format
+       
+  },
+  // { type: req.params.type  },
   ).populate("category").populate("sub_category").populate("relYear").populate("language")
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
+
+  //  ,{type:req.params.type}
+};
+
+
+// exports.advancefilter = async (req, res) => {
+//   const {
+//     sub_category,
+//     type,
+//     format
+
+
+//   } = req.body;
+//   console.log(req.body);
+
+//   const query = new Query();
+//   if (sub_category) {
+//     query.addEqualsFilter("SUBCATEGORY", sub_category);
+//   }
+//   if (type && type.length !== 0) {
+//     query.addMultiSelectFilter("type", type);
+//   }
+//   if (format && format.length !== 0) {
+//     query.addMultiSelectFilter("format", format);
+//   }
+//   console.log("QUERY",query)
+//   const queryStr = query.toQueryString();
+//   // var queryStr = query.ToQueryString();
+//   console.log("SUCCESS",query.toQueryString());
+//   // console.log(JSON.parse(queryStr));
+//  const getval = await Submit.find(JSON.parse(queryStr))
+//  console.log("get",getval)
+//  // .populate("category").populate("sub_category").populate("relYear").populate("language")
+    
+//    // .sort({ createdAt: -1 })
+//     .then((result) => {
+//       res.status(200).json({
+//         status: true,
+//         msg: "success",
+//         data: result,
+//       });
+//     })
+//     .catch((err) => {
+//       res.status(200).json({
+//         status: false,
+//         msg: "error",
+//         data: err,
+//       });
+//     });
+// };
+
+
+exports.advancefilter = async (req, res) => {
+ let query ={}
+ if(req.query.type){
+  query.type = req.query.type
+ }
+ if(req.query.format){
+  query.format = req.query.format
+ }
+ if(req.query.language){
+  query.language = req.query.language
+ }
+ if(req.query.relYear){
+  query.relYear =req.query.relYear
+ }
+ if(req.query.topics){
+  query.topics =req.query.topics
+ }
+
+//  if (myprofile.blockedme) {
+//   console.log(myprofile.blockedme.length);
+//   for (let i = 0; i < myprofile.blockedme.length; i++) {
+//     const element = myprofile.blockedme[i];
+//     console.log(element);
+//     query.addNotEqualsFilter("_id", myprofile.blockedme[i]);
+//   }
+// }
+
+ let blogs = await Submit.find(
+ query)
+//let getblog = (query)
+ console.log("blogs",blogs)
+ return res.status(200).json({
+  message:"blog success",
+  data :blogs
+ })
 };

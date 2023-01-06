@@ -30,7 +30,9 @@ const {
     treding_topics,
     filterbyHashTag,
     posted_by_me,
-    edit_promotion
+    edit_promotion,
+    filterbyid,
+    advancefilter
     
 } = require("../controller/submit_resrc");
 
@@ -93,6 +95,9 @@ router.get("/user/filterbyHashTag/:sub_category/:id", filterbyHashTag);
 router.get("/user/posted_by_me/:id", posted_by_me);
 router.post("/admin/edit_promotion/:id", edit_promotion);
 
+router.get("/user/filterbyid/:sub_category/:?type/:format", filterbyid);
+// :id?type/:id?format?/:id?relYear?
+router.post("/user/advancefilter", advancefilter);
 
 
 

@@ -71,7 +71,7 @@ userid:{
             default:0  
         },
         ava_rating:{
-            type: String,
+            type: Number,
             default:0  
           },
           trendingPoint: {
