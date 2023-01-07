@@ -1245,39 +1245,116 @@ exports.filterbyid = async (req, res) => {
 // };
 
 
-exports.advancefilter = async (req, res) => {
- let query ={}
- if(req.query.type){
-  query.type = req.query.type
- }
- if(req.query.format){
-  query.format = req.query.format
- }
- if(req.query.language){
-  query.language = req.query.language
- }
- if(req.query.relYear){
-  query.relYear =req.query.relYear
- }
- if(req.query.topics){
-  query.topics =req.query.topics
- }
+// exports.advancefilter = async (req, res) => {
+//  let query ={}
+//  const where = {}
+//  if(req.query.sub_category){
+//   //query.sub_category = req.query.sub_category
 
-//  if (myprofile.blockedme) {
-//   console.log(myprofile.blockedme.length);
-//   for (let i = 0; i < myprofile.blockedme.length; i++) {
-//     const element = myprofile.blockedme[i];
-//     console.log(element);
-//     query.addNotEqualsFilter("_id", myprofile.blockedme[i]);
-//   }
+//   where.push({sub_category: req.query.sub_category})
+//  }
+//  if(req.query.type){
+// //  query.type = req.query.type
+//   where.push({type: req.query.type})
+//  }
+//  if(req.query.format){
+//     req.query.format = req.query.format
+//  }
+//  if(req.query.language){
+//   query.language = req.query.language
+//  }
+//  if(req.query.relYear){
+//   query.relYear =req.query.relYear
+//  }
+// //  if(req.query.topics){
+// //   query.topics =req.query.topics
+// //  }
+//  console.log("query",req.query.topics)
+
+ 
+// //where =({$and:[{"topics": req.query.topics}]})
+
+// if (req.query.topics) {
+//   where[req.query.topics] = { $regex: req.query.topics };
 // }
+  
+//  // format : req.query.format, type : req.query.type,language : req.query.language,relYear : req.query.relYear, }
+ 
+ 
+// //console.log("where",where)
+//  let blogs = await Submit.find(where)
+//  console.log("BLOG",blogs)
+//  console.log("blogs",req.query.topics)
+//  return res.status(200).json({
+//   message:"blog success",
+//   count:blogs.length,
+//   data :blogs
+//  })
+// };
 
- let blogs = await Submit.find(
- query)
-//let getblog = (query)
- console.log("blogs",blogs)
- return res.status(200).json({
-  message:"blog success",
-  data :blogs
- })
-};
+exports.advancefilter = async (req, res) => {
+function createFiltersArray(req) {
+
+  let filters = [];
+  
+  if (req.query.type !== undefined){
+  
+  filters.push({type: req.query.type})
+  
+  }
+  
+  if (req.query.format !== undefined){
+  
+  filters.push({format: req.query.format})
+  
+  }
+  
+  if (req.query.language !== undefined){
+  
+  filters.push({language: req.query.language})
+  
+  }
+  
+  if (req.query.relYear !== undefined){
+  
+  filters.push({relYear: req.query.relYear})
+  
+  }
+  
+  if (req.query.topics !== undefined){
+  
+  filters.push({topics: req.query.topics})
+  
+  }
+  
+  }
+  
+   //app.get("/retrieve", (req, res) => {
+  
+  console.log("QUERY",req.query);
+  
+  const filters = createFiltersArray(req)
+  console.log("FILTER",filters)
+  
+  Submit.find(filters)
+  
+  .then(users => {
+  
+  //console.log(users)
+  
+  res.send({count:users.length,"data":users});
+  
+  })
+  
+  .catch(error => {
+  
+  console.error(error);
+  
+  res.send({ error: 'Request failed' });
+  
+  });
+  
+ // });
+
+}
+//{topics : { $regex : req.query.topics }}
