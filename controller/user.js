@@ -501,9 +501,6 @@ const getupdate=   await User.findOneAndUpdate(
 }
  };
 
-
-  
-
 exports.forgetPassword = async (req, res) => {
 
   const { password, cnfrmPassword } = req.body

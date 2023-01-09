@@ -681,6 +681,8 @@ exports.filterbyHashTag = async (req, res) => {
     .catch((error) => resp.errorr(res, error));
 };
 
+
+
 // exports.approve_submit_resrc = async (req, res) => {
 
 
@@ -1245,116 +1247,116 @@ exports.filterbyid = async (req, res) => {
 // };
 
 
-// exports.advancefilter = async (req, res) => {
-//  let query ={}
-//  const where = {}
+exports.advancefilter = async (req, res) => {
+ let query ={}
+ //const where = {}
 //  if(req.query.sub_category){
 //   //query.sub_category = req.query.sub_category
 
 //   where.push({sub_category: req.query.sub_category})
 //  }
-//  if(req.query.type){
-// //  query.type = req.query.type
-//   where.push({type: req.query.type})
+ if(req.query.type){
+  query.type = req.query.type
+ // where.push({type: req.query.type})
+ }
+ if(req.query.format){
+    query.format = req.query.format
+ }
+ if(req.query.language){
+  query.language = req.query.language
+ }
+ if(req.query.relYear){
+  query.relYear =req.query.relYear
+ }
+//  if(req.query.topics){
+//   query.topics =req.query.topics
 //  }
-//  if(req.query.format){
-//     req.query.format = req.query.format
-//  }
-//  if(req.query.language){
-//   query.language = req.query.language
-//  }
-//  if(req.query.relYear){
-//   query.relYear =req.query.relYear
-//  }
-// //  if(req.query.topics){
-// //   query.topics =req.query.topics
-// //  }
-//  console.log("query",req.query.topics)
+ //console.log("query",req.query.topics)
 
  
-// //where =({$and:[{"topics": req.query.topics}]})
+//where =({$and:[{"topics": req.query.topics}]})
 
 // if (req.query.topics) {
 //   where[req.query.topics] = { $regex: req.query.topics };
 // }
   
-//  // format : req.query.format, type : req.query.type,language : req.query.language,relYear : req.query.relYear, }
+ // format : req.query.format, type : req.query.type,language : req.query.language,relYear : req.query.relYear, }
  
  
-// //console.log("where",where)
-//  let blogs = await Submit.find(where)
-//  console.log("BLOG",blogs)
-//  console.log("blogs",req.query.topics)
-//  return res.status(200).json({
-//   message:"blog success",
-//   count:blogs.length,
-//   data :blogs
-//  })
-// };
+//console.log("where",where)
+ let blogs = await Submit.find(query)
+ console.log("BLOG",blogs)
+ console.log("blogs",req.query.topics)
+ return res.status(200).json({
+  message:"blog success",
+  count:blogs.length,
+  data :blogs
+ })
+};
 
-exports.advancefilter = async (req, res) => {
-function createFiltersArray(req) {
+// exports.advancefilter = async (req, res) => {
+// function createFiltersArray(req) {
 
-  let filters = [];
+//   let filters = [];
   
-  if (req.query.type !== undefined){
+//   if (req.query.type !== undefined){
   
-  filters.push({type: req.query.type})
+//   filters.push({type: req.query.type})
   
-  }
+//   }
   
-  if (req.query.format !== undefined){
+//   if (req.query.format){
   
-  filters.push({format: req.query.format})
+//   filters.push({format: req.query.format})
   
-  }
+//   }
   
-  if (req.query.language !== undefined){
+//   if (req.query.language !== undefined){
   
-  filters.push({language: req.query.language})
+//   filters.push({language: req.query.language})
   
-  }
+//   }
   
-  if (req.query.relYear !== undefined){
+//   if (req.query.relYear !== undefined){
   
-  filters.push({relYear: req.query.relYear})
+//   filters.push({relYear: req.query.relYear})
   
-  }
+//   }
   
-  if (req.query.topics !== undefined){
+//   if (req.query.topics !== undefined){
   
-  filters.push({topics: req.query.topics})
+//   filters.push({topics: req.query.topics})
   
-  }
+//   }
   
-  }
+//   }
   
-   //app.get("/retrieve", (req, res) => {
+//    //app.get("/retrieve", (req, res) => {
   
-  console.log("QUERY",req.query);
+//   console.log("QUERY",req.query);
   
-  const filters = createFiltersArray(req)
-  console.log("FILTER",filters)
+//   const filters = createFiltersArray(req)
+//   console.log("FILTER",filters)
   
-  Submit.find(filters)
+//   Submit.find(filters)
   
-  .then(users => {
+//   .then(users => {
   
-  //console.log(users)
+//   //console.log(users)
   
-  res.send({count:users.length,"data":users});
+//   res.send({count:users.length,"data":users});
   
-  })
+//   })
   
-  .catch(error => {
+//   .catch(error => {
   
-  console.error(error);
+//   console.error(error);
   
-  res.send({ error: 'Request failed' });
+//   res.send({ error: 'Request failed' });
   
-  });
+//   });
   
- // });
+//  // });
 
-}
+// }
 //{topics : { $regex : req.query.topics }}
