@@ -1250,9 +1250,9 @@ exports.filterbyid = async (req, res) => {
 exports.advancefilter = async (req, res) => {
  let query ={}
  //const where = {}
-//  if(req.query.sub_category){
-//   //query.sub_category = req.query.sub_category
-
+ if(req.query.sub_category){
+  query.sub_category = req.query.sub_category
+ }
 //   where.push({sub_category: req.query.sub_category})
 //  }
  if(req.query.type){
