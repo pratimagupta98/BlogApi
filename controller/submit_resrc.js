@@ -1246,15 +1246,15 @@ exports.filterbyid = async (req, res) => {
 //     });
 // };
 
+//#########################
 
 exports.advancefilter = async (req, res) => {
  let query ={}
- //const where = {}
+  
  if(req.query.sub_category){
   query.sub_category = req.query.sub_category
  }
-//   where.push({sub_category: req.query.sub_category})
-//  }
+ 
  if(req.query.type){
   query.type = req.query.type
  // where.push({type: req.query.type})
@@ -1268,31 +1268,18 @@ exports.advancefilter = async (req, res) => {
  if(req.query.relYear){
   query.relYear =req.query.relYear
  }
-//  if(req.query.topics){
-//   query.topics =req.query.topics
-//  }
- //console.log("query",req.query.topics)
 
- 
-//where =({$and:[{"topics": req.query.topics}]})
-
-// if (req.query.topics) {
-//   where[req.query.topics] = { $regex: req.query.topics };
-// }
-  
- // format : req.query.format, type : req.query.type,language : req.query.language,relYear : req.query.relYear, }
- 
- 
-//console.log("where",where)
  let blogs = await Submit.find(query)
  console.log("BLOG",blogs)
- console.log("blogs",req.query.topics)
+ //console.log("blogs",req.query.topics)
  return res.status(200).json({
   message:"blog success",
   count:blogs.length,
   data :blogs
  })
 };
+
+//###################
 
 // exports.advancefilter = async (req, res) => {
 // function createFiltersArray(req) {
@@ -1360,3 +1347,30 @@ exports.advancefilter = async (req, res) => {
 
 // }
 //{topics : { $regex : req.query.topics }}
+
+
+
+
+
+
+
+
+
+
+//&&&&&&&&&&&&&&&&&&
+//  if(req.query.topics){
+//   query.topics =req.query.topics
+//  }
+ //console.log("query",req.query.topics)
+
+ 
+//where =({$and:[{"topics": req.query.topics}]})
+
+// if (req.query.topics) {
+//   where[req.query.topics] = { $regex: req.query.topics };
+// }
+  
+ // format : req.query.format, type : req.query.type,language : req.query.language,relYear : req.query.relYear, }
+ 
+ 
+//console.log("where",where)
