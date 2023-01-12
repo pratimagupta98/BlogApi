@@ -32,7 +32,8 @@ const {
     posted_by_me,
     edit_promotion,
     filterbyid,
-    advancefilter
+    advancefilter,
+    hashfilter
     
 } = require("../controller/submit_resrc");
 
@@ -98,6 +99,7 @@ router.post("/admin/edit_promotion/:id", edit_promotion);
 router.get("/user/filterbyid/:sub_category/:?type/:format", filterbyid);
 // :id?type/:id?format?/:id?relYear?
 router.post("/user/advancefilter", advancefilter);
+router.post("/user/hashfilter", hashfilter);
 
 
 

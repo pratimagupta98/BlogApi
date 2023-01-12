@@ -1200,53 +1200,6 @@ exports.filterbyid = async (req, res) => {
 };
 
 
-// exports.advancefilter = async (req, res) => {
-//   const {
-//     sub_category,
-//     type,
-//     format
-
-
-//   } = req.body;
-//   console.log(req.body);
-
-//   const query = new Query();
-//   if (sub_category) {
-//     query.addEqualsFilter("SUBCATEGORY", sub_category);
-//   }
-//   if (type && type.length !== 0) {
-//     query.addMultiSelectFilter("type", type);
-//   }
-//   if (format && format.length !== 0) {
-//     query.addMultiSelectFilter("format", format);
-//   }
-//   console.log("QUERY",query)
-//   const queryStr = query.toQueryString();
-//   // var queryStr = query.ToQueryString();
-//   console.log("SUCCESS",query.toQueryString());
-//   // console.log(JSON.parse(queryStr));
-//  const getval = await Submit.find(JSON.parse(queryStr))
-//  console.log("get",getval)
-//  // .populate("category").populate("sub_category").populate("relYear").populate("language")
-    
-//    // .sort({ createdAt: -1 })
-//     .then((result) => {
-//       res.status(200).json({
-//         status: true,
-//         msg: "success",
-//         data: result,
-//       });
-//     })
-//     .catch((err) => {
-//       res.status(200).json({
-//         status: false,
-//         msg: "error",
-//         data: err,
-//       });
-//     });
-// };
-
-//#########################
 
 exports.advancefilter = async (req, res) => {
  let query ={}
@@ -1281,7 +1234,7 @@ exports.advancefilter = async (req, res) => {
  })
 };
 
-//###################
+ 
 
 // exports.advancefilter = async (req, res) => {
 // function createFiltersArray(req) {
@@ -1376,3 +1329,82 @@ exports.advancefilter = async (req, res) => {
  
  
 //console.log("where",where)
+
+
+exports.hashfilter = async (req, res) => {
+  let query ={}
+  if(req.query.type){
+   query.type = req.query.type
+  // where.push({type: req.query.type})
+  }
+  if(req.query.format){
+     query.format = req.query.format
+  }
+  if(req.query.language){
+   query.language = req.query.language
+  }
+  if(req.query.relYear){
+   query.relYear =req.query.relYear
+  }
+ 
+  let blogs = await Submit.find(query)
+  .populate("relYear")
+  .populate("language") 
+  console.log("BLOG",blogs)
+  //console.log("blogs",req.query.topics)
+ // return 
+  res.status(200).json({
+   message:"blog success",
+   count:blogs.length,
+   data :blogs
+  })
+ };
+
+
+//  exports.hashfilter = async (req, res) => {
+//   const {
+//     sub_category,
+//     type,
+//     format
+
+
+//   } = req.body;
+//   console.log(req.body);
+
+//   const query = new Query();
+//   // if (sub_category) {
+//   //   query.addEqualsFilter("SUBCATEGORY", sub_category);
+//   // }
+//   if (type && type.length !== 0) {
+//     query.type = req.query.type
+//   }
+//   if (format && format.length !== 0) {
+//     query.format = req.query.format
+//   }
+//   console.log("QUERY",query)
+//   const queryStr = query.toQueryString();
+//   // var queryStr = query.ToQueryString();
+//   console.log("SUCCESS",query.toQueryString());
+//   // console.log(JSON.parse(queryStr));
+//  const getval = await Submit.find(JSON.parse(queryStr))
+//  console.log("get",getval)
+//  // .populate("category").populate("sub_category").populate("relYear").populate("language")
+    
+//    // .sort({ createdAt: -1 })
+//     .then((result) => {
+//       res.status(200).json({
+//         status: true,
+//         msg: "success",
+//         data: result,
+//       });
+//     })
+//     .catch((err) => {
+//       res.status(200).json({
+//         status: false,
+//         msg: "error",
+//         data: err,
+//       });
+//     });
+// };
+
+ 
