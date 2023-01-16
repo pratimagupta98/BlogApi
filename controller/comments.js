@@ -47,7 +47,17 @@ exports.add_Comment = async (req, res) => {
      }
  }
  
-
+ exports.editCommentbyUser = async (req, res) => {
+  await Comment.findOneAndUpdate(
+    {
+      _id: req.params.id,
+    },
+    { $set: req.body },
+    { new: true }
+  )
+    .then((data) => resp.successr(res, data))
+    .catch((error) => resp.errorr(res, error));
+};
 
 
 
