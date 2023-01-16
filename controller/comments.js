@@ -17,15 +17,18 @@ exports.add_Comment = async (req, res) => {
   //  desc:desc,
     comment:comment,
     rating:rating,
-    status:status,
+   // status:"Deactive",
   })
   
   const getuserid = await Submit.findOne({_id:req.body.submitresrcId})
   const getuserdetail = getuserid.userid
-  const findexist = await Comment.findOne({
-    $or: [{ submitresrcId: submitresrcId }, { userid: userid }] }
+  const findexist = await Comment.find({
+    $and: [{ submitresrcId: submitresrcId }, { userid: userid }] }
      )
-  console.log("STRING",getuserid)
+//const findsts = findexist.status
+//console.log("FIND",findsts)
+     
+  //console.log("STRING",getuserid)
   if(getuserdetail ==userid ){
    // const getuserdetail = getuserid.userid
    // console.log("user",getuserdetail)
@@ -34,11 +37,10 @@ exports.add_Comment = async (req, res) => {
       status:false,
       msg : "not able to comment"
     })
-  } else if (findexist) {
+  } else if (findexist.status == "Active") {
        resp.alreadyr(res);
      }
    
-  
     else{
         newComment
        .save()

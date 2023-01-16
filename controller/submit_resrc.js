@@ -566,7 +566,7 @@ exports.search_topic_title = async (req, res) => {
     $or: [{ resTitle: { $regex: searchinput, $options: "i" } },
     { topics: { $regex: searchinput, $options: "i" } }
     ]
-  })
+  }).populate("language").populate("relYear")
     .then((data) => {
       res.status(200).json({
         status: true,
@@ -676,7 +676,8 @@ exports.filterbyHashTag = async (req, res) => {
       { $and: [{ sub_category: req.params.sub_category }, { topics: req.params.id }] }, { $and: [{ aprv_status: "Active" }] }
     ]
   }
-  ).populate("category").populate("sub_category").populate("relYear").populate("language")
+  )
+  .populate("category").populate("sub_category").populate("relYear").populate("language")
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
 };
