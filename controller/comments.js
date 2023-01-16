@@ -22,9 +22,10 @@ exports.add_Comment = async (req, res) => {
   
   const getuserid = await Submit.findOne({_id:req.body.submitresrcId})
   const getuserdetail = getuserid.userid
-  const findexist = await Comment.find({
-    $and: [{ submitresrcId: submitresrcId }, { userid: userid }] }
+  const findexist = await Comment.findOne({
+    $and: [{ submitresrcId: req.body.submitresrcId }, { userid: req.body.userid }] }
      )
+
 //const findsts = findexist.status
 //console.log("FIND",findsts)
      
@@ -37,7 +38,7 @@ exports.add_Comment = async (req, res) => {
       status:false,
       msg : "not able to comment"
     })
-  } else if (findexist.status == "Active") {
+  } else if (findexist?.status == "Active") {
        resp.alreadyr(res);
      }
    
