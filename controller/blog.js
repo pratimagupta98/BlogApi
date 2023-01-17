@@ -28,8 +28,6 @@ exports.addBlog = async (req, res) => {
     desc: desc,
     blog_type: blog_type
   });
-
-
   const findexist = await Blog.findOne({
     blog_title: blog_title,
   });
@@ -117,7 +115,8 @@ exports.delBlog = async (req, res) => {
 
 
 exports.editBlog = async (req, res) => {
-  const { blog_title, blogImg, desc, posted_by, blog_type, status } = req.body
+  const { blog_title, blogImg, desc, posted_by, blog_type, status, 
+  } = req.body
 
   data = {}
   if (blog_title) {
@@ -135,7 +134,7 @@ exports.editBlog = async (req, res) => {
     data.status = status
   }
 
-  if (req.files) {
+if (req.files) {
     if (req.files.blogImg) {
       alluploads = [];
       for (let i = 0; i < req.files.blogImg.length; i++) {
@@ -149,6 +148,20 @@ exports.editBlog = async (req, res) => {
       }
       // newStore.storeImg = alluploads;
       data.blogImg = alluploads;
+    }
+  }
+if(req.files){
+    if (req.files.posted_by_img) {
+      alluploads = [];
+      for (let i = 0; i < req.files.posted_by_img.length; i++) {
+        const resp = await cloudinary.uploader.upload(
+          req.files.posted_by_img[i].path,
+          { use_filename: true, unique_filename: false }
+        );
+        fs.unlinkSync(req.files.posted_by_img[i].path);
+        alluploads.push(resp.secure_url);
+      }
+      data.posted_by_img = alluploads;
     }
   }
   await Blog.findOneAndUpdate(

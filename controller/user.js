@@ -656,7 +656,7 @@ async function sendMail() {
                 from: '<b>contactus@brahmaand.space</b>',
                   to:  req.body.email,
                   subject: 'Hello from gmail using API',
-                  subject: `<b>${subject}b>`, // Subject line
+                  subject: `<b>${subject}</b>`, // Subject line
                   text: `<b>${text}</b>`, // plain text body
                   html: `<b>${text}</b>`, // html body
                   // text: 'Hello from gmail email using API',

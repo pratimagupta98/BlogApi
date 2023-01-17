@@ -46,6 +46,7 @@ const storage = multer.diskStorage({
   
   let multipleUpload = uploads.fields([
     { name: "blogImg", maxCount: 4 },
+  //  { name: "posted_by_img", maxCount: 4 },
    
       { name: "posted_by_img", maxCount: 1 },
     //   { name: "tradelicence_img", maxCount: 5 },
