@@ -40,6 +40,11 @@ exports.add_Comment = async (req, res) => {
     })
   } else if (findexist?.status == "Active") {
        resp.alreadyr(res);
+     }else if(findexist?.status == "Deactive"){
+res.status(200).json({
+  status:true,
+  msg:"waiting for admin approvel"
+})
      }
    
     else{
@@ -239,9 +244,15 @@ exports.admin_edit_coment = async (req, res) => {
     const findexist = await Blogcomment.findOne({
       $and: [{ blogid: blogid }, { userid: userid }] }
        )
-       if (findexist) {
+       if (findexist?.status == "Active") {
          resp.alreadyr(res);
-       }else{
+       }else if(findexist?.status == "Deactive"){
+        res.status(200).json({
+          status:true,
+          msg:"waiting for admin approvel"
+        })
+       }
+       else{
         newBlogcomment
          .save()
          .then((data) => resp.successr(res, data))
@@ -379,4 +390,5 @@ res.status(400).json({
       // console.log("PROFIT11",sumprofit1)
 
        
-  
+      
+       
