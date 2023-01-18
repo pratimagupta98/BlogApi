@@ -17,7 +17,8 @@ const {
     dltBlog_Cmntlist,
     filterByRating,
     average_rating,
-    editCommentbyUser
+    editCommentbyUser,
+    crntMonth
      
 } = require("../controller/comments");
 
@@ -41,8 +42,9 @@ router.get("/admin/getoneBlog_Cmntlist/:id", getoneBlog_Cmntlist);
  router.get("/user/filterByRating/:id",     filterByRating)
  router.get("/user/average_rating/:id",     average_rating)
  router.post("/user/editCommentbyUser/:id",     editCommentbyUser)
+ router.get("/user/crntMonth", crntMonth);
 
-
+ 
  
 
 module.exports = router;

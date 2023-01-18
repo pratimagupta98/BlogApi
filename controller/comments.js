@@ -7,6 +7,8 @@ const Submit = require("../models/submit_resrc");
 // const cloudinary = require("cloudinary").v2;
 // const fs = require("fs");
 const Blogcomment = require("../models/blog_comnt");
+const CurrntMonth = require("../models/currentMonth");
+
 
 exports.add_Comment = async (req, res) => {
   const {submitresrcId,userid,comment,rating,status } = req.body;
@@ -218,11 +220,176 @@ exports.admin_edit_coment = async (req, res) => {
           { $set: {status:"Active"}},
           { new: true }
         ).populate("userid")
+console.log("update",upateone)
+        if(upateone?.status == "Active"){
+          const getrating = upateone.rating
+          console.log("RATING",getrating)
+          const getreview = upateone.comment
+          console.log("REVIEW",getreview)
+if(getrating && getreview){
+  console.log("STRING")
+  const getuserid = upateone.userid
+  const getsubmit =upateone.submitresrcId
+  console.log("GETUSER",getuserid)
+  const findmeteros =getuserid.meteors 
+  console.log("METEROS",findmeteros)
 
-  .then((data) => resp.successr(res, data))
+  var total =parseInt (findmeteros) + parseInt(7)
+
+  const updateuser =  await User.findOneAndUpdate(
+    {
+      _id:getuserid ,
+    },
+    { $set: {meteors:total} },
+    { new: true }
+
+  )
+
+
+var date = new Date();
+var firstDay = new Date(date.getFullYear(), date.getMonth(), 2);
+var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+console.log("FIRST",firstDay)
+console.log("lAST",lastDay)
+const getdatail = await Comment.findOne({ $and: [
+  {_id :req.params.id },
+  {
+    createdAt: {
+      $gte: new Date(firstDay),
+      $lte: new Date(lastDay)
+    }
+  }
+]
+}).populate("userid")
+const newCurrntMonth = new CurrntMonth({
+  submitresrcId:getsubmit,
+  userid:getuserid,
+//  desc:desc,
+  comment:getreview,
+  rating:getrating,
+  status:"Active",
+ meteors:7
+})
+newCurrntMonth.save()
+
+ .then((data) => resp.successr(res, data))
          .catch((error) => resp.errorr(res, error));
 
+}else if(getrating){
+console.log("RATING 2")
+const getuserid = upateone.userid
+console.log("GETUSER",getuserid)
+const findmeteros =getuserid.meteors 
+console.log("METEROS",findmeteros)
+
+var total =parseInt (findmeteros) + parseInt(2)
+
+const updateuser =  await User.findOneAndUpdate(
+  {
+    _id:getuserid ,
+  },
+  { $set: {meteors:total} },
+  { new: true }
+
+)
+
+
+var date = new Date();
+var firstDay = new Date(date.getFullYear(), date.getMonth(), 2);
+var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+console.log("FIRST",firstDay)
+console.log("lAST",lastDay)
+const getdatail = await Comment.findOne({ $and: [
+{_id :req.params.id },
+{
+  createdAt: {
+    $gte: new Date(firstDay),
+    $lte: new Date(lastDay)
+  }
 }
+]
+}).populate("userid")
+const newCurrntMonth = new CurrntMonth({
+  submitresrcId:getsubmit,
+  userid:getuserid,
+//  desc:desc,
+  comment:getreview,
+  rating:getrating,
+  status:"Active",
+ meteors:2
+})
+newCurrntMonth.save()
+.then((data) => resp.successr(res, data))
+       .catch((error) => resp.errorr(res, error));
+
+}else if(getreview){
+  console.log("REVIEW 5")
+  const getuserid = upateone.userid
+  console.log("GETUSER",getuserid)
+  const findmeteros =getuserid.meteors 
+  console.log("METEROS",findmeteros)
+
+  var total =parseInt (findmeteros) + parseInt(5)
+
+  const updateuser =  await User.findOneAndUpdate(
+    {
+      _id:getuserid ,
+    },
+    { $set: {meteors:total} },
+    { new: true }
+
+  )
+
+
+var date = new Date();
+var firstDay = new Date(date.getFullYear(), date.getMonth(), 2);
+var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+console.log("FIRST",firstDay)
+console.log("lAST",lastDay)
+const getdatail = await Comment.findOne({ $and: [
+  {_id :req.params.id },
+  {
+    createdAt: {
+      $gte: new Date(firstDay),
+      $lte: new Date(lastDay)
+    }
+  }
+]
+}).populate("userid")
+const newCurrntMonth = new CurrntMonth({
+  submitresrcId:getsubmit,
+  userid:getuserid,
+//  desc:desc,
+  comment:getreview,
+  rating:getrating,
+  status:"Active",
+ meteors:5
+})
+newCurrntMonth.save()
+ .then((data) => resp.successr(res, data))
+         .catch((error) => resp.errorr(res, error));
+}
+}
+else{
+  res.status(400).json({
+    status:false,
+    error:"error"
+  })
+}
+          // const getdata = await Comment.findOne({userid :req.body.userid}).populate("userid")
+          // console.log("getdata",getdata)
+      
+        
+      //  console.log("GETDATA",getdatail)
+
+  // .then((data) => resp.successr(res, data))
+  //        .catch((error) => resp.errorr(res, error));
+
+}
+
+
+
+
   exports.dlt_Coment= async (req, res) => {
     await Comment.deleteOne({ _id: req.params.id })
       .then((data) => resp.deleter(res, data))
@@ -390,5 +557,26 @@ res.status(400).json({
       // console.log("PROFIT11",sumprofit1)
 
        
-      
-       
+  exports.crntMonth = async (req, res) => {
+  var date = new Date();
+var firstDay = new Date(date.getFullYear(), date.getMonth(), 2);
+var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+console.log("FIRST",firstDay)
+console.log("lAST",lastDay)
+const getdatail = await CurrntMonth.find({ $or: [
+  {_id :req.params.id },
+  {
+    createdAt: {
+      $gte: new Date(firstDay),
+      $lte: new Date(lastDay)
+    }
+  }
+]
+}).populate("userid")
+
+res.status(200).json({
+  status:true,
+  msg:"success",
+  data :getdatail 
+})
+  }
