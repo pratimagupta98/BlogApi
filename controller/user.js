@@ -1335,7 +1335,7 @@ exports.this_time_karma = async (req, res) => {
     },
     { $set: { crntmnth_planetImg: image0, crntmnth_winnerImg: winner0 } },
     { new: true }
-  )
+  ).populate("userid")
   console.log("user", getdata)
 
   const getdata1 = await CurrntMonth.findOneAndUpdate(
@@ -1344,7 +1344,7 @@ exports.this_time_karma = async (req, res) => {
     },
     { $set: { crntmnth_planetImg: image1, crntmnth_winnerImg: winner1 } },
     { new: true }
-  )
+  ).populate("userid")
   console.log("getdata1", getdata1)
 
 
@@ -1354,7 +1354,7 @@ exports.this_time_karma = async (req, res) => {
     },
     { $set: { crntmnth_planetImg: image2, crntmnth_winnerImg: winner2 } },
     { new: true }
-  )
+  ).populate("userid")
   console.log("getdata2", getdata2)
 
   const getdata3 = await CurrntMonth.findOneAndUpdate(
@@ -1363,7 +1363,7 @@ exports.this_time_karma = async (req, res) => {
     },
     { $set: { crntmnth_planetImg: image3, crntmnth_winnerImg: wineer3 } },
     { new: true }
-  )
+  ).populate("userid")
   console.log("getdata3", getdata3)
 
   const getdata4 = await CurrntMonth.findOneAndUpdate(
@@ -1372,7 +1372,7 @@ exports.this_time_karma = async (req, res) => {
     },
     { $set: { crntmnth_planetImg: image4, crntmnth_winnerImg: wineer4 } },
     { new: true }
-  )
+  ).populate("userid")
   console.log("getdata4", getdata4)
 
   const getdata5 = await CurrntMonth.findOneAndUpdate(
@@ -1381,7 +1381,7 @@ exports.this_time_karma = async (req, res) => {
     },
     { $set: { crntmnth_planetImg: image5, crntmnth_winnerImg: wineer5 } },
     { new: true }
-  )
+  ).populate("userid")
   console.log("getdata5", getdata5)
   // const getdata6 = await User.findOneAndUpdate(
   //   {
