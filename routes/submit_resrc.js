@@ -33,7 +33,9 @@ const {
     edit_promotion,
     filterbyid,
     advancefilter,
-    hashfilter
+    hashfilter,
+    filter,
+    regidnamemobemail
     
 } = require("../controller/submit_resrc");
 
@@ -100,9 +102,12 @@ router.get("/user/filterbyid/:sub_category/:?type/:format", filterbyid);
 // :id?type/:id?format?/:id?relYear?
 router.post("/user/advancefilter", advancefilter);
 router.post("/user/hashfilter", hashfilter);
+router.post("/user/filter", filter);
+router.post("/user/regidname", regidnamemobemail);
 
 
 
+ 
 
 module.exports = router;
 

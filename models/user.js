@@ -65,16 +65,25 @@ const thisSchema = new Schema(
     oldpassword:{
       type: String,
     },
+    crntmnth_planetImg:{
+      type:String
+    },
+    crntmnth_winnerImg:{
+      type:String
+    },
     planetImg:{
       type:String
     },
+   
     winnerImg:{
       type:String
+    },
+    crrntMonth:{
+      type: Number,
+      default: 0,
     }
 
   },
-
-
 
   { timestamps: true }
 );

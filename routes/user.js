@@ -21,7 +21,8 @@ const {
     verifyotp,
     sendotp,
     forgetpassword,
-    signinwithgoogle
+    signinwithgoogle,
+    this_time_karma
   
 } = require("../controller/user");
 
@@ -73,7 +74,7 @@ router.get("/admin/userlist", userlist);
 router.get("/admin/dltUser/:id", dltUser);
 router.post("/admin/user_aprv_sts/:id", user_aprv_sts);
 router.get("/admin/total_user", total_user);
-router.get("/user/karma_crrnt_month", karma_crrnt_month);
+//router.get("/user/karma_crrnt_month", karma_crrnt_month);
 //router.get("/user/all_time_karma", all_time_karma);
 router.get("/user/payoutlist", payoutlist);
 
@@ -84,9 +85,10 @@ router.post("/user/sendotp", sendotp);
 router.post("/user/forgetpassword/:id", forgetpassword);
 
 router.post("/user/signinwithgoogle", signinwithgoogle);
+router.get("/user/karma_crrnt_month", this_time_karma);
 
 
- 
+
 
 
 module.exports = router;

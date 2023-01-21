@@ -251,8 +251,8 @@ var firstDay = new Date(date.getFullYear(), date.getMonth(), 2);
 var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
 console.log("FIRST",firstDay)
 console.log("lAST",lastDay)
-const getdatail = await Comment.findOne({ $and: [
-  {_id :req.params.id },
+const getdatail = await CurrntMonth.find({ $and: [
+  {userid :getuserid },
   {
     createdAt: {
       $gte: new Date(firstDay),
@@ -261,6 +261,19 @@ const getdatail = await Comment.findOne({ $and: [
   }
 ]
 }).populate("userid")
+ 
+var newarr1 = getdatail.map(function (value) {
+  // return value+= value;
+return value.meteors
+ });
+ 
+console.log("New Array",newarr1)
+let ttl = _.sumBy([...newarr1]);
+console.log("rTotal",ttl);
+console.log("getdatail",getdatail)
+const getmeteros =getdatail.meteors
+
+ let ttlmetrs = ttl+7
 const newCurrntMonth = new CurrntMonth({
   submitresrcId:getsubmit,
   userid:getuserid,
@@ -268,17 +281,28 @@ const newCurrntMonth = new CurrntMonth({
   comment:getreview,
   rating:getrating,
   status:"Active",
- meteors:7
+ meteors:7,
+ crrntMonth:ttlmetrs
 })
 newCurrntMonth.save()
 
  .then((data) => resp.successr(res, data))
+ const updateuserr =  await User.findOneAndUpdate(
+  {
+    _id:getuserid ,
+  },
+  { $set: {crrntMonth:ttlmetrs} },
+  { new: true }
+
+)
+//console.log("ff",updateuserr)
          .catch((error) => resp.errorr(res, error));
 
 }else if(getrating){
 console.log("RATING 2")
 const getuserid = upateone.userid
 console.log("GETUSER",getuserid)
+const getsubmit =upateone.submitresrcId
 const findmeteros =getuserid.meteors 
 console.log("METEROS",findmeteros)
 
@@ -299,8 +323,8 @@ var firstDay = new Date(date.getFullYear(), date.getMonth(), 2);
 var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
 console.log("FIRST",firstDay)
 console.log("lAST",lastDay)
-const getdatail = await Comment.findOne({ $and: [
-{_id :req.params.id },
+const getdatail = await CurrntMonth.find({ $and: [
+{userid :getuserid },
 {
   createdAt: {
     $gte: new Date(firstDay),
@@ -309,6 +333,20 @@ const getdatail = await Comment.findOne({ $and: [
 }
 ]
 }).populate("userid")
+console.log("GETDETAIL",getdatail)
+var newarr1 = getdatail.map(function (value) {
+  // return value+= value;
+return value.meteors
+ });
+ 
+console.log("New Array",newarr1)
+let ttl = _.sumBy([...newarr1]);
+console.log("rTotal",ttl);
+console.log("getdatail",getdatail)
+const getmeteros =getdatail.meteors
+
+ let ttlmetrs = ttl+2
+
 const newCurrntMonth = new CurrntMonth({
   submitresrcId:getsubmit,
   userid:getuserid,
@@ -316,10 +354,21 @@ const newCurrntMonth = new CurrntMonth({
   comment:getreview,
   rating:getrating,
   status:"Active",
- meteors:2
+ meteors:2,
+ crrntMonth:ttlmetrs
 })
+console.log("newCurrntMonth",newCurrntMonth)
 newCurrntMonth.save()
 .then((data) => resp.successr(res, data))
+const updateuserr =  await User.findOneAndUpdate(
+  {
+    _id:getuserid ,
+  },
+  { $set: {crrntMonth:ttlmetrs} },
+  { new: true }
+
+)
+//console.log("ff",updateuserr)
        .catch((error) => resp.errorr(res, error));
 
 }else if(getreview){
@@ -346,8 +395,8 @@ var firstDay = new Date(date.getFullYear(), date.getMonth(), 2);
 var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
 console.log("FIRST",firstDay)
 console.log("lAST",lastDay)
-const getdatail = await Comment.findOne({ $and: [
-  {_id :req.params.id },
+const getdatail = await CurrntMonth.find({ $and: [
+  {userid :getuserid },
   {
     createdAt: {
       $gte: new Date(firstDay),
@@ -356,17 +405,40 @@ const getdatail = await Comment.findOne({ $and: [
   }
 ]
 }).populate("userid")
+
+console.log("GETDETAIL",getdatail)
+var newarr1 = getdatail.map(function (value) {
+  // return value+= value;
+return value.meteors
+ });
+ 
+console.log("New Array",newarr1)
+let ttl = _.sumBy([...newarr1]);
+console.log("rTotal",ttl);
+console.log("getdatail",getdatail)
+const getmeteros =getdatail.meteors
+
+ let ttlmetrs = ttl+5
 const newCurrntMonth = new CurrntMonth({
-  submitresrcId:getsubmit,
+ // submitresrcId:getsubmit,
   userid:getuserid,
 //  desc:desc,
   comment:getreview,
   rating:getrating,
   status:"Active",
- meteors:5
+ meteors:5,
+crrntMonth:ttlmetrs
 })
 newCurrntMonth.save()
  .then((data) => resp.successr(res, data))
+ const updateuserr =  await User.findOneAndUpdate(
+  {
+    _id:getuserid ,
+  },
+  { $set: {crrntMonth:ttlmetrs} },
+  { new: true }
+
+)
          .catch((error) => resp.errorr(res, error));
 }
 }
@@ -573,6 +645,7 @@ const getdatail = await CurrntMonth.find({ $or: [
   }
 ]
 }).populate("userid")
+
 
 res.status(200).json({
   status:true,

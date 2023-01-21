@@ -78,10 +78,19 @@ const crrntMonthSchema = new Schema({
         type: String,
     },
    
-  
+    crrntMonth:{
+type:Number,
+//default:0
+    },
     usertype:{
         type: String,
     },
+    crntmnth_planetImg:{
+        type:String
+      },
+      crntmnth_winnerImg:{
+        type:String
+      },
      
 },
     { timestamps: true }

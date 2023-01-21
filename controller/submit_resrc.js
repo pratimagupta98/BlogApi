@@ -6,6 +6,7 @@ var MongoQS = require('mongo-querystring');
 const resp = require("../helpers/apiResponse");
 const SubCategory = require("../models/subcategory");
 const CurrntMonth = require("../models/currentMonth");
+var _ = require('lodash');
 
 const cloudinary = require("cloudinary").v2;
 const fs = require("fs");
@@ -705,10 +706,10 @@ exports.approve_submit_resrc = async (req, res) => {
     console.log("STRING",getdata)
     const getuser = (getdata.userid)
     console.log("getuser",getuser)
-    const findmeteros =getuser.meteors 
+    const findmeteros =getuser?.meteors 
     console.log("METEROS",findmeteros)
 
-    const smetors =getdata.meteors
+    const smetors = getdata.meteors
     console.log("submit Metores",smetors)
 
     var total =parseInt (findmeteros) + parseInt(10)
@@ -731,8 +732,10 @@ var firstDay = new Date(date.getFullYear(), date.getMonth(), 2);
 var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
 console.log("FIRST",firstDay)
 console.log("lAST",lastDay)
-const getdatail = await Submit.findOne({ $and: [
-  {_id :req.params.id },
+const getUsers = getdata.userid
+
+const getdatail = await CurrntMonth.find({ $and: [
+  {userid:getUsers },
   {
     createdAt: {
       $gte: new Date(firstDay),
@@ -740,15 +743,25 @@ const getdatail = await Submit.findOne({ $and: [
     }
   }
 ]
-}).populate("userid")
+})
+.populate("userid")
 
-console.log("GETDATA",getdatail)
+//console.log("GETDATA",getdatail)
+var newarr1 = getdatail.map(function (value) {
+  // return value+= value;
+return value.meteors
+ });
+ 
+console.log("New Array",newarr1)
+let ttl = _.sumBy([...newarr1]);
+console.log("rTotal",ttl);
+//console.log("getdatail",getdatail)
+ 
+ let ttll  = ttl+10
 
-
-const getUsers = getdatail.userid
-console.log("USER",getUsers)
-const getmetors = getdatail.meteors
-console.log("GET METORES",getmetors)
+//console.log("USER",getUsers)
+const getmetors = getdata.meteors
+//console.log("GET METORES",getmetors)
 var sttl = parseInt (getmetors) + parseInt(10)
 
 
@@ -759,11 +772,11 @@ var sttl = parseInt (getmetors) + parseInt(10)
       { $set: {meteors:sttl} },
       { new: true }
 
-    )
+    ).populate("userid")
 
-    console.log("AAAA",updatecontent)
+  //  console.log("AAAA",updatecontent)
  // const getmet  = updateuser.meteors
-  console.log("SSSS",updateuser)
+  //console.log("SSSS",updateuser)
     res.status(200).json({
       status: true,
       status: "success",
@@ -787,14 +800,22 @@ var sttl = parseInt (getmetors) + parseInt(10)
       creatorName: getdatail.creatorName,
       relYear: getdatail.relYear,
       res_desc: getdatail.res_desc,
-      
       img: getdatail.img,
       usertype: "user",
-      meteors:10
+      meteors:10,
+      crrntMonth:ttll
     })
     newCurrntMonth.save()
 
+    const updateuserr =  await CurrntMonth.findOneAndUpdate(
+      {
+        _id:getUsers ,
+      },
+      { $set: {crrntMonth:ttll} },
+      { new: true }
 
+    )
+    //console.log("ff",updateuserr)
     }
     // if (upateone) {
     //   res.status(200).json({
@@ -1232,28 +1253,43 @@ exports.filterbyid = async (req, res) => {
 
 exports.advancefilter = async (req, res) => {
  let query ={}
-  
- if(req.query.sub_category){
-  query.sub_category = req.query.sub_category
+  let where={}
+//  if(req.query.sub_category){
+//   query.sub_category = req.query.sub_category
+//  }
+ if (req.query.sub_category) {
+  where[req.query.sub_category] = { $regex: req.query.sub_category };
  }
+// let query =[
+//   {
+//     $lookup:
+//     {
+//       from: "subcategory",
+//       localField: "sub_category",
+//       foreignField: "_id",
+//       as: "subcategory"
+
+//     }
+//   }
+// ]
  
- if(req.query.type){
-  query.type = req.query.type
- // where.push({type: req.query.type})
- }
- if(req.query.format){
-    query.format = req.query.format
- }
- if(req.query.language){
-  query.language = req.query.language
- }
- if(req.query.relYear){
-  query.relYear =req.query.relYear
- }
+//  if(req.query.type){
+//   query.type = req.query.type
+//  // where.push({type: req.query.type})
+//  }
+//  if(req.query.format){
+//     query.format = req.query.format
+//  }
+//  if(req.query.language){
+//   query.language = req.query.language
+//  }
+//  if(req.query.relYear){
+//   query.relYear =req.query.relYear
+//  }
 
  let blogs = await Submit.find(query)
- .populate("relYear")
- .populate("language") 
+ //.populate("relYear")
+.populate("sub_category") 
  console.log("BLOG",blogs)
  //console.log("blogs",req.query.topics)
  return res.status(200).json({
@@ -1265,71 +1301,71 @@ exports.advancefilter = async (req, res) => {
 
  
 
-// exports.advancefilter = async (req, res) => {
-// function createFiltersArray(req) {
+exports.filter = async (req, res) => {
+function createFiltersArray(req) {
 
-//   let filters = [];
+  let filters = {}
   
-//   if (req.query.type !== undefined){
+  if (req.query.type !== undefined){
   
-//   filters.push({type: req.query.type})
+  //filters.push({type: req.query.type})
   
-//   }
+  }
   
-//   if (req.query.format){
+  if (req.query.format){
   
-//   filters.push({format: req.query.format})
+  //filters.push({format: req.query.format})
   
-//   }
+  }
   
-//   if (req.query.language !== undefined){
+  if (req.query.language !== undefined){
   
-//   filters.push({language: req.query.language})
+  filters.push({language: req.query.language})
   
-//   }
+  }
   
-//   if (req.query.relYear !== undefined){
+  if (req.query.relYear !== undefined){
   
-//   filters.push({relYear: req.query.relYear})
+  filters.push({relYear: req.query.relYear})
   
-//   }
+  }
   
-//   if (req.query.topics !== undefined){
+  if (req.query.topics !== undefined){
   
-//   filters.push({topics: req.query.topics})
+  filters.push({topics: req.query.topics})
   
-//   }
+  }
   
-//   }
+  }
   
-//    //app.get("/retrieve", (req, res) => {
+   //app.get("/retrieve", (req, res) => {
   
-//   console.log("QUERY",req.query);
+  console.log("QUERY",req.query);
   
-//   const filters = createFiltersArray(req)
-//   console.log("FILTER",filters)
+  const filters = createFiltersArray(req)
+  console.log("FILTER",filters)
   
-//   Submit.find(filters)
+  Submit.find(filters)
   
-//   .then(users => {
+  .then(users => {
   
-//   //console.log(users)
+  //console.log(users)
   
-//   res.send({count:users.length,"data":users});
+  res.send({count:users.length,"data":users});
   
-//   })
+  })
   
-//   .catch(error => {
+  .catch(error => {
   
-//   console.error(error);
+  console.error(error);
   
-//   res.send({ error: 'Request failed' });
+  res.send({ error: 'Request failed' });
   
-//   });
+  });
   
-//  // });
+ // });
 
-// }
+}
 //{topics : { $regex : req.query.topics }}
 
 
@@ -1341,23 +1377,8 @@ exports.advancefilter = async (req, res) => {
 
 
 
-//&&&&&&&&&&&&&&&&&&
-//  if(req.query.topics){
-//   query.topics =req.query.topics
-//  }
- //console.log("query",req.query.topics)
+ 
 
- 
-//where =({$and:[{"topics": req.query.topics}]})
-
-// if (req.query.topics) {
-//   where[req.query.topics] = { $regex: req.query.topics };
-// }
-  
- // format : req.query.format, type : req.query.type,language : req.query.language,relYear : req.query.relYear, }
- 
- 
-//console.log("where",where)
 
 
 exports.hashfilter = async (req, res) => {
@@ -1435,5 +1456,41 @@ exports.hashfilter = async (req, res) => {
 //       });
 //     });
 // };
-
  
+ 
+exports.regidnamemobemail = async (req, res) => {
+  const { oneinput } = req.body;
+  const intvalue = parseInt(oneinput);
+  console.log(intvalue);
+
+  await SubCategory.find({
+    $or: [
+      { title: { $regex: oneinput, $options: "i" } },
+      // { Name: { $regex: oneinput, $options: "i" } },
+      // { firstName: { $regex: oneinput, $options: "i" } },
+      // { LastName: { $regex: oneinput, $options: "i" } },
+      // { ConfirmEmail: { $regex: oneinput, $options: "i" } },
+      // { $where: `/^${intvalue}.*/.test(this.Mobile)` },
+    ],
+  })
+  //.populate("sub_category")
+   // let query= {}
+ 
+ //    let blogs = await Submit.find(query)
+  //  .sort({ createdAt: -1 })
+  //  .limit(20)
+    .then((result) => {
+      res.status(200).json({
+        status: true,
+        msg: "success",
+        data: result,
+      });
+    })
+    .catch((err) => {
+      res.status(200).json({
+        status: false,
+        msg: "error",
+        data: err,
+      });
+    });
+};
