@@ -19,7 +19,7 @@ exports.add_Comment = async (req, res) => {
   //  desc:desc,
     comment:comment,
     rating:rating,
-   // status:"Deactive",
+    status:"Deactive",
   })
   
   const getuserid = await Submit.findOne({_id:req.body.submitresrcId})
@@ -62,9 +62,9 @@ res.status(200).json({
     {
       _id: req.params.id,
     },
-    { $set: req.body },
+    { $set:req.body,status:"Deactive" },
     { new: true }
-  )
+  ).sort({createdAt:-1})
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
 };
@@ -84,13 +84,13 @@ exports.comment_list = async (req, res) => {
   };
 
   exports.admin_comment_list = async (req, res) => {
-    await Comment.find().populate("userid").populate("submitresrcId").populate({
+    await Comment.find({status:"Deactive"}).populate("userid").populate("submitresrcId").populate({
         path: "submitresrcId",
         populate: {
           path: "category",
         },
       })
-      .sort({ createdAt: -1 })
+    //  .sort({ createdAt: -1 })
       .then((data) => resp.successr(res, data))
       .catch((error) => resp.errorr(res, error));
   };
