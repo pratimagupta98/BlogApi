@@ -1290,6 +1290,9 @@ exports.advancefilter = async (req, res) => {
  let blogs = await Submit.find(query)
  //.populate("relYear")
 .populate("sub_category") 
+.populate("category")
+.populate("language")
+.populate("relYear")
  console.log("BLOG",blogs)
  //console.log("blogs",req.query.topics)
  return res.status(200).json({
