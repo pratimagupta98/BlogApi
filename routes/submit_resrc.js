@@ -36,7 +36,8 @@ const {
     hashfilter,
     filter,
     regidnamemobemail,
-    promotion_filter
+    promotion_filter,
+    search_promotion
     
 } = require("../controller/submit_resrc");
 
@@ -107,9 +108,10 @@ router.post("/user/filter", filter);
 router.post("/user/regidname", regidnamemobemail);
 
 router.post("/user/promotion_filter", promotion_filter);
+router.post("/user/search_promotion", search_promotion);
 
 
- 
+
 
 module.exports = router;
 

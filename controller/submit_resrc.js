@@ -1529,3 +1529,38 @@ exports.regidnamemobemail = async (req, res) => {
       });
     });
 };
+
+
+
+exports.search_promotion = async (req, res) => {
+  const { searchinput } = req.body
+  await Submit.find({$and: [{status:"Active"},{ usertype: "admin" }]}).
+  find({
+    $or: [{ resTitle: { $regex: searchinput, $options: "i" } },
+    { topics: { $regex: searchinput, $options: "i" } }
+    ]
+    //,{ $and: [{status:"Active"},{ usertype: "admin" }] }
+  //   $or: [
+
+  //     { $or: [{ resTitle: { $regex: searchinput, $options: "i" } },
+  //      { topics: { $regex: searchinput, $options: "i" } }
+  //      ], 
+  //   ]
+   })
+  .populate("language").populate("relYear")
+    .then((data) => {
+      res.status(200).json({
+        status: true,
+        length:data.length,
+        data: data,
+        
+      });
+    })
+    .catch((error) => {
+      res.status(400).json({
+        status: false,
+        msg: "error",
+        error: error,
+      });
+    });
+}
