@@ -978,7 +978,12 @@ exports.signinwithgoogle = async (req, res) => {
   }
   )
   if (findexist) {
-    resp.alreadyr(res);
+    res.status(200).json({
+
+      status: true,
+      message: "Successfully Login",
+      data: findexist
+    })
   } else {
 
     newuser.save()
