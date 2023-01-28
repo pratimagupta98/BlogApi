@@ -1391,10 +1391,12 @@ exports.promotion_filter = async (req, res) => {
    if(req.query.relYear){
     query.relYear =req.query.relYear
    }
-  let blogs = await Submit.find({  $or: [{usertype: "admin"}, { status: "Active" }]
+  let blogs = await Submit.find({  $and: [{usertype: "admin"}, { status: "Active" }]
 }).find(query)
   //.find(query)
-  //.populate("relYear")
+  .populate("category")
+  .populate("language")
+  .populate("relYear")
  .populate("sub_category") 
   console.log("BLOG",blogs)
   //console.log("blogs",req.query.topics)
@@ -1547,7 +1549,11 @@ exports.search_promotion = async (req, res) => {
   //      ], 
   //   ]
    })
-  .populate("language").populate("relYear")
+  
+  .populate("category")
+  .populate("language")
+  .populate("relYear")
+ .populate("sub_category") 
     .then((data) => {
       res.status(200).json({
         status: true,
