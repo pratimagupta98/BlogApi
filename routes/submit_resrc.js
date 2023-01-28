@@ -35,7 +35,8 @@ const {
     advancefilter,
     hashfilter,
     filter,
-    regidnamemobemail
+    regidnamemobemail,
+    promotion_filter
     
 } = require("../controller/submit_resrc");
 
@@ -105,6 +106,7 @@ router.post("/user/hashfilter", hashfilter);
 router.post("/user/filter", filter);
 router.post("/user/regidname", regidnamemobemail);
 
+router.post("/user/promotion_filter", promotion_filter);
 
 
  
