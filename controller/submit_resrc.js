@@ -1257,8 +1257,25 @@ exports.advancefilter = async (req, res) => {
 //  if(req.query.sub_category){
 //   query.sub_category = req.query.sub_category
 //  }
- if (req.query.sub_category) {
-  where[req.query.sub_category] = { $regex: req.query.sub_category };
+//  if (req.query.sub_category) {
+//   where[req.query.sub_category] = { $regex: req.query.sub_category };
+//  }
+// if (req.query.sub_category) {
+//   req.query.sub_category =  req.query.sub_category 
+//  }
+
+ if(req.query.type){
+  query.type = req.query.type
+ // where.push({type: req.query.type})
+ }
+ if(req.query.format){
+  query.format = req.query.format
+}
+if(req.query.language){
+  query.language = req.query.language
+ }
+ if(req.query.relYear){
+  query.relYear =req.query.relYear
  }
 // let query =[
 //   {
@@ -1287,7 +1304,7 @@ exports.advancefilter = async (req, res) => {
 //   query.relYear =req.query.relYear
 //  }
 
- let blogs = await Submit.find(query)
+ let blogs = await Submit.find({ $and: [{aprv_status:  "Active"}, { sub_category:req.params.id }]}).find(query)
  //.populate("relYear")
 .populate("sub_category") 
 .populate("category")
