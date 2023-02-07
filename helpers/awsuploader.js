@@ -7,7 +7,7 @@ const s3 = new AWS.S3({
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
 });
 
-
+//console.log("ss3333",s3)
 exports.uploadFile = (filePath,fileName,type) => {
     try{
         // Read content from the file

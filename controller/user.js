@@ -1,6 +1,5 @@
 const User = require("../models/user");
-const resp = require("../helpers/apiResponse");
-const bcrypt = require("bcryptjs");
+ const bcrypt = require("bcryptjs");
 const cloudinary = require("cloudinary").v2;
 const key = "verysecretkey";
 const dotenv = require("dotenv");
@@ -31,7 +30,7 @@ var signatures = {
 
 function detectMimeType(b64) {
   for (var s in signatures) {
-    if (b64.indexOf(s) === 0) {
+    if (b64.indexOf(s) === 0) {``
       return signatures[s];
     }
   }

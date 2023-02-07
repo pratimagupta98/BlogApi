@@ -24,6 +24,7 @@
     "express-fileupload": "^1.4.0",
     "fs": "^0.0.1-security",
     "googleapis": "^110.0.0",
+    "https": "^1.0.0",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.21",
     "mongo-filter-query": "^1.0.0",

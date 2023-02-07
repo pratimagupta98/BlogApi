@@ -3,6 +3,9 @@ const app = express();
 const cors = require("cors");
 const AWS = require("aws-sdk");
 const fs = require("fs");
+var https = require('https');
+
+const path = require('path')
 
 require("dotenv").config();
 const mongoose = require("mongoose");
@@ -110,8 +113,26 @@ mongoose
   });
   
 
-app.listen(process.env.PORT || 9000, () => {
-  console.log("Example app listening on port 9000");
-});
+// app.listen(process.env.PORT || 9000, () => {
+//   console.log("Example app listening on port 9000");
+// });
+
+// var options = {
+//   key: fs.readFileSync('./key.pem'),
+//   cert: fs.readFileSync('./cert.pem')
+// };
+// https.createServer(options, function (req, res) {
+//   res.writeHead(200);
+//   res.end("hello world\n");
+// }).listen(8000);
 
 //    http://localhost:5000/admin
+const sslServer = https.createServer(
+  {
+    key: fs.readFileSync(path.join(__dirname, 'cert', 'key.pem')),
+    cert: fs.readFileSync(path.join(__dirname, 'cert', 'cert.pem')),
+  },
+  app
+)
+
+sslServer.listen(process.env.PORT || 9000, () => console.log("Example app listening on port 9000"))
