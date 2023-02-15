@@ -127,12 +127,17 @@ mongoose
 // }).listen(8000);
 
 //    http://localhost:5000/admin
-const sslServer = https.createServer(
-  {
-    key: fs.readFileSync(path.join(__dirname, 'cert', 'key.pem')),
-    cert: fs.readFileSync(path.join(__dirname, 'cert', 'cert.pem')),
-  },
-  app
-)
+// const sslServer = https.createServer(
+//   {
+//     key: fs.readFileSync(path.join(__dirname, 'cert', 'key.pem')),
+//     cert: fs.readFileSync(path.join(__dirname, 'cert', 'cert.pem')),
+//   },
+//   app
+// )
 
-sslServer.listen(process.env.PORT || 9000, () => console.log("Example app listening on port 9000"))
+// sslServer.listen(process.env.PORT || 9000, () => console.log("Example app listening on port 9000"))
+
+
+app.listen(process.env.PORT || 9000, () => {
+  console.log("Example app listening on port 9000");
+});
