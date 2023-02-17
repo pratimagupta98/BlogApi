@@ -135,9 +135,12 @@ const sslServer = https.createServer(
   app
 )
 
-sslServer.listen(process.env.PORT || 9000, () => console.log("Example app listening on port 9000"))
+//sslServer.listen(  console.log("Example app listening on port 9000"))
+// https.createServer(sslServer, function (req, res) {
+//   res.writeHead(200);
+//   res.end("Welcome to Node.js HTTPS Server");
+//  }).listen()
 
-
-// app.listen(process.env.PORT || 9000, () => {
-//   console.log("Example app listening on port 9000");
-// });
+app.listen(process.env.PORT || 9000, () => {
+  console.log("Example app listening on port 9000");
+});
