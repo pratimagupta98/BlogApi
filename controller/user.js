@@ -639,7 +639,7 @@ exports.signup = async (req, res) => {
     async function sendMail() {
       try {
         const accessToken = await oAuth2Client.getAccessToken();
-        const subject = `Hello from Brahmaand Space`;
+        const subject = `Hello from Brahmaand.Space`;
         const text = `<h4>Your verfication code is ${defaultotp}</h4>`;
         const transport = nodemailer.createTransport({
           service: 'gmail',
@@ -720,7 +720,7 @@ exports.verifyotp = async (req, res) => {
       async function sendMail() {
         try {
           const accessToken = await oAuth2Client.getAccessToken();
-          const subject = `Hello from Brahmaand Space`;
+          const subject = `Hello from Brahmaand.Space`;
           const text = `<h4> ${getuser.username} You Successful Register</h4>`;
           const transport = nodemailer.createTransport({
             service: 'gmail',
@@ -822,8 +822,9 @@ exports.sendotp = async (req, res) => {
     async function sendMail() {
       try {
         const accessToken = await oAuth2Client.getAccessToken();
-        const subject = `Hello from Brahmaand Space`;
-        const text = `<h4>Your verfication code is ${defaultotp}</h4>`;
+        const subject = `Hello from Brahmaand.Space`;
+        const text = `<h4>Thank you for joining Brahmaand.space!
+        You verification code is ${defaultotp}</h4>`;
         const transport = nodemailer.createTransport({
           service: 'gmail',
           auth: {
@@ -840,7 +841,7 @@ exports.sendotp = async (req, res) => {
         const mailOptions = {
           from: '<b>contactus@brahmaand.space</b>',
           to: req.body.email,
-          subject: 'Hello from gmail using API',
+          subject: 'Hello from Brahmaand.Space',
           subject: `${subject}`, // Subject line
           text: `<b>${text}</b>`, // plain text body
           html: `<b>${text}</b>`, // html body
