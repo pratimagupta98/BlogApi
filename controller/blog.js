@@ -78,14 +78,16 @@ exports.getBlog = async (req, res) => {
 };
 
 exports.popularBlog = async (req, res) => {
-  await Blog.find({ "blog_type": "Popular" })
+  await Blog.find({ $and: [{ status: "Active" }, { blog_type:"Popular" }]  })
+    //"blog_type": "Popular" })
     .sort({ sortorder: 1 })
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
 };
 
 exports.recomanded_Blog = async (req, res) => {
-  await Blog.find({ "blog_type": "Recommended" })
+  await Blog.find({$and: [{ status: "Active" }, { blog_type:"Recommended" }] })
+    //"blog_type": "Recommended" })
     .sort({ sortorder: 1 })
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));

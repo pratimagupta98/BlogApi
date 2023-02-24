@@ -562,6 +562,88 @@ exports.searchinputproduct = async (req, res) => {
     });
 };
 
+// exports.search_topic_title = async (req, res) => {
+//   const { searchinput } = req.body
+//  const data =  await Submit.find({
+//     $or: [{ resTitle: { $regex: searchinput, $options: "i" } },
+//     { topics: { $regex: searchinput, $options: "i" } }
+//     ]
+//   })
+  
+//   // let query ={}
+//   // let where={}
+//   // if(req.query.searchinput){
+//   //   query.$and= [{ resTitle: { $regex: searchinput, $options: "i" } },
+//   //   { topics: { $regex: searchinput, $options: "i" } }
+//   //   ]
+//   // }
+// //  if(req.query.sub_category){
+// //   query.sub_category = req.query.sub_category
+// //  }
+// //  if(req.query.type){
+// //   query.type = req.query.type
+  
+// //  }
+// //  if(req.query.format){
+// //   query.format = req.query.format
+// // }
+// // if(req.query.language){
+// //   query.language = req.query.language
+// //  }
+// //  if(req.query.relYear){
+// //   query.relYear =req.query.relYear
+// //  }
+ 
+
+// //  let blogs = await Submit.find(data)
+// //  //.find({aprv_status:  "Active"}).find(query)
+// //  return res.status(200).json({
+// //   message:"blog success",
+// //   count:blogs.length,
+// //   data :blogs
+// //  })
+// // };
+  
+//   //.populate("language").populate("relYear")
+//     .then((data) => {
+//       res.status(200).json({
+//         status: true,
+//         data: data,
+//       });
+//     })
+// let query ={}
+//   let where={}
+//   if(req.query.sub_category){
+//       query.sub_category = req.query.sub_category
+//      }
+//      if(req.query.type){
+//       query.type = req.query.type
+      
+//      }
+//      if(req.query.format){
+//       query.format = req.query.format
+//     }
+//     if(req.query.language){
+//       query.language = req.query.language
+//      }
+//      if(req.query.relYear){
+//       query.relYear =req.query.relYear
+//      }
+     
+    
+//      let blogs = await Submit.find(data).find({aprv_status:  "Active"}).find(query)
+//      console.log("BLOG",blogs)
+//     .catch((error) => {
+//       res.status(400).json({
+//         status: false,
+//         msg: "error",
+//         error: error,
+//       });
+//     });
+// }
+
+
+
 exports.search_topic_title = async (req, res) => {
   const { searchinput } = req.body
   await Submit.find({
@@ -583,7 +665,6 @@ exports.search_topic_title = async (req, res) => {
       });
     });
 }
-
 exports.filterbyyear = async (req, res) => {
 
 
