@@ -650,7 +650,8 @@ exports.search_topic_title = async (req, res) => {
     $or: [{ resTitle: { $regex: searchinput, $options: "i" } },
     { topics: { $regex: searchinput, $options: "i" } }
     ]
-  }).populate("language").populate("relYear")
+  })
+  .populate("language").populate("relYear")
     .then((data) => {
       res.status(200).json({
         status: true,
@@ -855,9 +856,7 @@ var sttl = parseInt (getmetors) + parseInt(10)
 
     ).populate("userid")
 
-  //  console.log("AAAA",updatecontent)
- // const getmet  = updateuser.meteors
-  //console.log("SSSS",updateuser)
+   
     res.status(200).json({
       status: true,
       status: "success",
@@ -896,14 +895,8 @@ var sttl = parseInt (getmetors) + parseInt(10)
       { new: true }
 
     )
-    //console.log("ff",updateuserr)
+   
     }
-    // if (upateone) {
-    //   res.status(200).json({
-    //     status: true,
-    //     msg: "success",
-    //     data: upateone,
-    //   });
      else {
       res.status(200).json({
         status: true,
@@ -1286,9 +1279,7 @@ const Planet = require("../models/planet_position.js");
 
 
 exports.posted_by_me = async (req, res) => {
-  //   await Submit.find({$and :[{userid:req.params.id},{aprv_status:"Active"}]})
-  //  .sort({meteors:-1}).limit(6).populate("userid")
-  // .sort({ createdAt: -1 }).limit(6)
+  
 
   await Submit.find({
     $and: [
@@ -1507,18 +1498,6 @@ exports.promotion_filter = async (req, res) => {
    data :blogs
   })
  };
- 
-
-
-
-
-
-
-
- 
-
-
-
 exports.hashfilter = async (req, res) => {
   let query ={}
   if(req.query.type){
@@ -1547,54 +1526,6 @@ exports.hashfilter = async (req, res) => {
    data :blogs
   })
  };
-
-
-//  exports.hashfilter = async (req, res) => {
-//   const {
-//     sub_category,
-//     type,
-//     format
-
-
-//   } = req.body;
-//   console.log(req.body);
-
-//   const query = new Query();
-//   // if (sub_category) {
-//   //   query.addEqualsFilter("SUBCATEGORY", sub_category);
-//   // }
-//   if (type && type.length !== 0) {
-//     query.type = req.query.type
-//   }
-//   if (format && format.length !== 0) {
-//     query.format = req.query.format
-//   }
-//   console.log("QUERY",query)
-//   const queryStr = query.toQueryString();
-//   // var queryStr = query.ToQueryString();
-//   console.log("SUCCESS",query.toQueryString());
-//   // console.log(JSON.parse(queryStr));
-//  const getval = await Submit.find(JSON.parse(queryStr))
-//  console.log("get",getval)
-//  // .populate("category").populate("sub_category").populate("relYear").populate("language")
-    
-//    // .sort({ createdAt: -1 })
-//     .then((result) => {
-//       res.status(200).json({
-//         status: true,
-//         msg: "success",
-//         data: result,
-//       });
-//     })
-//     .catch((err) => {
-//       res.status(200).json({
-//         status: false,
-//         msg: "error",
-//         data: err,
-//       });
-//     });
-// };
- 
  
 exports.regidnamemobemail = async (req, res) => {
   const { oneinput } = req.body;
@@ -1604,19 +1535,10 @@ exports.regidnamemobemail = async (req, res) => {
   await SubCategory.find({
     $or: [
       { title: { $regex: oneinput, $options: "i" } },
-      // { Name: { $regex: oneinput, $options: "i" } },
-      // { firstName: { $regex: oneinput, $options: "i" } },
-      // { LastName: { $regex: oneinput, $options: "i" } },
-      // { ConfirmEmail: { $regex: oneinput, $options: "i" } },
-      // { $where: `/^${intvalue}.*/.test(this.Mobile)` },
+     
     ],
   })
-  //.populate("sub_category")
-   // let query= {}
  
- //    let blogs = await Submit.find(query)
-  //  .sort({ createdAt: -1 })
-  //  .limit(20)
     .then((result) => {
       res.status(200).json({
         status: true,
@@ -1671,3 +1593,49 @@ exports.search_promotion = async (req, res) => {
       });
     });
 }
+
+
+
+exports.search_filter = async (req, res) => {
+
+  const { searchinput } = req.body
+  const getdata = await Submit.find({
+    $or: [{ resTitle: { $regex: searchinput, $options: "i" } },
+    { topics: { $regex: searchinput, $options: "i" } }
+    ]
+  })
+  
+  let query ={}
+  
+   let where={}
+   
+  if(req.query.type){
+    getdata.type = req.query.type
+  
+   }
+   console.log("sss",getdata.type)
+  if(req.query.format){
+   query.format = req.query.format
+ }
+ if(req.query.language){
+   query.language = req.query.language
+  }
+  if(req.query.relYear){
+   query.relYear =req.query.relYear
+  }
+ 
+  let blogs = await Submit.find({aprv_status:  "Active"}).find(query)
+  .populate("relYear")
+ .populate("sub_category") 
+ .populate("category")
+ .populate("language")
+ .populate("relYear")
+// console.log("BLOG",blogs)
+  //console.log("blogs",req.query.topics)
+  return res.status(200).json({
+   message:"success",
+   count:blogs.length,
+   data :blogs
+  })
+ };
+ 
