@@ -1604,16 +1604,19 @@ exports.search_filter = async (req, res) => {
     { topics: { $regex: searchinput, $options: "i" } }
     ]
   })
-  
-  let query ={}
-  
+ // console.log(getdata)
+  let query ={getdata}
+ // console.log("sttt",query)
    let where={}
-   
+  // if(req.query.getdata){
+  //  query.getdata = req.query.getdata
+  // }
+//console.log("STRING",req.query.getdata)
   if(req.query.type){
-    getdata.type = req.query.type
-  
+   query.type = req.query.type
+//   // where.push({type: req.query.type})
    }
-   console.log("sss",getdata.type)
+   console.log(req.query.type)
   if(req.query.format){
    query.format = req.query.format
  }
@@ -1630,10 +1633,10 @@ exports.search_filter = async (req, res) => {
  .populate("category")
  .populate("language")
  .populate("relYear")
-// console.log("BLOG",blogs)
+ // console.log("BLOG",blogs)
   //console.log("blogs",req.query.topics)
   return res.status(200).json({
-   message:"success",
+   message:"blog success",
    count:blogs.length,
    data :blogs
   })
