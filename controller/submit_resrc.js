@@ -650,7 +650,7 @@ exports.search_topic_title = async (req, res) => {
     $or: [{ resTitle: { $regex: searchinput, $options: "i" } },
     { topics: { $regex: searchinput, $options: "i" } }
     ]
-  })
+  }).find({aprv_status:"Active"})
   .populate("language").populate("relYear")
     .then((data) => {
       res.status(200).json({
