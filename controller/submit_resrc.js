@@ -1665,7 +1665,49 @@ exports.search_filter = async (req, res) => {
     $or: [{ resTitle: { $regex: searchinput, $options: "i" } },
     { topics: { $regex: searchinput, $options: "i" } }
     ]
-  }).find(query).populate("category").populate("sub_category").populate("relYear").populate("language")
+  }).find({aprv_status:"Active"}).find(query).populate("category").populate("sub_category").populate("relYear").populate("language")
+    .then((data) => {
+      res.status(200).json({
+        status: true,
+        total_record:data.length, 
+        data: data,
+      });
+    })
+    .catch((error) => {
+      res.status(400).json({
+        status: false,
+        msg: "error",
+        error: error,
+      });
+    });
+}
+
+
+exports.promotion_search_filter = async (req, res) => {
+  const { searchinput } = req.body
+  let query ={}
+ 
+   if(req.body.type){
+     query.type = req.body.type
+    // where.push({type: req.query.type})
+    }
+    if(req.body.format){
+       query.format = req.body.format
+    }
+    if(req.body.language){
+       query.language = req.body.language
+    }
+    if(req.body.relYear){
+       query.relYear=req.body.relYear
+    } 
+    console.log(query)
+
+
+  await Submit.find({
+    $or: [{ resTitle: { $regex: searchinput, $options: "i" } },
+    { topics: { $regex: searchinput, $options: "i" } }
+    ]
+  }).find({status:"Active"}).find(query).populate("category").populate("sub_category").populate("relYear").populate("language")
     .then((data) => {
       res.status(200).json({
         status: true,
