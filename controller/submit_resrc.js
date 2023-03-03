@@ -1604,17 +1604,14 @@ exports.search_filter = async (req, res) => {
     { topics: { $regex: searchinput, $options: "i" } }
     ]
   })
- // console.log(getdata)
+  
   let query ={getdata}
- // console.log("sttt",query)
-   let where={}
-  // if(req.query.getdata){
-  //  query.getdata = req.query.getdata
-  // }
-//console.log("STRING",req.query.getdata)
+    let where={}
+   
+ 
   if(req.query.type){
    query.type = req.query.type
-//   // where.push({type: req.query.type})
+
    }
    console.log(req.query.type)
   if(req.query.format){
@@ -1633,8 +1630,7 @@ exports.search_filter = async (req, res) => {
  .populate("category")
  .populate("language")
  .populate("relYear")
- // console.log("BLOG",blogs)
-  //console.log("blogs",req.query.topics)
+  
   return res.status(200).json({
    message:"blog success",
    count:blogs.length,
@@ -1642,3 +1638,46 @@ exports.search_filter = async (req, res) => {
   })
  };
  
+
+
+
+ exports.keyword_search_filter = async (req, res) => {
+  const { searchinput } = req.body
+  let query ={}
+ 
+   if(req.body.type){
+     query.type = req.body.type
+    // where.push({type: req.query.type})
+    }
+    if(req.body.format){
+       query.format = req.body.format
+    }
+    if(req.body.language){
+       query.language = req.body.language
+    }
+    if(req.body.relYear){
+       query.relYear=req.body.relYear
+    } 
+    console.log(query)
+
+
+  await Submit.find({
+    $or: [{ resTitle: { $regex: searchinput, $options: "i" } },
+    { topics: { $regex: searchinput, $options: "i" } }
+    ]
+  }).find(query).populate("category").populate("sub_category").populate("relYear").populate("language")
+    .then((data) => {
+      res.status(200).json({
+        status: true,
+        total_record:data.length, 
+        data: data,
+      });
+    })
+    .catch((error) => {
+      res.status(400).json({
+        status: false,
+        msg: "error",
+        error: error,
+      });
+    });
+}

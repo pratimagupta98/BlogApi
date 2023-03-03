@@ -38,7 +38,8 @@ const {
     regidnamemobemail,
     promotion_filter,
     search_promotion,
-    search_filter
+    search_filter,
+    keyword_search_filter
     
 } = require("../controller/submit_resrc");
 
@@ -111,6 +112,8 @@ router.post("/user/regidname", regidnamemobemail);
 router.post("/user/promotion_filter", promotion_filter);
 router.post("/user/search_promotion", search_promotion);
 router.post("/user/search_filter", search_filter);
+router.post("/user/keyword_search_filter", keyword_search_filter);
+
 
 
 
