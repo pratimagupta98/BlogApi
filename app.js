@@ -6,8 +6,8 @@ const fs = require("fs");
 var https = require('https');
 
 const path = require('path')
-const resourceRoutes = require("./resourceRoutes");
-const warRoutes = require("./warRoutes");
+const resourceRoutes = require("./routes/resourceRoutes");
+const warRoutes = require("./routes/warRoutes");
 
 require("dotenv").config();
 const mongoose = require("mongoose");

@@ -1,35 +1,34 @@
-const { Double } = require("mongodb");
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const thisSchema = new Schema(
     {
+     
+       title:{
+        type: String, 
+       },
+       
+       desc:{
+        type: String, 
+       },
 
-        Comets_count: {
-            type: Number,
-        },
-        avrage_rating: {
-            type: Number,
-        },
-        views: {
-            type: Double,
-        },
-        Sub_scriber: {
-            type: Double,
-        },
-        Likes: {
-            type: Double,
-        },
-        Dislikes: {
-            type: Double,
-        },
-        BS_rating: {
-            type: Double,
-        }
+       category:{
+        type: String, 
+       },
 
+       resource_1:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "submit_resrc"
     },
+    resource_2:{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "submit_resrc"
+  }
+      
 
+      },
+     
     { timestamps: true }
-);
+  );
 
 
-module.exports = mongoose.model("war", thisSchema);
+  module.exports = mongoose.model("war", thisSchema);
